@@ -10,33 +10,115 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CandidatesRouteImport } from './routes/candidates'
+import { Route as EvidenceRouteImport } from './routes/evidence'
+import { Route as GetInvolvedRouteImport } from './routes/get-involved'
+import { Route as SourcesRouteImport } from './routes/sources'
+import { Route as TheIssueRouteImport } from './routes/the-issue'
+import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CandidatesRoute = CandidatesRouteImport.update({
+  id: '/candidates',
+  path: '/candidates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvidenceRoute = EvidenceRouteImport.update({
+  id: '/evidence',
+  path: '/evidence',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GetInvolvedRoute = GetInvolvedRouteImport.update({
+  id: '/get-involved',
+  path: '/get-involved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SourcesRoute = SourcesRouteImport.update({
+  id: '/sources',
+  path: '/sources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TheIssueRoute = TheIssueRouteImport.update({
+  id: '/the-issue',
+  path: '/the-issue',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/candidates': typeof CandidatesRoute
+  '/evidence': typeof EvidenceRoute
+  '/get-involved': typeof GetInvolvedRoute
+  '/sources': typeof SourcesRoute
+  '/the-issue': typeof TheIssueRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/candidates': typeof CandidatesRoute
+  '/evidence': typeof EvidenceRoute
+  '/get-involved': typeof GetInvolvedRoute
+  '/sources': typeof SourcesRoute
+  '/the-issue': typeof TheIssueRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/candidates': typeof CandidatesRoute
+  '/evidence': typeof EvidenceRoute
+  '/get-involved': typeof GetInvolvedRoute
+  '/sources': typeof SourcesRoute
+  '/the-issue': typeof TheIssueRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/candidates'
+    | '/evidence'
+    | '/get-involved'
+    | '/sources'
+    | '/the-issue'
+    | '/timeline'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/candidates'
+    | '/evidence'
+    | '/get-involved'
+    | '/sources'
+    | '/the-issue'
+    | '/timeline'
+  id:
+    | '__root__'
+    | '/'
+    | '/candidates'
+    | '/evidence'
+    | '/get-involved'
+    | '/sources'
+    | '/the-issue'
+    | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CandidatesRoute: typeof CandidatesRoute
+  EvidenceRoute: typeof EvidenceRoute
+  GetInvolvedRoute: typeof GetInvolvedRoute
+  SourcesRoute: typeof SourcesRoute
+  TheIssueRoute: typeof TheIssueRoute
+  TimelineRoute: typeof TimelineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +130,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/candidates': {
+      id: '/candidates'
+      path: '/candidates'
+      fullPath: '/candidates'
+      preLoaderRoute: typeof CandidatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evidence': {
+      id: '/evidence'
+      path: '/evidence'
+      fullPath: '/evidence'
+      preLoaderRoute: typeof EvidenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/get-involved': {
+      id: '/get-involved'
+      path: '/get-involved'
+      fullPath: '/get-involved'
+      preLoaderRoute: typeof GetInvolvedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sources': {
+      id: '/sources'
+      path: '/sources'
+      fullPath: '/sources'
+      preLoaderRoute: typeof SourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/the-issue': {
+      id: '/the-issue'
+      path: '/the-issue'
+      fullPath: '/the-issue'
+      preLoaderRoute: typeof TheIssueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CandidatesRoute: CandidatesRoute,
+  EvidenceRoute: EvidenceRoute,
+  GetInvolvedRoute: GetInvolvedRoute,
+  SourcesRoute: SourcesRoute,
+  TheIssueRoute: TheIssueRoute,
+  TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
