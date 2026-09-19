@@ -14,7 +14,123 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      candidates: {
+        Row: {
+          email: string | null
+          id: string
+          last_updated: string
+          name: string
+          notes: string | null
+          office: string
+          question_1: string | null
+          question_2: string | null
+          question_3: string | null
+          response_date: string | null
+          response_received: boolean
+          response_source: string | null
+          website: string | null
+        }
+        Insert: {
+          email?: string | null
+          id?: string
+          last_updated?: string
+          name: string
+          notes?: string | null
+          office: string
+          question_1?: string | null
+          question_2?: string | null
+          question_3?: string | null
+          response_date?: string | null
+          response_received?: boolean
+          response_source?: string | null
+          website?: string | null
+        }
+        Update: {
+          email?: string | null
+          id?: string
+          last_updated?: string
+          name?: string
+          notes?: string | null
+          office?: string
+          question_1?: string | null
+          question_2?: string | null
+          question_3?: string | null
+          response_date?: string | null
+          response_received?: boolean
+          response_source?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      community_stories: {
+        Row: {
+          consent_to_publish: boolean
+          email: string
+          id: string
+          name: string
+          relationship: string
+          review_status: string
+          story: string
+          submitted_at: string
+        }
+        Insert: {
+          consent_to_publish?: boolean
+          email: string
+          id?: string
+          name: string
+          relationship: string
+          review_status?: string
+          story: string
+          submitted_at?: string
+        }
+        Update: {
+          consent_to_publish?: boolean
+          email?: string
+          id?: string
+          name?: string
+          relationship?: string
+          review_status?: string
+          story?: string
+          submitted_at?: string
+        }
+        Relationships: []
+      }
+      sources: {
+        Row: {
+          category: string
+          id: string
+          last_updated: string
+          primary_source: boolean
+          published_date: string | null
+          publisher: string
+          summary: string
+          title: string
+          url: string
+        }
+        Insert: {
+          category: string
+          id?: string
+          last_updated?: string
+          primary_source?: boolean
+          published_date?: string | null
+          publisher: string
+          summary: string
+          title: string
+          url: string
+        }
+        Update: {
+          category?: string
+          id?: string
+          last_updated?: string
+          primary_source?: boolean
+          published_date?: string | null
+          publisher?: string
+          summary?: string
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
