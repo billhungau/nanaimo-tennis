@@ -37,6 +37,8 @@ function Index() {
     ["Are you asking taxpayers to subsidize a private tennis club?", "No specific operating model is being proposed. Options such as nonprofit, lease and partnership models can be evaluated before a decision is made."],
     ["Why act now?", "Once the indoor structure is removed, retaining the existing facility is no longer an option. A temporary pause would allow additional information to be gathered first."],
   ];
+  const facts = ["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming"];
+
   return <>
     <section className="relative min-h-[560px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
       <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} className="absolute inset-0 size-full object-cover" />
@@ -45,17 +47,22 @@ function Index() {
         <div className="max-w-4xl reveal"><p className="mb-4 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70 sm:mb-5">A community information initiative · Nanaimo, BC</p><h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">Before an existing indoor tennis facility is removed, let's examine the alternatives.</h1><p className="mt-5 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:mt-7 sm:text-lg">The City of Nanaimo has purchased the Westwood Lake Tennis Club property. Before the existing indoor courts are removed, this site asks that the facility, community demand and practical operating alternatives be assessed through the public process.</p><div className="mt-6 flex flex-wrap gap-3 sm:mt-8"><Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/the-issue">Understand the issue<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/candidates">See candidate positions</Link></Button></div></div>
       </div>
     </section>
-    <section className="border-b border-border bg-card">
-      <div className="page-wrap -mx-0 overflow-x-auto px-0">
-        <div className="flex min-w-max divide-x divide-border md:grid md:min-w-0 md:grid-cols-5">
-          {["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming"].map((fact) => <div key={fact} className="w-44 shrink-0 px-4 py-4 text-center text-xs font-semibold sm:text-sm md:w-auto md:py-5">{fact}</div>)}
-          <div className="flex w-48 shrink-0 flex-col items-center justify-center bg-[#F2D36B] px-4 py-3 text-center text-[#102A3D] md:w-auto md:py-4">
-            <span className="text-[10px] font-bold uppercase tracking-[.12em] opacity-75 sm:text-xs">Expected club closure</span>
-            <span className="mt-1 font-serif text-xl font-bold leading-none sm:text-2xl">Nov. 1</span>
-          </div>
+
+    <section className="border-y border-border bg-card">
+      <div className="grid grid-cols-2 md:hidden">
+        {facts.map((fact, index) => <div key={fact} className={`flex min-h-[72px] items-center justify-center px-3 py-3 text-center text-sm font-semibold leading-5 ${index < 2 ? "border-b border-border" : ""} ${index % 2 === 0 ? "border-r border-border" : ""}`}>{fact}</div>)}
+        <div className="col-span-2 flex min-h-[82px] flex-col items-center justify-center border-t border-border bg-[#F2D36B] px-4 py-3 text-center text-[#102A3D]">
+          <span className="text-[11px] font-bold uppercase tracking-[.14em] opacity-75">Expected club closure</span>
+          <span className="mt-1 font-serif text-3xl font-bold leading-none">Nov. 1</span>
         </div>
       </div>
-      <p className="page-wrap border-t border-border py-3 text-center text-xs text-muted-foreground">Figures and dates link to their original sources throughout this site.</p>
+      <div className="page-wrap hidden md:grid md:grid-cols-[repeat(4,minmax(0,1fr))_1.15fr] md:divide-x md:divide-border">
+        {facts.map((fact) => <div key={fact} className="flex min-h-[76px] items-center justify-center px-4 py-4 text-center text-sm font-semibold">{fact}</div>)}
+        <div className="flex min-h-[76px] flex-col items-center justify-center bg-[#F2D36B] px-4 py-3 text-center text-[#102A3D]">
+          <span className="text-xs font-bold uppercase tracking-[.14em] opacity-75">Expected club closure</span>
+          <span className="mt-1 font-serif text-2xl font-bold leading-none">Nov. 1</span>
+        </div>
+      </div>
     </section>
 
     <section className="border-b border-border bg-secondary/70">
