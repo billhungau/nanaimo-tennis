@@ -57,16 +57,17 @@ export const Route = createFileRoute("/api/candidate-email")({
             .split(/\n{2,}/)
             .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("\n", "<br>")}</p>`)
             .join("");
+          const replyTo = `candidate-test@${replyDomain}`;
 
           const messageId = await sendResendEmail({
             to: input.testEmail,
             subject: `[TEST] ${subject}`,
-            replyTo: input.testEmail,
+            replyTo,
             text,
             html,
           });
 
-          return Response.json({ success: true, to: input.testEmail, messageId, subject });
+          return Response.json({ success: true, to: input.testEmail, replyTo, messageId, subject });
         }
 
         const db = supabaseAdmin as any;
