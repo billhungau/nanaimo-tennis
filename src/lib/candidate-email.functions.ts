@@ -1,34 +1,20 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { candidateQuestions } from "@/lib/civic-data";
 
 const ADMIN_USER_ID = "05c2f47c-b22d-4d0d-8d14-9c03c33a4472";
 
 const sendCandidateSchema = z.object({
   candidateId: z.string().uuid(),
   accessToken: z.string().min(20),
+  subject: z.string().trim().min(1).max(200),
+  body: z.string().trim().min(20).max(12000),
 });
 
-function questionnaireText(name: string, siteUrl: string) {
-  return `Hello ${name},
-
-Nanaimo Tennis is an independent community information initiative publishing candidate positions on the future of year-round indoor tennis in Nanaimo.
-
-We are asking every mayoral and council candidate the same three questions. Responses are published without endorsement, ranking or editorial scoring.
-
-1. ${candidateQuestions[0]}
-
-2. ${candidateQuestions[1]}
-
-3. ${candidateQuestions[2]}
-
-Please reply directly to this email with your answers. Your response will be attributed to you and published as provided, subject only to basic formatting for readability.
-
-Candidate information page: ${siteUrl}/candidates
-
-Thank you,
-Nanaimo Tennis
-${siteUrl}`;
+function personalize(value: string, candidateName: string, siteUrl: string) {
+  return value
+    .replaceAll("{{name}}", candidateName)
+    .replaceAll("{{candidate_page}}", `${siteUrl}/candidates`)
+    .replaceAll("{{site_url}}", siteUrl);
 }
 
 export const sendCandidateQuestionnaire = createServerFn({ method: "POST" })
@@ -52,30 +38,26 @@ export const sendCandidateQuestionnaire = createServerFn({ method: "POST" })
 
     const { replyDomain, siteUrl } = getEmailConfig();
     const replyTo = `candidate-${candidate.id}@${replyDomain}`;
-    const text = questionnaireText(candidate.name, siteUrl);
-    const questionsHtml = candidateQuestions.map((question, index) => `<p><strong>${index + 1}.</strong> ${escapeHtml(question)}</p>`).join("");
+    const subject = personalize(data.subject, candidate.name, siteUrl);
+    const text = personalize(data.body, candidate.name, siteUrl);
+    const html = text
+      .split(/\n{2,}/)
+      .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("\n", "<br>")}</p>`)
+      .join("");
 
     const messageId = await sendResendEmail({
       to: candidate.email,
-      subject: "Nanaimo Tennis – 2026 candidate questionnaire",
+      subject,
       replyTo,
-      idempotencyKey: `candidate-questionnaire/${candidate.id}/${new Date().toISOString().slice(0, 10)}`,
+      idempotencyKey: `candidate-questionnaire/${candidate.id}/${new Date().toISOString()}`,
       text,
-      html: `
-        <p>Hello ${escapeHtml(candidate.name)},</p>
-        <p>Nanaimo Tennis is an independent community information initiative publishing candidate positions on the future of year-round indoor tennis in Nanaimo.</p>
-        <p>We are asking every mayoral and council candidate the same three questions. Responses are published without endorsement, ranking or editorial scoring.</p>
-        ${questionsHtml}
-        <p>Please reply directly to this email with your answers. Your response will be attributed to you and published as provided, subject only to basic formatting for readability.</p>
-        <p><a href="${siteUrl}/candidates">View the candidate information page</a></p>
-        <p>Thank you,<br>Nanaimo Tennis<br><a href="${siteUrl}">${siteUrl}</a></p>
-      `,
+      html,
     });
 
     const sentAt = new Date().toISOString();
-    const note = `[${sentAt}] Candidate questionnaire sent to ${candidate.email}. Resend ID: ${messageId}`;
+    const note = `[${sentAt}] Candidate questionnaire sent to ${candidate.email}. Subject: ${subject}. Resend ID: ${messageId}`;
     const internalNotes = [candidate.internal_notes, note].filter(Boolean).join("\n\n");
     await db.from("candidates").update({ internal_notes: internalNotes }).eq("id", candidate.id);
 
-    return { success: true, sentAt, messageId, to: candidate.email };
+    return { success: true, sentAt, messageId, to: candidate.email, subject };
   });
