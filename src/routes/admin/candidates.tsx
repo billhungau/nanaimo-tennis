@@ -9,10 +9,22 @@ import { supabase } from "@/lib/supabase";
 
 const ADMIN_USER_ID = "05c2f47c-b22d-4d0d-8d14-9c03c33a4472";
 
+const contactTypes = [
+  ["", "Not specified"],
+  ["campaign", "Campaign"],
+  ["official_city", "Official City"],
+  ["professional", "Professional/public"],
+  ["shared_campaign", "Shared campaign/slate"],
+  ["other_public", "Other public"],
+] as const;
+
 type CandidateRow = {
   id: string;
   name: string;
   office: "Mayor" | "Council";
+  email: string | null;
+  contact_type: string | null;
+  contact_source: string | null;
   response_status: "received" | "not_received";
   response_date: string | null;
   q1_response: string | null;
@@ -82,7 +94,7 @@ function CandidateAdminPage() {
 
     const { data, error } = await supabase
       .from("candidates")
-      .select("id,name,office,response_status,response_date,q1_response,q2_response,q3_response,response_source,internal_notes,last_updated")
+      .select("id,name,office,email,contact_type,contact_source,response_status,response_date,q1_response,q2_response,q3_response,response_source,internal_notes,last_updated")
       .order("name", { ascending: true });
 
     if (error) {
@@ -103,6 +115,9 @@ function CandidateAdminPage() {
       id: candidate.id,
       name: candidate.name,
       office: candidate.office,
+      email: candidate.email,
+      contact_type: candidate.contact_type,
+      contact_source: candidate.contact_source,
       response_status: candidate.response_status,
       response_date: candidate.response_date,
       q1_response: candidate.q1_response,
@@ -137,6 +152,9 @@ function CandidateAdminPage() {
     setMessage("");
 
     const payload = {
+      email: draft.email?.trim() || null,
+      contact_type: draft.contact_type || null,
+      contact_source: draft.contact_source?.trim() || null,
       response_status: draft.response_status,
       response_date: draft.response_status === "received" ? draft.response_date || null : null,
       q1_response: draft.response_status === "received" ? draft.q1_response || null : null,
@@ -175,7 +193,10 @@ function CandidateAdminPage() {
 
   const filtered = useMemo(() => {
     const term = query.trim().toLowerCase();
-    return candidates.filter((candidate) => !term || candidate.name.toLowerCase().includes(term));
+    return candidates.filter((candidate) => {
+      if (!term) return true;
+      return candidate.name.toLowerCase().includes(term) || (candidate.email ?? "").toLowerCase().includes(term);
+    });
   }, [candidates, query]);
 
   if (!supabase) {
@@ -209,16 +230,16 @@ function CandidateAdminPage() {
   return <section className="py-12 sm:py-16">
     <div className="page-wrap">
       <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
-        <div><p className="eyebrow">Private administration</p><h1 className="mt-2 font-serif text-4xl">Candidate responses</h1><p className="mt-2 text-sm text-muted-foreground">Edit response status and publish candidates' answers exactly as received.</p></div>
+        <div><p className="eyebrow">Private administration</p><h1 className="mt-2 font-serif text-4xl">Candidate responses</h1><p className="mt-2 text-sm text-muted-foreground">Manage candidate contact details, response status and published answers.</p></div>
         <Button variant="outline" onClick={signOut}>Sign out</Button>
       </div>
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[19rem_1fr]">
         <aside>
-          <div className="relative"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search candidate" className="pl-10"/></div>
+          <div className="relative"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search name or email" className="pl-10"/></div>
           <div className="mt-3 max-h-[70vh] overflow-y-auto border border-border bg-card">
             {loading && <p className="p-4 text-sm text-muted-foreground">Loading…</p>}
-            {!loading && filtered.map((candidate) => <button key={candidate.id} type="button" onClick={() => selectCandidate(candidate)} className={`block w-full border-b border-border px-4 py-3 text-left last:border-0 ${selectedId === candidate.id ? "bg-secondary" : "hover:bg-secondary/60"}`}><span className="block font-medium">{candidate.name}</span><span className="mt-1 block text-xs text-muted-foreground">{candidate.office} · {candidate.response_status === "received" ? "Response received" : "No response"}</span></button>)}
+            {!loading && filtered.map((candidate) => <button key={candidate.id} type="button" onClick={() => selectCandidate(candidate)} className={`block w-full border-b border-border px-4 py-3 text-left last:border-0 ${selectedId === candidate.id ? "bg-secondary" : "hover:bg-secondary/60"}`}><span className="block font-medium">{candidate.name}</span><span className="mt-1 block text-xs text-muted-foreground">{candidate.office} · {candidate.response_status === "received" ? "Response received" : "No response"}</span><span className="mt-1 block truncate text-xs text-muted-foreground">{candidate.email || "No email recorded"}</span></button>)}
           </div>
         </aside>
 
@@ -229,7 +250,17 @@ function CandidateAdminPage() {
               <div className="flex flex-wrap gap-2"><Button variant="outline" onClick={markNoResponse}>Mark no response</Button><Button onClick={saveCandidate} disabled={saving}>{saving ? "Saving…" : "Save"}</Button></div>
             </div>
 
-            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+            <section className="mt-6 border-b border-border pb-7">
+              <h3 className="font-serif text-xl">Contact details</h3>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">These fields are for administration and outreach. They are not shown on the public candidate page.</p>
+              <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                <div><label className="mb-2 block text-sm font-medium">Email</label><Input type="email" value={draft.email ?? ""} onChange={(event) => setDraft({ ...draft, email: event.target.value })} placeholder="candidate@example.com"/></div>
+                <div><label className="mb-2 block text-sm font-medium">Contact type</label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={draft.contact_type ?? ""} onChange={(event) => setDraft({ ...draft, contact_type: event.target.value || null })}>{contactTypes.map(([value, label]) => <option key={value || "none"} value={value}>{label}</option>)}</select></div>
+                <div className="sm:col-span-2"><label className="mb-2 block text-sm font-medium">Contact source</label><Input value={draft.contact_source ?? ""} onChange={(event) => setDraft({ ...draft, contact_source: event.target.value })} placeholder="Campaign website, City page, public profile, etc."/></div>
+              </div>
+            </section>
+
+            <div className="mt-7 grid gap-5 sm:grid-cols-2">
               <div><label className="mb-2 block text-sm font-medium">Response status</label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={draft.response_status} onChange={(event) => setDraft({ ...draft, response_status: event.target.value as CandidateDraft["response_status"] })}><option value="not_received">No response received</option><option value="received">Response received</option></select></div>
               <div><label className="mb-2 block text-sm font-medium">Response date</label><Input type="date" value={draft.response_date ?? ""} disabled={draft.response_status !== "received"} onChange={(event) => setDraft({ ...draft, response_date: event.target.value || null })}/></div>
             </div>
