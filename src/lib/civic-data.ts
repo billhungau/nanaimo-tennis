@@ -105,7 +105,7 @@ export const sources = [
     date: "September 17, 2026",
     category: "Community statements" as SourceCategory,
     url: "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts",
-    summary: "A public petition asking the City to preserve the indoor courts and consider alternatives before the bubble is removed.",
+    summary: "A community-organized petition asking Nanaimo City Council to preserve the indoor courts while alternative operating models are considered. This is a community advocacy source, not a City document.",
     primary: true,
   },
   {
@@ -130,7 +130,7 @@ export const unknowns = [
 
 export const timeline = [
   { date: "Sep 16", year: "2026", title: "Acquisition announced", text: "The City announces its purchase of the Westwood Lake Tennis Club property.", status: "Occurred", source: sources[2] },
-  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[7] },
+  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A community-organized public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[7] },
   { date: "Oct 17", year: "2026", title: "Municipal election", text: "Nanaimo holds its general local election.", status: "Scheduled", source: sources[1] },
   { date: "Nov 1", year: "2026", title: "Expected club closure", text: "Westwood Lake Tennis Club is expected to cease operations.", status: "Expected", source: sources[2] },
   { date: "Dec 18", year: "2026", title: "Expected possession", text: "The City is expected to take possession of the property.", status: "Expected", source: sources[4] },
