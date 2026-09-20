@@ -26,6 +26,14 @@ function extractLatestReply(text: string) {
   return latest;
 }
 
+function cleanSubject(value: string) {
+  return value
+    .replace(/^\s*\[TEST candidate reply\]\s*/i, "")
+    .replace(/^\s*\[TEST\]\s*/i, "")
+    .replace(/^(Re:\s*)\[TEST\]\s*/i, "$1")
+    .trim();
+}
+
 export const Route = createFileRoute("/api/resend-webhook")({
   server: {
     handlers: {
@@ -55,7 +63,8 @@ export const Route = createFileRoute("/api/resend-webhook")({
 
         const received = emailId ? await getReceivedEmail(emailId).catch(() => null) : null;
         const from = String(received?.from || event?.data?.from || "Unknown sender");
-        const subject = String(received?.subject || event?.data?.subject || "(no subject)");
+        const rawSubject = String(received?.subject || event?.data?.subject || "(no subject)");
+        const subject = cleanSubject(rawSubject);
         const text = String(received?.text || "").trim();
         const latestReply = extractLatestReply(text);
         const excerpt = latestReply
@@ -68,17 +77,16 @@ export const Route = createFileRoute("/api/resend-webhook")({
             if (adminEmail) {
               await sendResendEmail({
                 to: adminEmail,
-                subject: `[TEST candidate reply] ${subject}`,
+                subject: `Candidate reply: ${subject}`,
                 replyTo: from.includes("<") ? from.match(/<([^>]+)>/)?.[1] || undefined : from,
                 html: `
-                  <h2>Test candidate reply received</h2>
+                  <h2>Candidate email reply received</h2>
                   <p><strong>From:</strong> ${escapeHtml(from)}</p>
                   <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
                   <p><strong>Message:</strong></p>
                   <p>${escapeHtml(excerpt).replace(/\n/g, "<br>")}</p>
-                  <p>This confirms the Resend inbound webhook and admin notification path are working.</p>
                 `,
-                text: `Test candidate reply received\nFrom: ${from}\nSubject: ${subject}\n\n${excerpt}`,
+                text: `Candidate reply received\nFrom: ${from}\nSubject: ${subject}\n\n${excerpt}`,
               });
             }
           } catch (mailError) {
