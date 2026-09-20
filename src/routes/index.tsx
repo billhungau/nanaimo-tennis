@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Compass, MessageSquareText, Scale, Search, type LucideIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Compass, MessageSquareText, Scale, Search, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading, SourceLink } from "@/components/page-elements";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImage from "@/assets/indoor-tennis-community.jpg";
 import { timeline } from "@/lib/civic-data";
+
+const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -46,11 +48,30 @@ function Index() {
       </div>
     </section>
     <section className="border-b border-border bg-card"><div className="page-wrap grid grid-cols-2 divide-x divide-y divide-border py-0 md:grid-cols-5 md:divide-y-0">{["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming", "Club closure expected Nov. 1"].map((fact) => <div key={fact} className="px-4 py-5 text-center text-xs font-semibold sm:text-sm">{fact}</div>)}</div><p className="page-wrap border-t border-border py-3 text-center text-xs text-muted-foreground">Figures and dates link to their original sources throughout this site.</p></section>
+
+    <section className="border-b border-border bg-secondary/70">
+      <div className="page-wrap flex flex-col justify-between gap-6 py-8 md:flex-row md:items-center">
+        <div className="max-w-3xl"><p className="eyebrow">Community response</p><h2 className="mt-2 font-serif text-2xl">A public petition is asking the City to preserve the indoor courts while alternatives are assessed.</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">The petition was launched September 17 and is hosted independently on Change.org.</p></div>
+        <Button asChild variant="outline" className="shrink-0"><a href={petitionUrl} target="_blank" rel="noreferrer">Read the public petition<ArrowUpRight /></a></Button>
+      </div>
+    </section>
+
     <section className="section-space"><div className="page-wrap grid gap-12 lg:grid-cols-[.8fr_1.2fr]"><SectionHeading eyebrow="The central question" title="The question is not whether the City should own the land."/><div className="space-y-6 text-base leading-8 text-muted-foreground"><p>The acquisition of land beside Westwood Lake Park and the future of the existing indoor recreation facility are separate policy questions.</p><div className="border-l-4 border-accent bg-secondary p-7 font-serif text-xl leading-8 text-foreground">Should an existing indoor recreation facility be removed before public consultation is completed and alternative operating models have been assessed?</div></div></div></section>
     <section className="section-space bg-secondary"><div className="page-wrap"><SectionHeading eyebrow="The community request" title="A pause, not a permanent commitment." copy="We are not asking the City to commit to operating a municipal tennis club. We are asking that removal be deferred while the facility, community demand and alternative operating models are properly assessed."/><div className="mt-10 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">{principles.map(([Icon, title, text]) => <article key={title as string} className="bg-card p-6"><Icon className="size-5 text-ring"/><h3 className="mt-8 font-semibold">{title as string}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{text as string}</p></article>)}</div></div></section>
     <section className="section-space"><div className="page-wrap grid gap-12 lg:grid-cols-[.7fr_1.3fr]"><SectionHeading eyebrow="Why this matters" title="What year-round indoor tennis contributes"/><div className="border-t border-border">{reasons.map(([title,text]) => <article className="grid gap-3 border-b border-border py-7 md:grid-cols-[.7fr_1.3fr]" key={title}><h3 className="font-serif text-xl">{title}</h3><p className="text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div></div></section>
+
+    <section className="section-space bg-card">
+      <div className="page-wrap grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
+        <SectionHeading eyebrow="Latest developments" title="What has happened most recently"/>
+        <div className="border-t border-border">
+          <article className="grid gap-3 border-b border-border py-6 md:grid-cols-[8rem_1fr]"><p className="text-sm font-semibold">Sep 17, 2026</p><div><h3 className="font-serif text-xl">Public petition launched</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A community-organized petition asks City Council to preserve the indoor courts while alternatives are considered.</p><a href={petitionUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">View petition<ArrowUpRight className="size-4"/></a></div></article>
+          <article className="grid gap-3 border-b border-border py-6 md:grid-cols-[8rem_1fr]"><p className="text-sm font-semibold">Sep 16, 2026</p><div><h3 className="font-serif text-xl">City announces acquisition</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">The City announces the purchase of the Westwood Lake Tennis Club property and says the bubble will be removed.</p></div></article>
+        </div>
+      </div>
+    </section>
+
     <section className="section-space overflow-hidden bg-primary text-primary-foreground"><div className="page-wrap"><SectionHeading eyebrow="Key dates" title="How the situation is unfolding"/><div className="mt-12 grid gap-px bg-primary-foreground/20 lg:grid-cols-6">{timeline.map((item) => <article key={`${item.date}-${item.title}`} className="bg-primary p-5"><p className="text-[10px] font-bold uppercase tracking-[.12em] text-primary-foreground/45">{item.status}</p><p className="mt-2 text-xs font-semibold text-primary-foreground/55">{item.date} {item.year}</p><h3 className="mt-4 font-serif text-lg">{item.title}</h3><p className="mt-3 text-xs leading-5 text-primary-foreground/70">{item.text}</p>{item.source && <div className="mt-4 [&_a]:text-primary-foreground"><SourceLink href={item.source.url}/></div>}</article>)}</div><Button asChild variant="outline" className="mt-8 border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/timeline">View full timeline</Link></Button></div></section>
     <section className="section-space bg-secondary"><div className="page-wrap grid gap-12 lg:grid-cols-[.7fr_1.3fr]"><SectionHeading eyebrow="Frequently asked" title="Clear answers to common questions"/><Accordion type="single" collapsible>{faqs.map(([q,a]) => <AccordionItem key={q} value={q}><AccordionTrigger className="py-5 text-base">{q}</AccordionTrigger><AccordionContent className="max-w-3xl pb-6 leading-7 text-muted-foreground">{a}</AccordionContent></AccordionItem>)}</Accordion></div></section>
-    <section className="bg-accent"><div className="page-wrap flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center"><div><p className="eyebrow text-accent-foreground/65">Stay informed</p><h2 className="mt-2 font-serif text-3xl text-accent-foreground">Participate in the conversation.</h2></div><Button asChild size="lg"><Link to="/get-involved">Ways to take part<ArrowRight /></Link></Button></div></section>
+    <section className="bg-accent"><div className="page-wrap flex flex-col items-start justify-between gap-6 py-12 md:flex-row md:items-center"><div><p className="eyebrow text-accent-foreground/65">Stay informed</p><h2 className="mt-2 font-serif text-3xl text-accent-foreground">Participate in the conversation.</h2></div><div className="flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/get-involved">Ways to take part<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline"><a href={petitionUrl} target="_blank" rel="noreferrer">Public petition<ArrowUpRight /></a></Button></div></div></section>
   </>;
 }
