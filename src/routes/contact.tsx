@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { sendContactMessage } from "@/lib/contact.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -22,22 +20,30 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
-  const sendMessage = useServerFn(sendContactMessage);
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setState("sending");
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+
     try {
-      await sendMessage({ data: {
-        name: String(form.get("name") || ""),
-        email: String(form.get("email") || ""),
-        subject: String(form.get("subject") || ""),
-        message: String(form.get("message") || ""),
-        website: String(form.get("website") || ""),
-      } });
-      event.currentTarget.reset();
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: String(form.get("name") || ""),
+          email: String(form.get("email") || ""),
+          subject: String(form.get("subject") || ""),
+          message: String(form.get("message") || ""),
+          website: String(form.get("website") || ""),
+        }),
+      });
+
+      if (!response.ok) throw new Error("Contact request failed");
+
+      formElement.reset();
       setState("sent");
     } catch {
       setState("error");
