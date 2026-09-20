@@ -48,7 +48,11 @@ function Index() {
     <section className="border-b border-border bg-card">
       <div className="page-wrap -mx-0 overflow-x-auto px-0">
         <div className="flex min-w-max divide-x divide-border md:grid md:min-w-0 md:grid-cols-5">
-          {["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming", "Club closure expected Nov. 1"].map((fact) => <div key={fact} className="w-44 shrink-0 px-4 py-4 text-center text-xs font-semibold sm:text-sm md:w-auto md:py-5">{fact}</div>)}
+          {["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming"].map((fact) => <div key={fact} className="w-44 shrink-0 px-4 py-4 text-center text-xs font-semibold sm:text-sm md:w-auto md:py-5">{fact}</div>)}
+          <div className="flex w-48 shrink-0 flex-col items-center justify-center bg-[#F2D36B] px-4 py-3 text-center text-[#102A3D] md:w-auto md:py-4">
+            <span className="text-[10px] font-bold uppercase tracking-[.12em] opacity-75 sm:text-xs">Expected club closure</span>
+            <span className="mt-1 font-serif text-xl font-bold leading-none sm:text-2xl">Nov. 1</span>
+          </div>
         </div>
       </div>
       <p className="page-wrap border-t border-border py-3 text-center text-xs text-muted-foreground">Figures and dates link to their original sources throughout this site.</p>
