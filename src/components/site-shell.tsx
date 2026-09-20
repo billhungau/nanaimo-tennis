@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const nav = [
@@ -10,8 +10,27 @@ const nav = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  return <header className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur">
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function handlePointerDown(event: PointerEvent) {
+      if (headerRef.current && !headerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [open]);
+
+  return <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur">
     <div className="page-wrap flex h-18 items-center justify-between gap-5">
       <Link to="/" className="flex items-center gap-3" aria-label="Nanaimo Tennis home">
         <img src="/nanaimo-tennis-logo.png" alt="Nanaimo Tennis" className="size-11 shrink-0 object-contain" />
@@ -21,7 +40,7 @@ export function SiteHeader() {
         {nav.map(([label, to]) => <Link key={to} to={to} className={pathname === to ? "nav-link text-foreground" : "nav-link"}>{label}</Link>)}
       </nav>
       <div className="hidden xl:block"><Button asChild variant="outline"><Link to="/the-issue">Read the proposal</Link></Button></div>
-      <Button variant="ghost" size="icon" className="xl:hidden" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
+      <Button variant="ghost" size="icon" className="xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
     </div>
     {open && <nav className="border-t border-border bg-background px-5 py-4 xl:hidden" aria-label="Mobile navigation">
       <div className="mx-auto grid max-w-3xl gap-1">{nav.map(([label, to]) => <Link key={to} to={to} onClick={() => setOpen(false)} className="rounded-sm px-3 py-3 text-sm font-medium text-foreground hover:bg-muted">{label}</Link>)}</div>
