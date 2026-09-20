@@ -8,7 +8,7 @@ const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-
 
 export const Route = createFileRoute("/the-issue")({
   head: () => ({ meta: [
-    { title: "The Issue | Indoor Tennis Nanaimo" },
+    { title: "The Issue | Nanaimo Tennis" },
     { name: "description", content: "Understand the separate questions of Nanaimo's Westwood Lake land acquisition and the planned removal of its indoor tennis facility." },
     { property: "og:title", content: "The issue: indoor tennis at Westwood Lake" },
     { property: "og:description", content: "A clear distinction between the land purchase and the future of the indoor courts." },
