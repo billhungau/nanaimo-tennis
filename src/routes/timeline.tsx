@@ -4,7 +4,7 @@ import { timeline } from "@/lib/civic-data";
 
 export const Route = createFileRoute("/timeline")({
   head: () => ({ meta: [
-    { title: "Timeline | Indoor Tennis Nanaimo" },
+    { title: "Timeline | Nanaimo Tennis" },
     { name: "description", content: "A sourced chronology of the Westwood Lake Tennis Club property acquisition, planned closure and public process." },
     { property: "og:title", content: "Westwood indoor tennis timeline" },
     { property: "og:description", content: "Key dates in the acquisition and future of the indoor tennis facility." },
