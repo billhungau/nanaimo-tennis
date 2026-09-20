@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { Search } from "lucide-react";
+import { Phone, Search } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,6 +18,21 @@ const contactTypes = [
   ["other_public", "Other public"],
 ] as const;
 
+const outreachMethods = [
+  ["", "Not recorded"],
+  ["email", "Email"],
+  ["phone", "Phone"],
+] as const;
+
+const outreachStatuses = [
+  ["not_contacted", "Not contacted"],
+  ["attempted", "Attempted"],
+  ["sent", "Email sent"],
+  ["reached", "Reached"],
+  ["voicemail", "Voicemail left"],
+  ["failed", "Failed"],
+] as const;
+
 type CandidateRow = {
   id: string;
   name: string;
@@ -25,6 +40,10 @@ type CandidateRow = {
   email: string | null;
   contact_type: string | null;
   contact_source: string | null;
+  outreach_method: string | null;
+  outreach_status: string;
+  outreach_at: string | null;
+  outreach_notes: string | null;
   response_status: "received" | "not_received";
   response_date: string | null;
   q1_response: string | null;
@@ -47,6 +66,14 @@ export const Route = createFileRoute("/admin/candidates")({
   component: CandidateAdminPage,
 });
 
+function formatOutreach(candidate: CandidateRow) {
+  if (!candidate.outreach_status || candidate.outreach_status === "not_contacted") return "Not contacted";
+  const label = outreachStatuses.find(([value]) => value === candidate.outreach_status)?.[1] ?? candidate.outreach_status;
+  if (!candidate.outreach_at) return label;
+  const date = new Date(candidate.outreach_at);
+  return `${label} · ${date.toLocaleDateString()}`;
+}
+
 function CandidateAdminPage() {
   const [session, setSession] = useState<Session | null>(null);
   const [authReady, setAuthReady] = useState(false);
@@ -64,37 +91,27 @@ function CandidateAdminPage() {
   const isAdmin = session?.user.id === ADMIN_USER_ID;
 
   useEffect(() => {
-    if (!supabase) {
-      setAuthReady(true);
-      return;
-    }
-
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session);
       setAuthReady(true);
     });
-
     const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession);
       setAuthReady(true);
     });
-
     return () => listener.subscription.unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (!isAdmin) return;
-    void loadCandidates();
+    if (isAdmin) void loadCandidates();
   }, [isAdmin]);
 
   async function loadCandidates() {
-    if (!supabase) return;
     setLoading(true);
     setMessage("");
-
     const { data, error } = await supabase
       .from("candidates")
-      .select("id,name,office,email,contact_type,contact_source,response_status,response_date,q1_response,q2_response,q3_response,response_source,internal_notes,last_updated")
+      .select("id,name,office,email,contact_type,contact_source,outreach_method,outreach_status,outreach_at,outreach_notes,response_status,response_date,q1_response,q2_response,q3_response,response_source,internal_notes,last_updated")
       .order("name", { ascending: true });
 
     if (error) {
@@ -105,41 +122,25 @@ function CandidateAdminPage() {
 
     const rows = (data ?? []) as CandidateRow[];
     setCandidates(rows);
-    if (rows.length && !selectedId) selectCandidate(rows[0]);
+    const selected = rows.find((row) => row.id === selectedId) ?? rows[0];
+    if (selected) selectCandidate(selected);
     setLoading(false);
   }
 
   function selectCandidate(candidate: CandidateRow) {
     setSelectedId(candidate.id);
-    setDraft({
-      id: candidate.id,
-      name: candidate.name,
-      office: candidate.office,
-      email: candidate.email,
-      contact_type: candidate.contact_type,
-      contact_source: candidate.contact_source,
-      response_status: candidate.response_status,
-      response_date: candidate.response_date,
-      q1_response: candidate.q1_response,
-      q2_response: candidate.q2_response,
-      q3_response: candidate.q3_response,
-      response_source: candidate.response_source,
-      internal_notes: candidate.internal_notes,
-    });
+    setDraft({ ...candidate });
     setMessage("");
   }
 
   async function signIn(event: FormEvent) {
     event.preventDefault();
-    if (!supabase) return;
     setAuthError("");
-
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) setAuthError(error.message);
   }
 
   async function signOut() {
-    if (!supabase) return;
     await supabase.auth.signOut();
     setCandidates([]);
     setSelectedId(null);
@@ -147,7 +148,7 @@ function CandidateAdminPage() {
   }
 
   async function saveCandidate() {
-    if (!supabase || !draft) return;
+    if (!draft) return;
     setSaving(true);
     setMessage("");
 
@@ -155,6 +156,10 @@ function CandidateAdminPage() {
       email: draft.email?.trim() || null,
       contact_type: draft.contact_type || null,
       contact_source: draft.contact_source?.trim() || null,
+      outreach_method: draft.outreach_method || null,
+      outreach_status: draft.outreach_status || "not_contacted",
+      outreach_at: draft.outreach_at || null,
+      outreach_notes: draft.outreach_notes?.trim() || null,
       response_status: draft.response_status,
       response_date: draft.response_status === "received" ? draft.response_date || null : null,
       q1_response: draft.response_status === "received" ? draft.q1_response || null : null,
@@ -165,7 +170,6 @@ function CandidateAdminPage() {
     };
 
     const { error } = await supabase.from("candidates").update(payload).eq("id", draft.id);
-
     if (error) {
       setMessage(`Save failed: ${error.message}`);
       setSaving(false);
@@ -175,6 +179,17 @@ function CandidateAdminPage() {
     setMessage("Saved.");
     await loadCandidates();
     setSaving(false);
+  }
+
+  function setPhoneOutcome(status: "attempted" | "reached" | "voicemail") {
+    if (!draft) return;
+    setDraft({
+      ...draft,
+      outreach_method: "phone",
+      outreach_status: status,
+      outreach_at: new Date().toISOString(),
+    });
+    setMessage("Phone outreach recorded in the form. Click Save to apply.");
   }
 
   function markNoResponse() {
@@ -199,13 +214,7 @@ function CandidateAdminPage() {
     });
   }, [candidates, query]);
 
-  if (!supabase) {
-    return <div className="page-wrap py-16"><h1 className="font-serif text-3xl">Candidate admin</h1><p className="mt-4 text-sm text-muted-foreground">Supabase is not configured.</p></div>;
-  }
-
-  if (!authReady) {
-    return <div className="page-wrap py-16 text-sm text-muted-foreground">Checking administrator session…</div>;
-  }
+  if (!authReady) return <div className="page-wrap py-16 text-sm text-muted-foreground">Checking administrator session…</div>;
 
   if (!session) {
     return <section className="py-16 sm:py-24">
@@ -230,16 +239,21 @@ function CandidateAdminPage() {
   return <section className="py-12 sm:py-16">
     <div className="page-wrap">
       <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
-        <div><p className="eyebrow">Private administration</p><h1 className="mt-2 font-serif text-4xl">Candidate responses</h1><p className="mt-2 text-sm text-muted-foreground">Manage candidate contact details, response status and published answers.</p></div>
+        <div><p className="eyebrow">Private administration</p><h1 className="mt-2 font-serif text-4xl">Candidate information</h1><p className="mt-2 text-sm text-muted-foreground">Manage contact details, outreach history and candidate responses.</p></div>
         <Button variant="outline" onClick={signOut}>Sign out</Button>
       </div>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-[19rem_1fr]">
+      <div className="mt-8 grid gap-8 lg:grid-cols-[20rem_1fr]">
         <aside>
-          <div className="relative"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search name or email" className="pl-10"/></div>
-          <div className="mt-3 max-h-[70vh] overflow-y-auto border border-border bg-card">
+          <div className="relative"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search candidate name or email" className="pl-10"/></div>
+          <div className="mt-3 max-h-[75vh] overflow-y-auto border border-border bg-card">
             {loading && <p className="p-4 text-sm text-muted-foreground">Loading…</p>}
-            {!loading && filtered.map((candidate) => <button key={candidate.id} type="button" onClick={() => selectCandidate(candidate)} className={`block w-full border-b border-border px-4 py-3 text-left last:border-0 ${selectedId === candidate.id ? "bg-secondary" : "hover:bg-secondary/60"}`}><span className="block font-medium">{candidate.name}</span><span className="mt-1 block text-xs text-muted-foreground">{candidate.office} · {candidate.response_status === "received" ? "Response received" : "No response"}</span><span className="mt-1 block truncate text-xs text-muted-foreground">{candidate.email || "No email recorded"}</span></button>)}
+            {!loading && filtered.map((candidate) => <button key={candidate.id} type="button" onClick={() => selectCandidate(candidate)} className={`block w-full border-b border-border px-4 py-3 text-left last:border-0 ${selectedId === candidate.id ? "bg-secondary" : "hover:bg-secondary/60"}`}>
+              <span className="block font-medium">{candidate.name}</span>
+              <span className="mt-1 block text-xs text-muted-foreground">{candidate.office}</span>
+              <span className="mt-1 block truncate text-xs text-muted-foreground">{candidate.email || "No email recorded"}</span>
+              <span className="mt-1 block text-xs font-medium text-foreground/75">{formatOutreach(candidate)}</span>
+            </button>)}
           </div>
         </aside>
 
@@ -252,11 +266,31 @@ function CandidateAdminPage() {
 
             <section className="mt-6 border-b border-border pb-7">
               <h3 className="font-serif text-xl">Contact details</h3>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">These fields are for administration and outreach. They are not shown on the public candidate page.</p>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">For administration and outreach only. These fields are not shown on the public candidate page.</p>
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 <div><label className="mb-2 block text-sm font-medium">Email</label><Input type="email" value={draft.email ?? ""} onChange={(event) => setDraft({ ...draft, email: event.target.value })} placeholder="candidate@example.com"/></div>
                 <div><label className="mb-2 block text-sm font-medium">Contact type</label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={draft.contact_type ?? ""} onChange={(event) => setDraft({ ...draft, contact_type: event.target.value || null })}>{contactTypes.map(([value, label]) => <option key={value || "none"} value={value}>{label}</option>)}</select></div>
                 <div className="sm:col-span-2"><label className="mb-2 block text-sm font-medium">Contact source</label><Input value={draft.contact_source ?? ""} onChange={(event) => setDraft({ ...draft, contact_source: event.target.value })} placeholder="Campaign website, City page, public profile, etc."/></div>
+              </div>
+            </section>
+
+            <section className="mt-7 border-b border-border pb-7">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div><h3 className="font-serif text-xl">Outreach tracking</h3><p className="mt-1 text-xs leading-5 text-muted-foreground">Track email and phone contact separately from whether a candidate has responded.</p></div>
+                {!draft.email && <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground"><Phone className="size-4"/>Phone outreach needed</div>}
+              </div>
+
+              <div className="mt-5 grid gap-5 sm:grid-cols-2">
+                <div><label className="mb-2 block text-sm font-medium">Method</label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={draft.outreach_method ?? ""} onChange={(event) => setDraft({ ...draft, outreach_method: event.target.value || null })}>{outreachMethods.map(([value, label]) => <option key={value || "none"} value={value}>{label}</option>)}</select></div>
+                <div><label className="mb-2 block text-sm font-medium">Status</label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={draft.outreach_status || "not_contacted"} onChange={(event) => setDraft({ ...draft, outreach_status: event.target.value })}>{outreachStatuses.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></div>
+                <div><label className="mb-2 block text-sm font-medium">Outreach date & time</label><Input type="datetime-local" value={draft.outreach_at ? new Date(draft.outreach_at).toISOString().slice(0,16) : ""} onChange={(event) => setDraft({ ...draft, outreach_at: event.target.value ? new Date(event.target.value).toISOString() : null })}/></div>
+                <div className="sm:col-span-2"><label className="mb-2 block text-sm font-medium">Outreach notes</label><textarea className="min-h-24 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={draft.outreach_notes ?? ""} onChange={(event) => setDraft({ ...draft, outreach_notes: event.target.value })} placeholder="e.g. Called candidate, left voicemail asking for an email address for the questionnaire."/></div>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                <Button type="button" variant="outline" onClick={() => setPhoneOutcome("attempted")}>Record phone attempt</Button>
+                <Button type="button" variant="outline" onClick={() => setPhoneOutcome("voicemail")}>Record voicemail</Button>
+                <Button type="button" variant="outline" onClick={() => setPhoneOutcome("reached")}>Record reached</Button>
               </div>
             </section>
 
@@ -267,7 +301,6 @@ function CandidateAdminPage() {
 
             <div className="mt-6 space-y-7">
               {["q1_response", "q2_response", "q3_response"].map((field, index) => <div key={field}><label className="block text-sm font-semibold">Question {index + 1}</label><p className="mt-1 text-xs leading-5 text-muted-foreground">{candidateQuestions[index]}</p><textarea className="mt-3 min-h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={(draft[field as keyof CandidateDraft] as string | null) ?? ""} disabled={draft.response_status !== "received"} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })}/></div>)}
-
               <div><label className="mb-2 block text-sm font-medium">Response source</label><Input value={draft.response_source ?? ""} disabled={draft.response_status !== "received"} onChange={(event) => setDraft({ ...draft, response_source: event.target.value })} placeholder="Email, website URL, public statement, etc."/></div>
               <div><label className="mb-2 block text-sm font-medium">Internal notes</label><textarea className="min-h-24 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={draft.internal_notes ?? ""} onChange={(event) => setDraft({ ...draft, internal_notes: event.target.value })} placeholder="Private notes — not shown on the public page"/></div>
             </div>
