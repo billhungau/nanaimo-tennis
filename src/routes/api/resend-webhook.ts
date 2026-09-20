@@ -101,16 +101,39 @@ export const Route = createFileRoute("/api/resend-webhook")({
         const db = supabaseAdmin as any;
         const { data: candidate } = await db
           .from("candidates")
-          .select("id,name,email,internal_notes")
+          .select("id,name,email,internal_notes,outreach_notes")
           .eq("id", candidateId)
           .single();
 
         if (!candidate) return Response.json({ ok: true, matched: false });
 
         const receivedAt = String(event?.created_at || new Date().toISOString());
-        const note = `[${receivedAt}] Email reply received from ${from}\nSubject: ${subject}\n${excerpt}`;
+        const dedupeMarker = emailId ? `Resend received ID: ${emailId}` : "";
+        const alreadyRecorded = Boolean(dedupeMarker && (
+          String(candidate.internal_notes || "").includes(dedupeMarker) ||
+          String(candidate.outreach_notes || "").includes(dedupeMarker)
+        ));
+
+        if (alreadyRecorded) {
+          return Response.json({ ok: true, matched: true, duplicate: true });
+        }
+
+        const note = `[${receivedAt}] Email reply received from ${from}\nSubject: ${subject}\n${excerpt}${dedupeMarker ? `\n${dedupeMarker}` : ""}`;
+        const outreachNote = `Email reply received from ${from}. Subject: ${subject}.${dedupeMarker ? ` ${dedupeMarker}` : ""}`;
         const internalNotes = [candidate.internal_notes, note].filter(Boolean).join("\n\n");
-        await db.from("candidates").update({ internal_notes: internalNotes }).eq("id", candidate.id);
+        const outreachNotes = [candidate.outreach_notes, outreachNote].filter(Boolean).join("\n");
+
+        const { error: trackingError } = await db.from("candidates").update({
+          internal_notes: internalNotes,
+          outreach_method: "email",
+          outreach_status: "reached",
+          outreach_at: receivedAt,
+          outreach_notes: outreachNotes,
+        }).eq("id", candidate.id);
+
+        if (trackingError) {
+          console.error("Candidate reply received but outreach tracking update failed", trackingError);
+        }
 
         try {
           const { adminEmail } = getEmailConfig();
@@ -136,7 +159,7 @@ export const Route = createFileRoute("/api/resend-webhook")({
           console.error("Candidate reply stored but admin notification failed", mailError);
         }
 
-        return Response.json({ ok: true, matched: true });
+        return Response.json({ ok: true, matched: true, trackingUpdated: !trackingError });
       },
     },
   },
