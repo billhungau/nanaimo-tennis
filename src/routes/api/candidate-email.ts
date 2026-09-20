@@ -80,7 +80,7 @@ export const Route = createFileRoute("/api/candidate-email")({
         const db = supabaseAdmin as any;
         const { data: candidate, error } = await db
           .from("candidates")
-          .select("id,name,email,internal_notes")
+          .select("id,name,email,internal_notes,outreach_notes")
           .eq("id", input.candidateId)
           .single();
 
@@ -107,9 +107,28 @@ export const Route = createFileRoute("/api/candidate-email")({
         const sentAt = new Date().toISOString();
         const note = `[${sentAt}] Candidate questionnaire sent to ${candidate.email}. Subject: ${subject}. Resend ID: ${messageId}`;
         const internalNotes = [candidate.internal_notes, note].filter(Boolean).join("\n\n");
-        await db.from("candidates").update({ internal_notes: internalNotes }).eq("id", candidate.id);
+        const outreachNotes = [candidate.outreach_notes, `Email sent to ${candidate.email}. Resend ID: ${messageId}`].filter(Boolean).join("\n");
 
-        return Response.json({ success: true, sentAt, messageId, to: candidate.email, subject });
+        const { error: trackingError } = await db.from("candidates").update({
+          internal_notes: internalNotes,
+          outreach_method: "email",
+          outreach_status: "sent",
+          outreach_at: sentAt,
+          outreach_notes: outreachNotes,
+        }).eq("id", candidate.id);
+
+        if (trackingError) {
+          console.error("Candidate email sent but outreach tracking update failed", trackingError);
+        }
+
+        return Response.json({
+          success: true,
+          sentAt,
+          messageId,
+          to: candidate.email,
+          subject,
+          trackingUpdated: !trackingError,
+        });
       },
     },
   },
