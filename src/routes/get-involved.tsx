@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
-import { submitCommunityStory } from "@/lib/community-stories.functions";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -24,7 +22,6 @@ export const Route = createFileRoute("/get-involved")({
 });
 
 function GetInvolvedPage() {
-  const saveStory = useServerFn(submitCommunityStory);
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<"idle"|"sending"|"sent"|"error">("idle");
 
@@ -33,14 +30,22 @@ function GetInvolvedPage() {
     setState("sending");
     const formElement = e.currentTarget;
     const form = new FormData(formElement);
+
     try {
-      await saveStory({ data: {
-        name: String(form.get("name")),
-        email: String(form.get("email")),
-        relationship: String(form.get("relationship")),
-        story: String(form.get("story")),
-        consentToPublish: consent,
-      } });
+      const response = await fetch("/api/community-story", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: String(form.get("name") || ""),
+          email: String(form.get("email") || ""),
+          relationship: String(form.get("relationship") || ""),
+          story: String(form.get("story") || ""),
+          consentToPublish: consent,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+
       setState("sent");
       formElement.reset();
       setConsent(false);
