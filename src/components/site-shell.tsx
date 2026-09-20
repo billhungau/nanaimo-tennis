@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import logoAsset from "@/assets/indoor-tennis-nanaimo-logo.png.asset.json";
 
 const nav = [
   ["The Issue", "/the-issue"], ["Timeline", "/timeline"], ["Evidence", "/evidence"],
@@ -14,7 +15,7 @@ export function SiteHeader() {
   return <header className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur">
     <div className="page-wrap flex h-18 items-center justify-between gap-5">
       <Link to="/" className="flex items-center gap-3" aria-label="Indoor Tennis Nanaimo home">
-        <span className="grid size-9 place-items-center rounded-sm bg-primary text-sm font-bold text-primary-foreground">IT</span>
+        <img src={logoAsset.url} alt="" className="size-11 shrink-0 object-contain" />
         <span className="text-sm font-semibold text-foreground sm:text-base">Indoor Tennis Nanaimo</span>
       </Link>
       <nav className="hidden items-center gap-5 xl:flex" aria-label="Main navigation">
