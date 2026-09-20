@@ -1,12 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageIntro } from "@/components/page-elements";
-import { candidateQuestions, candidates } from "@/lib/civic-data";
+import { candidateQuestions } from "@/lib/civic-data";
+import { supabase } from "@/lib/supabase";
 
 type Filter = "All" | "Mayor" | "Council";
+type CandidateRecord = {
+  id: string;
+  name: string;
+  office: "Mayor" | "Council";
+  response_status: "received" | "not_received";
+  response_date: string | null;
+  q1_response: string | null;
+  q2_response: string | null;
+  q3_response: string | null;
+  response_source: string | null;
+  last_updated: string;
+};
 
 export const Route = createFileRoute("/candidates")({
   head: () => ({ meta: [
@@ -25,12 +38,47 @@ function CandidatesPage() {
   const [filter, setFilter] = useState<Filter>("All");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+  const [candidates, setCandidates] = useState<CandidateRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const client = supabase;
+
+    async function loadCandidates() {
+      if (!client) {
+        if (!cancelled) {
+          setLoadError("Candidate data is temporarily unavailable because the Supabase connection is not configured.");
+          setLoading(false);
+        }
+        return;
+      }
+
+      const { data, error } = await client
+        .from("candidates")
+        .select("id,name,office,response_status,response_date,q1_response,q2_response,q3_response,response_source,last_updated")
+        .order("name", { ascending: true });
+
+      if (cancelled) return;
+      if (error) {
+        console.error("Unable to load candidates from Supabase", error);
+        setLoadError("Candidate data is temporarily unavailable. Please try again shortly.");
+      } else {
+        setCandidates((data ?? []) as CandidateRecord[]);
+      }
+      setLoading(false);
+    }
+
+    loadCandidates();
+    return () => { cancelled = true; };
+  }, []);
 
   const shown = useMemo(() => candidates.filter((candidate) => {
     const matchesOffice = filter === "All" || candidate.office === filter;
     const matchesQuery = candidate.name.toLowerCase().includes(query.trim().toLowerCase());
     return matchesOffice && matchesQuery;
-  }), [filter, query]);
+  }), [candidates, filter, query]);
 
   return <>
     <PageIntro eyebrow="2026 municipal election" title="Where do Nanaimo's candidates stand?">
@@ -49,29 +97,35 @@ function CandidatesPage() {
           </div>
         </div>
 
-        <div className="mt-8 overflow-hidden border border-border bg-card">
+        {loading && <div className="mt-8 border border-border bg-card px-5 py-10 text-center text-sm text-muted-foreground">Loading candidate information…</div>}
+        {!loading && loadError && <div className="mt-8 border border-border bg-card px-5 py-10 text-center text-sm text-muted-foreground">{loadError}</div>}
+
+        {!loading && !loadError && <div className="mt-8 overflow-hidden border border-border bg-card">
           <div className="hidden grid-cols-[1.4fr_.7fr_1fr_8rem] gap-4 border-b border-border bg-secondary px-5 py-3 text-xs font-bold uppercase text-muted-foreground md:grid">
             <span>Candidate</span><span>Office</span><span>Response status</span><span>Response</span>
           </div>
           {shown.map((candidate) => {
-            const received = candidate.responseStatus === "received";
-            return <article key={candidate.name} className="border-b border-border last:border-0">
+            const received = candidate.response_status === "received";
+            const responses = [candidate.q1_response, candidate.q2_response, candidate.q3_response];
+            const hasResponses = responses.some(Boolean);
+            return <article key={candidate.id} className="border-b border-border last:border-0">
               <div className="grid items-center gap-3 px-5 py-5 md:grid-cols-[1.4fr_.7fr_1fr_8rem]">
                 <h2 className="font-serif text-lg">{candidate.name}</h2>
                 <p className="text-sm text-muted-foreground">{candidate.office}</p>
                 <span className="w-fit rounded-sm border border-border bg-secondary px-2 py-1 text-xs font-medium">{received ? "Response received" : "No response received"}</span>
-                <Button variant="ghost" className="justify-start px-0 md:justify-end" onClick={() => setOpen(open === candidate.name ? null : candidate.name)}>{received ? "Read response" : "Details"}<ChevronDown className={open === candidate.name ? "rotate-180" : ""}/></Button>
+                <Button variant="ghost" className="justify-start px-0 md:justify-end" onClick={() => setOpen(open === candidate.id ? null : candidate.id)}>{received ? "Read response" : "Details"}<ChevronDown className={open === candidate.id ? "rotate-180" : ""}/></Button>
               </div>
-              {open === candidate.name && <div className="border-t border-border bg-secondary/50 px-5 py-6">
-                {received && candidate.responses ? <div className="space-y-6">
-                  {candidateQuestions.map((question, index) => <div key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="mt-2 text-sm leading-6">{candidate.responses?.[index]}</p></div>)}
-                  <p className="text-xs text-muted-foreground">Response received {candidate.responseDate ?? "date not recorded"}. Responses are published as provided.</p>
+              {open === candidate.id && <div className="border-t border-border bg-secondary/50 px-5 py-6">
+                {received && hasResponses ? <div className="space-y-6">
+                  {candidateQuestions.map((question, index) => <div key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="mt-2 text-sm leading-6">{responses[index] || "No response provided for this question."}</p></div>)}
+                  <p className="text-xs text-muted-foreground">Response received {candidate.response_date ?? "date not recorded"}. Responses are published as provided.</p>
+                  {candidate.response_source && <p className="text-xs"><a href={candidate.response_source} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">View response source</a></p>}
                 </div> : <p className="text-sm text-muted-foreground">No response received as of September 19, 2026. This page will be updated if a response is provided.</p>}
               </div>}
             </article>;
           })}
-        </div>
-        {shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match this search.</p>}
+        </div>}
+        {!loading && !loadError && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match this search.</p>}
         <p className="mt-4 text-xs text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Candidates are listed alphabetically.</p>
       </div>
     </section>
