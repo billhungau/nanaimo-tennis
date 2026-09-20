@@ -38,12 +38,6 @@ function Index() {
     ["Why act now?", "Once the indoor structure is removed, retaining the existing facility is no longer an option. A temporary pause would allow additional information to be gathered first."],
   ];
   const facts = ["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming"];
-  const homepageTimeline = timeline.filter((item) => [
-    "Acquisition announced",
-    "Community response begins",
-    "Expected club closure",
-    "Expected possession",
-  ].includes(item.title));
 
   return <>
     <section className="relative min-h-[560px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
@@ -100,23 +94,7 @@ function Index() {
       </div>
     </section>
 
-    <section className="hidden overflow-hidden bg-primary py-14 text-primary-foreground md:block lg:py-16">
-      <div className="page-wrap">
-        <p className="eyebrow text-primary-foreground/45">Key dates</p>
-        <h2 className="mt-3 max-w-4xl font-serif text-4xl leading-tight lg:text-5xl">How the situation is unfolding</h2>
-        <div className="mt-8 grid gap-px bg-primary-foreground/12 lg:grid-cols-4">
-          {homepageTimeline.map((item) => <article key={`${item.date}-${item.title}`} className="bg-primary px-5 py-6 lg:px-6">
-            <p className="text-[10px] font-bold uppercase tracking-[.12em] text-primary-foreground/42">{item.status}</p>
-            <p className="mt-2 text-xs font-semibold text-primary-foreground/55">{item.date} {item.year}</p>
-            <h3 className="mt-4 font-serif text-lg leading-6 lg:text-xl">{item.title}</h3>
-            <p className="mt-3 text-xs leading-5 text-primary-foreground/68">{item.text}</p>
-            {item.source && <div className="mt-4 [&_a]:text-primary-foreground"><SourceLink href={item.source.url}/></div>}
-          </article>)}
-        </div>
-        <Button asChild variant="outline" className="mt-7 border-primary-foreground/35 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/timeline">View full timeline<ArrowRight /></Link></Button>
-      </div>
-    </section>
-
+    <section className="hidden section-space overflow-hidden bg-primary text-primary-foreground md:block"><div className="page-wrap"><SectionHeading eyebrow="Key dates" title="How the situation is unfolding"/><div className="mt-12 grid gap-px bg-primary-foreground/20 lg:grid-cols-6">{timeline.map((item) => <article key={`${item.date}-${item.title}`} className="bg-primary p-5"><p className="text-[10px] font-bold uppercase tracking-[.12em] text-primary-foreground/45">{item.status}</p><p className="mt-2 text-xs font-semibold text-primary-foreground/55">{item.date} {item.year}</p><h3 className="mt-4 font-serif text-lg">{item.title}</h3><p className="mt-3 text-xs leading-5 text-primary-foreground/70">{item.text}</p>{item.source && <div className="mt-4 [&_a]:text-primary-foreground"><SourceLink href={item.source.url}/></div>}</article>)}</div><Button asChild variant="outline" className="mt-8 border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/timeline">View full timeline</Link></Button></div></section>
     <section className="bg-secondary py-12 sm:section-space"><div className="page-wrap grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12"><SectionHeading eyebrow="Frequently asked" title="Clear answers to common questions"/><Accordion type="single" collapsible>{faqs.map(([q,a]) => <AccordionItem key={q} value={q}><AccordionTrigger className="py-4 text-base sm:py-5">{q}</AccordionTrigger><AccordionContent className="max-w-3xl pb-5 leading-7 text-muted-foreground sm:pb-6">{a}</AccordionContent></AccordionItem>)}</Accordion></div></section>
     <section className="bg-accent"><div className="page-wrap flex flex-col items-start justify-between gap-5 py-9 md:flex-row md:items-center md:py-12"><div><p className="eyebrow text-accent-foreground/65">Stay informed</p><h2 className="mt-2 font-serif text-3xl text-accent-foreground">Participate in the conversation.</h2></div><div className="flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/get-involved">Ways to take part<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline"><a href={petitionUrl} target="_blank" rel="noreferrer">Public petition<ArrowUpRight /></a></Button></div></div></section>
   </>;
