@@ -14,8 +14,8 @@ export const Route = createFileRoute("/")({
     { name: "description", content: "Independent information about the future of indoor tennis at Westwood Lake in Nanaimo, including City documents, news coverage, community proposals and 2026 municipal candidate positions." },
     { property: "og:title", content: "Future of Indoor Tennis in Nanaimo" },
     { property: "og:description", content: "An independent, evidence-led guide to the Westwood Lake tennis facility and the choices ahead." },
-    { property: "og:type", content: "website" }, { property: "og:url", content: "/" }, { name: "twitter:card", content: "summary_large_image" },
-  ], links: [{ rel: "canonical", href: "/" }] }),
+    { property: "og:type", content: "website" }, { property: "og:url", content: "https://nanaimo-tennis.lovable.app/" }, { name: "twitter:card", content: "summary_large_image" },
+  ], links: [{ rel: "canonical", href: "https://nanaimo-tennis.lovable.app/" }] }),
   component: Index,
 });
 
