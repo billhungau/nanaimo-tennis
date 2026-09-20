@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check, Compass, MessageSquareText, Scale, Search } from "lucide-react";
+import { ArrowRight, Compass, MessageSquareText, Scale, Search, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading, SourceLink } from "@/components/page-elements";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -20,13 +20,13 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const principles = [
+  const principles: Array<[LucideIcon, string, string]> = [
     [Search, "Assess", "Understand the facility's condition, useful life and costs."],
     [MessageSquareText, "Consult", "Hear from residents, users and the wider recreation community."],
     [Compass, "Explore options", "Test nonprofit, lease, partnership and community models."],
     [Scale, "Decide", "Make an informed public decision once the evidence is available."],
   ];
-  const reasons = [
+  const reasons: Array<[string, string]> = [
     ["Year-round recreation", "Indoor tennis provides dependable recreational access during Nanaimo's wet winter months."],
     ["Junior development", "The facility has supported children's instruction and tennis development."],
     ["Community programming", "Programs have included recreational lessons and activities beyond club membership."],
@@ -34,7 +34,7 @@ function Index() {
     ["Growing community", "Nanaimo's growth increases long-term demand for recreation infrastructure."],
     ["An irreversible decision", "A pause preserves options. Removing the facility eliminates one of them."],
   ];
-  const faqs = [
+  const faqs: Array<[string, string]> = [
     ["Are you asking the City to reverse the property purchase?", "No. The land purchase and the future of the existing indoor tennis facility are separate questions. Our request is focused on preserving the option of year-round indoor tennis while the City's planning process takes place."],
     ["Are you asking taxpayers to subsidize a private tennis club?", "No specific operating model is being proposed. We are asking the City to evaluate alternatives including nonprofit, lease and partnership models before removing the facility."],
     ["Why can't players simply use outdoor courts?", "Outdoor courts remain valuable, but they do not provide dependable year-round access during Nanaimo's wet fall and winter months."],
