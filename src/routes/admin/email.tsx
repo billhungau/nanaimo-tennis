@@ -1,14 +1,36 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { Mail, Search } from "lucide-react";
+import { Mail, RotateCcw, Search } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { candidateQuestions } from "@/lib/civic-data";
 import { sendCandidateQuestionnaire } from "@/lib/candidate-email.functions";
 import { supabase } from "@/lib/supabase";
 
 const ADMIN_USER_ID = "05c2f47c-b22d-4d0d-8d14-9c03c33a4472";
+const DEFAULT_SUBJECT = "Nanaimo Tennis – 2026 candidate questionnaire";
+const DEFAULT_BODY = `Hello {{name}},
+
+Nanaimo Tennis is an independent community information initiative publishing candidate positions on the future of year-round indoor tennis in Nanaimo.
+
+We are asking every mayoral and council candidate the same three questions. Responses are published without endorsement, ranking or editorial scoring.
+
+1. ${candidateQuestions[0]}
+
+2. ${candidateQuestions[1]}
+
+3. ${candidateQuestions[2]}
+
+Please reply directly to this email with your answers. Your response will be attributed to you and published as provided, subject only to basic formatting for readability.
+
+Candidate information page: {{candidate_page}}
+
+Thank you,
+Nanaimo Tennis
+{{site_url}}`;
 
 type Candidate = {
   id: string;
@@ -42,6 +64,8 @@ function CandidateEmailPage() {
   const [loading, setLoading] = useState(false);
   const [sendingId, setSendingId] = useState<string | null>(null);
   const [message, setMessage] = useState("");
+  const [subject, setSubject] = useState(DEFAULT_SUBJECT);
+  const [body, setBody] = useState(DEFAULT_BODY);
 
   const isAdmin = session?.user.id === ADMIN_USER_ID;
 
@@ -73,7 +97,7 @@ function CandidateEmailPage() {
     setSendingId(candidate.id);
     setMessage("");
     try {
-      const result = await sendQuestionnaire({ data: { candidateId: candidate.id, accessToken: session.access_token } });
+      const result = await sendQuestionnaire({ data: { candidateId: candidate.id, accessToken: session.access_token, subject, body } });
       setMessage(`Questionnaire sent to ${candidate.name} at ${result.to}.`);
       await loadCandidates();
     } catch (error) {
@@ -92,7 +116,7 @@ function CandidateEmailPage() {
 
   if (!session) return <section className="py-16 sm:py-24"><div className="page-wrap max-w-md">
     <p className="eyebrow">Private administration</p><h1 className="mt-3 font-serif text-4xl">Candidate email</h1>
-    <p className="mt-4 text-sm text-muted-foreground">Sign in to send the standardized candidate questionnaire.</p>
+    <p className="mt-4 text-sm text-muted-foreground">Sign in to manage candidate email outreach.</p>
     <form className="mt-8 space-y-4" onSubmit={signIn}>
       <div><label className="mb-2 block text-sm font-medium">Email</label><Input type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} required /></div>
       <div><label className="mb-2 block text-sm font-medium">Password</label><Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required /></div>
@@ -102,28 +126,51 @@ function CandidateEmailPage() {
 
   if (!isAdmin) return <div className="page-wrap py-16"><h1 className="font-serif text-3xl">Access not authorized</h1></div>;
 
-  return <section className="py-12 sm:py-16"><div className="page-wrap max-w-5xl">
+  return <section className="py-12 sm:py-16"><div className="page-wrap max-w-6xl">
     <div className="flex flex-col gap-4 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
-      <div><p className="eyebrow">Private administration</p><h1 className="mt-2 font-serif text-4xl">Candidate email outreach</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Each candidate receives the same three questions. Replies are routed back through Resend and noted in the private candidate record.</p></div>
-      <Button variant="outline" onClick={() => supabase.auth.signOut()}>Sign out</Button>
+      <div><p className="eyebrow">Private administration</p><h1 className="mt-2 font-serif text-4xl">Candidate email outreach</h1><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Review and edit the message before sending it to individual candidates. Replies are routed back through Resend and noted in the private candidate record.</p></div>
+      <div className="flex flex-wrap gap-2"><Button asChild variant="outline"><Link to="/admin">Admin portal</Link></Button><Button variant="outline" onClick={() => supabase.auth.signOut()}>Sign out</Button></div>
     </div>
 
-    <div className="mt-8 relative max-w-sm"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name or email" className="pl-10" /></div>
-    {message && <p className={`mt-4 text-sm ${message.startsWith("Send failed") || message.startsWith("Unable") ? "text-destructive" : "text-muted-foreground"}`}>{message}</p>}
+    <div className="mt-8 grid gap-8 lg:grid-cols-[1.05fr_.95fr]">
+      <section className="border border-border bg-card p-5 sm:p-7">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div><p className="eyebrow">Email draft</p><h2 className="mt-2 font-serif text-2xl">Message sent to candidates</h2></div>
+          <Button variant="outline" size="sm" onClick={() => { setSubject(DEFAULT_SUBJECT); setBody(DEFAULT_BODY); }}><RotateCcw className="size-4" />Reset default</Button>
+        </div>
+        <div className="mt-6 space-y-5">
+          <div><label className="mb-2 block text-sm font-medium">Subject</label><Input value={subject} onChange={(e) => setSubject(e.target.value)} maxLength={200} /></div>
+          <div><label className="mb-2 block text-sm font-medium">Body</label><Textarea value={body} onChange={(e) => setBody(e.target.value)} className="min-h-[34rem] font-mono text-sm leading-6" maxLength={12000} /></div>
+          <p className="text-xs leading-5 text-muted-foreground">Available placeholders: <code>{"{{name}}"}</code>, <code>{"{{candidate_page}}"}</code>, <code>{"{{site_url}}"}</code>. The same draft is used for every candidate until you edit or reset it.</p>
+        </div>
+      </section>
 
-    <div className="mt-6 overflow-hidden border border-border bg-card">
-      {loading && <p className="p-6 text-sm text-muted-foreground">Loading…</p>}
-      {!loading && shown.map((candidate) => {
-        const lastSent = latestTimestamp(candidate.internal_notes, "Candidate questionnaire sent");
-        const lastReply = latestTimestamp(candidate.internal_notes, "Email reply received");
-        return <article key={candidate.id} className="grid gap-4 border-b border-border p-5 last:border-0 sm:grid-cols-[1fr_auto] sm:items-center">
-          <div><div className="flex flex-wrap items-center gap-2"><h2 className="font-serif text-lg">{candidate.name}</h2><span className="text-xs text-muted-foreground">{candidate.office}</span></div>
-            <p className="mt-1 text-sm text-muted-foreground">{candidate.email || "No email recorded"}</p>
-            <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground"><span>{lastSent ? `Last sent: ${new Date(lastSent).toLocaleString()}` : "Not sent yet"}</span>{lastReply && <span>Reply received: {new Date(lastReply).toLocaleString()}</span>}</div>
-          </div>
-          <Button onClick={() => send(candidate)} disabled={!candidate.email || sendingId === candidate.id} variant={lastSent ? "outline" : "default"}><Mail className="size-4" />{sendingId === candidate.id ? "Sending…" : lastSent ? "Send again" : "Send questionnaire"}</Button>
-        </article>;
-      })}
+      <section>
+        <div className="border border-border bg-secondary/40 p-5">
+          <p className="eyebrow">Preview</p>
+          <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Subject</p>
+          <p className="mt-1 text-sm font-semibold">{subject.replaceAll("{{name}}", "Candidate Name")}</p>
+          <div className="mt-5 whitespace-pre-wrap border-t border-border pt-5 text-sm leading-6">{body.replaceAll("{{name}}", "Candidate Name").replaceAll("{{candidate_page}}", "https://www.nanaimotennis.ca/candidates").replaceAll("{{site_url}}", "https://www.nanaimotennis.ca")}</div>
+        </div>
+
+        <div className="mt-8 relative max-w-sm"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name or email" className="pl-10" /></div>
+        {message && <p className={`mt-4 text-sm ${message.startsWith("Send failed") || message.startsWith("Unable") ? "text-destructive" : "text-muted-foreground"}`}>{message}</p>}
+
+        <div className="mt-6 overflow-hidden border border-border bg-card">
+          {loading && <p className="p-6 text-sm text-muted-foreground">Loading…</p>}
+          {!loading && shown.map((candidate) => {
+            const lastSent = latestTimestamp(candidate.internal_notes, "Candidate questionnaire sent");
+            const lastReply = latestTimestamp(candidate.internal_notes, "Email reply received");
+            return <article key={candidate.id} className="grid gap-4 border-b border-border p-5 last:border-0 sm:grid-cols-[1fr_auto] sm:items-center">
+              <div><div className="flex flex-wrap items-center gap-2"><h2 className="font-serif text-lg">{candidate.name}</h2><span className="text-xs text-muted-foreground">{candidate.office}</span></div>
+                <p className="mt-1 text-sm text-muted-foreground">{candidate.email || "No email recorded"}</p>
+                <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground"><span>{lastSent ? `Last sent: ${new Date(lastSent).toLocaleString()}` : "Not sent yet"}</span>{lastReply && <span>Reply received: {new Date(lastReply).toLocaleString()}</span>}</div>
+              </div>
+              <Button onClick={() => send(candidate)} disabled={!candidate.email || sendingId === candidate.id || !subject.trim() || !body.trim()} variant={lastSent ? "outline" : "default"}><Mail className="size-4" />{sendingId === candidate.id ? "Sending…" : lastSent ? "Send again" : "Send questionnaire"}</Button>
+            </article>;
+          })}
+        </div>
+      </section>
     </div>
   </div></section>;
 }
