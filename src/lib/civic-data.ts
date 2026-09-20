@@ -1,39 +1,10 @@
 export type SourceCategory = "City documents" | "News" | "Recreation records" | "Historical records" | "Community statements" | "Candidate statements";
 
-export type CandidateOffice = "Mayor" | "Council";
-export type CandidateResponseStatus = "received" | "not_received";
-
-export type Candidate = {
-  name: string;
-  office: CandidateOffice;
-  responseStatus: CandidateResponseStatus;
-  responseDate?: string;
-  responses?: [string, string, string];
-  responseSource?: string;
-  lastUpdated?: string;
-};
-
 export const candidateQuestions = [
   "Would you support pausing removal of the Westwood Lake indoor tennis facility until the City has completed public consultation and assessed whether year-round indoor tennis can feasibly be retained? Please explain.",
   "Would you support evaluating nonprofit, lease, partnership or other operating models before the indoor facility is removed?",
   "What role should year-round indoor racquet-sport facilities play in Nanaimo's long-term recreation planning?",
 ];
-
-const makeCandidate = (name: string, office: CandidateOffice): Candidate => ({
-  name,
-  office,
-  responseStatus: "not_received",
-});
-
-export const candidates: Candidate[] = [
-  makeCandidate("Brunie Brunie", "Mayor"),
-  makeCandidate("Anne Marie Dryden", "Mayor"),
-  makeCandidate("Leonard Eugene Krog", "Mayor"),
-  makeCandidate("Sarah Lovegrove", "Mayor"),
-  ...[
-    "Jeff Annesley", "Sheryl Armstrong", "Sandy Bartlett", "Ken Bennett", "Marnie Boers", "Jackie Bolen", "Mark Richard Chandler", "Paul Chapman", "Malcolm Cooke", "Andréa Coutu", "Shane Crawley", "Ryan Djakovic", "Hilary Eastmure", "Joe Figel", "Meg Fyfe Watkins", "Ben Geselbracht", "Bryan William Gordon", "Anita Gail Greer", "Patrick Gunville", "Derek Hanna", "Richard Harlow", "Erin Colleen Hemmens", "Steven Mark Johns", "Cameron James Leckenby", "Max Douglas MacKay", "Paul Manly", "Bryant Marshall", "Bill McKay", "Andrew Merilees", "Matthew Miller", "Zaki Paris Mohammed", "Rod Moreno", "Janice Perrino", "Rob Phelan", "Frank Pluta", "Austin Seng", "Holden Southward", "Ian Thorpe", "Paul Van Ryssel", "Angela Hope Waldick",
-  ].map((name) => makeCandidate(name, "Council")),
-].sort((a, b) => a.name.localeCompare(b.name));
 
 export const sources = [
   {
