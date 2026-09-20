@@ -55,6 +55,7 @@ export const Route = createFileRoute("/api/resend-webhook")({
             await sendResendEmail({
               to: adminEmail,
               subject: `[Candidate reply] ${candidate.name}: ${subject}`,
+              replyTo: candidate.email || undefined,
               html: `
                 <h2>Candidate email reply received</h2>
                 <p><strong>Candidate:</strong> ${escapeHtml(candidate.name)}</p>
@@ -63,8 +64,9 @@ export const Route = createFileRoute("/api/resend-webhook")({
                 <p><strong>Message:</strong></p>
                 <p>${escapeHtml(excerpt).replace(/\n/g, "<br>")}</p>
                 <p>The reply has also been noted in the private candidate administration record.</p>
+                <p><strong>Reply:</strong> Use your email client's Reply button to respond directly to ${escapeHtml(candidate.email || from)}.</p>
               `,
-              text: `Candidate: ${candidate.name}\nFrom: ${from}\nSubject: ${subject}\n\n${excerpt}`,
+              text: `Candidate: ${candidate.name}\nFrom: ${from}\nSubject: ${subject}\n\n${excerpt}\n\nReply to this notification to respond directly to ${candidate.email || from}.`,
             });
           }
         } catch (mailError) {
