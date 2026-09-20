@@ -12,7 +12,7 @@ import { PageIntro } from "@/components/page-elements";
 
 export const Route = createFileRoute("/get-involved")({
   head: () => ({ meta: [
-    { title: "Get Involved | Indoor Tennis Nanaimo" },
+    { title: "Get Involved | Nanaimo Tennis" },
     { name: "description", content: "Take part in the civic conversation about the future of year-round indoor tennis in Nanaimo." },
     { property: "og:title", content: "Participate in the conversation" },
     { property: "og:description", content: "Read the public petition, contact Council, attend a meeting or share your experience with indoor tennis." },
