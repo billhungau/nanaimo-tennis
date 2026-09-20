@@ -32,22 +32,22 @@ function EvidencePage() {
     <section className="section-space">
       <div className="page-wrap grid gap-12 lg:grid-cols-[1.2fr_.8fr]">
         <div>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-3 sm:gap-4">
             <h2 className="font-serif text-3xl">Verified in the public record</h2>
             <p className="text-xs text-muted-foreground">Last checked: September 19, 2026</p>
           </div>
-          <div className="mt-6 border-t border-border">{facts.map(([finding, source]) => {
+          <div className="mt-5 border-t border-border sm:mt-6">{facts.map(([finding, source]) => {
             const item = source as typeof sources[number];
-            return <article className="border-b border-border py-6" key={finding as string}>
+            return <article className="border-b border-border py-5 sm:py-6" key={finding as string}>
               <h3 className="text-base font-semibold leading-7">{finding as string}</h3>
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
+              <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground sm:mt-3">
                 <span>{item.publisher}</span><span>{item.date}</span>{item.primary && <span className="rounded-sm bg-secondary px-2 py-1 font-semibold text-foreground">Primary source</span>}<SourceLink href={item.url}/>
               </div>
             </article>;
           })}</div>
         </div>
-        <aside className="civic-card h-fit p-6">
-          <div className="flex items-center gap-3"><AlertCircle className="size-5 text-ring"/><h2 className="font-serif text-2xl">What we still don't know</h2></div>
+        <aside className="civic-card h-fit p-5 sm:p-6">
+          <div className="flex items-center gap-3"><AlertCircle className="size-5 shrink-0 text-ring"/><h2 className="font-serif text-2xl">What we still don't know</h2></div>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">These details may materially affect the decision. No public documentation was located as of September 19, 2026.</p>
           <div className="mt-4">{unknowns.map((item) => <EmptyFact key={item}>{item}</EmptyFact>)}</div>
           <p className="mt-5 border-t border-border pt-5 text-xs leading-5 text-muted-foreground">Where information has not been publicly established, this site labels it as unknown rather than speculating.</p>
