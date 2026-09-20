@@ -23,7 +23,7 @@ type CandidateRecord = {
 
 export const Route = createFileRoute("/candidates")({
   head: () => ({ meta: [
-    { title: "2026 Candidate Positions | Indoor Tennis Nanaimo" },
+    { title: "2026 Candidate Positions | Nanaimo Tennis" },
     { name: "description", content: "Read Nanaimo mayoral and council candidate responses to the same three questions about year-round indoor tennis." },
     { property: "og:title", content: "Where do Nanaimo's 2026 candidates stand?" },
     { property: "og:description", content: "Candidate responses presented verbatim, without endorsement or ranking." },
