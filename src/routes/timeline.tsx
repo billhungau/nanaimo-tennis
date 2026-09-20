@@ -22,11 +22,11 @@ function TimelinePage() {
     </PageIntro>
     <section className="section-space">
       <div className="page-wrap max-w-4xl">
-        {timeline.map((item, index) => <article key={`${item.date}-${item.title}`} className="grid grid-cols-[5rem_1fr] gap-5 border-b border-border py-8 sm:grid-cols-[9rem_1fr]">
+        {timeline.map((item, index) => <article key={`${item.date}-${item.title}`} className="grid grid-cols-[4.25rem_1fr] gap-4 border-b border-border py-8 sm:grid-cols-[8rem_1fr] sm:gap-5">
           <div><p className="font-serif text-xl">{item.date}</p><p className="text-xs text-muted-foreground">{item.year}</p></div>
           <div>
             <div className="mb-3"><span className="rounded-sm bg-secondary px-2 py-1 text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground">{item.status}</span></div>
-            <div className="flex items-center gap-3"><span className="grid size-6 place-items-center rounded-full bg-secondary text-xs font-bold">{index + 1}</span><h2 className="font-serif text-2xl">{item.title}</h2></div>
+            <div className="flex items-start gap-2.5 sm:gap-3"><span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-secondary text-xs font-bold">{index + 1}</span><h2 className="font-serif text-[1.4rem] leading-[1.08] sm:text-2xl">{item.title}</h2></div>
             <p className="mt-3 leading-7 text-muted-foreground">{item.text}</p>
             {item.source && <div className="mt-3"><SourceLink href={item.source.url}/></div>}
           </div>
