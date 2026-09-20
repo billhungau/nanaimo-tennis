@@ -28,7 +28,7 @@ type CandidateDraft = Omit<CandidateRow, "last_updated">;
 export const Route = createFileRoute("/admin/candidates")({
   head: () => ({
     meta: [
-      { title: "Candidate Admin | Indoor Tennis Nanaimo" },
+      { title: "Candidate Admin | Nanaimo Tennis" },
       { name: "robots", content: "noindex,nofollow" },
     ],
   }),
