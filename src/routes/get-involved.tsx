@@ -15,7 +15,7 @@ export const Route = createFileRoute("/get-involved")({
     { title: "Get Involved | Indoor Tennis Nanaimo" },
     { name: "description", content: "Take part in the civic conversation about the future of year-round indoor tennis in Nanaimo." },
     { property: "og:title", content: "Participate in the conversation" },
-    { property: "og:description", content: "Read, contact Council, attend a meeting or share your experience with indoor tennis." },
+    { property: "og:description", content: "Read the public petition, contact Council, attend a meeting or share your experience with indoor tennis." },
     { property: "og:type", content: "website" },
     { property: "og:url", content: "https://nanaimo-tennis.lovable.app/get-involved" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -50,10 +50,10 @@ function GetInvolvedPage() {
   }
 
   const actions = [
-    ["Read the public petition", "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts"],
+    ["Read and sign the public petition", "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts"],
     ["Contact Mayor & Council", "https://www.nanaimo.ca/your-government/city-council"],
     ["Attend a Council meeting", "https://www.nanaimo.ca/your-government/city-council/council-meetings"],
-    ["Apply to speak as a delegation", "https://www.nanaimo.ca/your-government/city-council/addressing-council"],
+    ["Apply to appear as a delegation", "https://www.nanaimo.ca/your-government/city-council/council-meetings/appearing-as-a-delegation"],
   ];
 
   return <>
@@ -65,7 +65,7 @@ function GetInvolvedPage() {
         <div>
           <h2 className="font-serif text-3xl">Civic participation</h2>
           <div className="mt-6 border-t border-border">{actions.map(([label,url]) => <a key={label} href={url} target="_blank" rel="noreferrer" className="flex items-center justify-between border-b border-border py-4 text-sm font-semibold hover:text-ring">{label}<ArrowUpRight className="size-4"/></a>)}</div>
-          <p className="mt-5 text-xs leading-5 text-muted-foreground">External links go to the City of Nanaimo or the public petition. This site does not endorse candidates or tell residents how to vote.</p>
+          <p className="mt-5 text-xs leading-5 text-muted-foreground">External links go to the City of Nanaimo or the community-organized Change.org petition. This site does not endorse candidates or tell residents how to vote.</p>
         </div>
         <div className="civic-card p-6 sm:p-8">
           <h2 className="font-serif text-3xl">How has indoor tennis affected you or your family?</h2>
