@@ -11,6 +11,9 @@ export const candidates = [
   { name: "Anne Marie Dryden", office: "Mayor" as const },
   { name: "Leonard Eugene Krog", office: "Mayor" as const },
   { name: "Sarah Lovegrove", office: "Mayor" as const },
+  ...[
+    "Jeff Annesley", "Sheryl Armstrong", "Sandy Bartlett", "Ken Bennett", "Marnie Boers", "Jackie Bolen", "Mark Richard Chandler", "Paul Chapman", "Malcolm Cooke", "Andréa Coutu", "Shane Crawley", "Ryan Djakovic", "Hilary Eastmure", "Joe Figel", "Meg Fyfe Watkins", "Ben Geselbracht", "Bryan William Gordon", "Anita Gail Greer", "Patrick Gunville", "Derek Hanna", "Richard Harlow", "Erin Colleen Hemmens", "Steven Mark Johns", "Cameron James Leckenby", "Max Douglas MacKay", "Paul Manly", "Bryant Marshall", "Bill McKay", "Andrew Merilees", "Matthew Miller", "Zaki Paris Mohammed", "Rod Moreno", "Janice Perrino", "Rob Phelan", "Frank Pluta", "Austin Seng", "Holden Southward", "Ian Thorpe", "Paul Van Ryssel", "Angela Hope Waldick",
+  ].map((name) => ({ name, office: "Council" as const })),
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export const sources = [
