@@ -74,6 +74,14 @@ function formatOutreach(candidate: CandidateRow) {
   return `${label} · ${date.toLocaleDateString()}`;
 }
 
+function toLocalDateTimeInput(value: string | null) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  const pad = (part: number) => String(part).padStart(2, "0");
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+}
+
 function CandidateAdminPage() {
   const [session, setSession] = useState<Session | null>(null);
   const [authReady, setAuthReady] = useState(false);
@@ -283,7 +291,7 @@ function CandidateAdminPage() {
               <div className="mt-5 grid gap-5 sm:grid-cols-2">
                 <div><label className="mb-2 block text-sm font-medium">Method</label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={draft.outreach_method ?? ""} onChange={(event) => setDraft({ ...draft, outreach_method: event.target.value || null })}>{outreachMethods.map(([value, label]) => <option key={value || "none"} value={value}>{label}</option>)}</select></div>
                 <div><label className="mb-2 block text-sm font-medium">Status</label><select className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm" value={draft.outreach_status || "not_contacted"} onChange={(event) => setDraft({ ...draft, outreach_status: event.target.value })}>{outreachStatuses.map(([value, label]) => <option key={value} value={value}>{label}</option>)}</select></div>
-                <div><label className="mb-2 block text-sm font-medium">Outreach date & time</label><Input type="datetime-local" value={draft.outreach_at ? new Date(draft.outreach_at).toISOString().slice(0,16) : ""} onChange={(event) => setDraft({ ...draft, outreach_at: event.target.value ? new Date(event.target.value).toISOString() : null })}/></div>
+                <div><label className="mb-2 block text-sm font-medium">Outreach date & time</label><Input type="datetime-local" value={toLocalDateTimeInput(draft.outreach_at)} onChange={(event) => setDraft({ ...draft, outreach_at: event.target.value ? new Date(event.target.value).toISOString() : null })}/></div>
                 <div className="sm:col-span-2"><label className="mb-2 block text-sm font-medium">Outreach notes</label><textarea className="min-h-24 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={draft.outreach_notes ?? ""} onChange={(event) => setDraft({ ...draft, outreach_notes: event.target.value })} placeholder="e.g. Called candidate, left voicemail asking for an email address for the questionnaire."/></div>
               </div>
 
