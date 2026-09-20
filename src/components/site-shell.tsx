@@ -34,7 +34,7 @@ export function SiteFooter() {
   return <footer className="border-t border-border bg-primary text-primary-foreground">
     <div className="page-wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr]">
       <div><p className="font-serif text-2xl">Indoor Tennis Nanaimo</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75">An independent community information initiative about the future of year-round tennis in Nanaimo.</p></div>
-      <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/sources">Sources</Link><Link to="/candidates">Candidate Positions</Link><Link to="/get-involved">Contact</Link><Link to="/get-involved">Privacy</Link></nav>
+      <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/sources">Sources</Link><Link to="/candidates">Candidate Positions</Link><Link to="/get-involved">Contact</Link></nav>
     </div>
     <div className="border-t border-primary-foreground/15"><div className="page-wrap py-5 text-xs leading-5 text-primary-foreground/65">This website is not affiliated with the City of Nanaimo, Westwood Lake Tennis Club, Tennis Canada, or any political candidate or party. Last updated: September 19, 2026.</div></div>
   </footer>;
