@@ -22,9 +22,41 @@ export const Route = createFileRoute("/api/resend-webhook")({
 
         const emailId = String(event?.data?.email_id || "");
         const recipients = Array.isArray(event?.data?.to) ? event.data.to.map(String) : [];
+        const isTestReply = recipients.some((address: string) => /candidate-test@/i.test(address));
         const candidateId = recipients
           .map((address: string) => address.match(/candidate-([0-9a-f-]{36})@/i)?.[1])
           .find(Boolean);
+
+        const received = emailId ? await getReceivedEmail(emailId).catch(() => null) : null;
+        const from = String(received?.from || event?.data?.from || "Unknown sender");
+        const subject = String(received?.subject || event?.data?.subject || "(no subject)");
+        const text = String(received?.text || "").trim();
+        const excerpt = text ? text.slice(0, 4000) : "Email received. View the full message in the Resend dashboard.";
+
+        if (isTestReply) {
+          try {
+            const { adminEmail } = getEmailConfig();
+            if (adminEmail) {
+              await sendResendEmail({
+                to: adminEmail,
+                subject: `[TEST candidate reply] ${subject}`,
+                replyTo: from.includes("<") ? from.match(/<([^>]+)>/)?.[1] || undefined : from,
+                html: `
+                  <h2>Test candidate reply received</h2>
+                  <p><strong>From:</strong> ${escapeHtml(from)}</p>
+                  <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
+                  <p><strong>Message:</strong></p>
+                  <p>${escapeHtml(excerpt).replace(/\n/g, "<br>")}</p>
+                  <p>This confirms the Resend inbound webhook and admin notification path are working.</p>
+                `,
+                text: `Test candidate reply received\nFrom: ${from}\nSubject: ${subject}\n\n${excerpt}`,
+              });
+            }
+          } catch (mailError) {
+            console.error("Test candidate reply received but admin notification failed", mailError);
+          }
+          return Response.json({ ok: true, matched: true, test: true });
+        }
 
         if (!candidateId) return Response.json({ ok: true, matched: false });
 
@@ -38,13 +70,7 @@ export const Route = createFileRoute("/api/resend-webhook")({
 
         if (!candidate) return Response.json({ ok: true, matched: false });
 
-        const received = emailId ? await getReceivedEmail(emailId).catch(() => null) : null;
-        const from = String(received?.from || event?.data?.from || "Unknown sender");
-        const subject = String(received?.subject || event?.data?.subject || "(no subject)");
-        const text = String(received?.text || "").trim();
         const receivedAt = String(event?.created_at || new Date().toISOString());
-        const excerpt = text ? text.slice(0, 4000) : "Email received. View the full message in the Resend dashboard.";
-
         const note = `[${receivedAt}] Email reply received from ${from}\nSubject: ${subject}\n${excerpt}`;
         const internalNotes = [candidate.internal_notes, note].filter(Boolean).join("\n\n");
         await db.from("candidates").update({ internal_notes: internalNotes }).eq("id", candidate.id);
