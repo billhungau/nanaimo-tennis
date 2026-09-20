@@ -2,37 +2,12 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import logoAsset from "@/assets/indoor-tennis-nanaimo-logo.png.asset.json";
 
 const nav = [
   ["The Issue", "/the-issue"], ["Timeline", "/timeline"], ["Evidence", "/evidence"],
   ["Candidate Positions", "/candidates"], ["Sources", "/sources"], ["Get Involved", "/get-involved"],
 ] as const;
-
-function TennisMark() {
-  return (
-    <svg
-      viewBox="0 0 48 48"
-      aria-hidden="true"
-      className="size-11 shrink-0 text-foreground"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <circle cx="24" cy="24" r="18" stroke="currentColor" strokeWidth="2" />
-      <path
-        d="M11.5 12.5c6.8 4.5 9.9 10.4 9.3 17.5-.3 3.7-1.6 7.2-4 10.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <path
-        d="M36.5 7.5c-6.8 4.5-9.9 10.4-9.3 17.5.3 3.7 1.6 7.2 4 10.5"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -40,7 +15,7 @@ export function SiteHeader() {
   return <header className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur">
     <div className="page-wrap flex h-18 items-center justify-between gap-5">
       <Link to="/" className="flex items-center gap-3" aria-label="Indoor Tennis Nanaimo home">
-        <TennisMark />
+        <img src={logoAsset.url} alt="" className="size-11 shrink-0 object-contain" />
         <span className="text-sm font-semibold text-foreground sm:text-base">Indoor Tennis Nanaimo</span>
       </Link>
       <nav className="hidden items-center gap-5 xl:flex" aria-label="Main navigation">
