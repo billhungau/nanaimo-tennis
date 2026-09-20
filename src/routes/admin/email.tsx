@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { Mail, RotateCcw, Search } from "lucide-react";
+import { Mail, RotateCcw, Save, Search } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,11 +40,24 @@ type Candidate = {
   internal_notes: string | null;
 };
 
+type SavedTemplate = {
+  subject: string;
+  body: string;
+};
+
 function latestTimestamp(notes: string | null, phrase: string) {
   if (!notes) return null;
   const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const matches = [...notes.matchAll(new RegExp(`\\[([^\\]]+)\\] ${escaped}`, "g"))];
   return matches.at(-1)?.[1] ?? null;
+}
+
+function templateFromSession(session: Session | null): SavedTemplate | null {
+  const value = session?.user.user_metadata?.candidate_email_template;
+  if (!value || typeof value !== "object") return null;
+  const subject = typeof value.subject === "string" ? value.subject : null;
+  const body = typeof value.body === "string" ? value.body : null;
+  return subject && body ? { subject, body } : null;
 }
 
 export const Route = createFileRoute("/admin/email")({
@@ -66,8 +79,12 @@ function CandidateEmailPage() {
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState(DEFAULT_SUBJECT);
   const [body, setBody] = useState(DEFAULT_BODY);
+  const [savedSubject, setSavedSubject] = useState(DEFAULT_SUBJECT);
+  const [savedBody, setSavedBody] = useState(DEFAULT_BODY);
+  const [savingTemplate, setSavingTemplate] = useState(false);
 
   const isAdmin = session?.user.id === ADMIN_USER_ID;
+  const templateChanged = subject !== savedSubject || body !== savedBody;
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => { setSession(data.session); setAuthReady(true); });
@@ -75,7 +92,17 @@ function CandidateEmailPage() {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  useEffect(() => { if (isAdmin) void loadCandidates(); }, [isAdmin]);
+  useEffect(() => {
+    if (!isAdmin) return;
+    const saved = templateFromSession(session);
+    const nextSubject = saved?.subject ?? DEFAULT_SUBJECT;
+    const nextBody = saved?.body ?? DEFAULT_BODY;
+    setSubject(nextSubject);
+    setBody(nextBody);
+    setSavedSubject(nextSubject);
+    setSavedBody(nextBody);
+    void loadCandidates();
+  }, [isAdmin]);
 
   async function loadCandidates() {
     setLoading(true);
@@ -90,6 +117,38 @@ function CandidateEmailPage() {
     setAuthError("");
     const { error } = await supabase.auth.signInWithPassword({ email: loginEmail, password });
     if (error) setAuthError(error.message);
+  }
+
+  async function saveTemplate() {
+    if (!subject.trim() || !body.trim()) {
+      setMessage("Template cannot be saved with an empty subject or body.");
+      return;
+    }
+
+    setSavingTemplate(true);
+    setMessage("");
+    const { data, error } = await supabase.auth.updateUser({
+      data: {
+        candidate_email_template: {
+          subject,
+          body,
+        },
+      },
+    });
+
+    if (error) {
+      setMessage(`Template save failed: ${error.message}`);
+      setSavingTemplate(false);
+      return;
+    }
+
+    setSavedSubject(subject);
+    setSavedBody(body);
+    setMessage("Email template saved.");
+    if (data.user) {
+      setSession((current) => current ? { ...current, user: data.user } : current);
+    }
+    setSavingTemplate(false);
   }
 
   async function send(candidate: Candidate) {
@@ -136,12 +195,18 @@ function CandidateEmailPage() {
       <section className="border border-border bg-card p-5 sm:p-7">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div><p className="eyebrow">Email draft</p><h2 className="mt-2 font-serif text-2xl">Message sent to candidates</h2></div>
-          <Button variant="outline" size="sm" onClick={() => { setSubject(DEFAULT_SUBJECT); setBody(DEFAULT_BODY); }}><RotateCcw className="size-4" />Reset default</Button>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" onClick={() => { setSubject(DEFAULT_SUBJECT); setBody(DEFAULT_BODY); }}><RotateCcw className="size-4" />Reset default</Button>
+            <Button size="sm" onClick={saveTemplate} disabled={savingTemplate || !templateChanged || !subject.trim() || !body.trim()}><Save className="size-4" />{savingTemplate ? "Saving…" : templateChanged ? "Save template" : "Saved"}</Button>
+          </div>
         </div>
         <div className="mt-6 space-y-5">
           <div><label className="mb-2 block text-sm font-medium">Subject</label><Input value={subject} onChange={(e) => setSubject(e.target.value)} maxLength={200} /></div>
           <div><label className="mb-2 block text-sm font-medium">Body</label><Textarea value={body} onChange={(e) => setBody(e.target.value)} className="min-h-[34rem] font-mono text-sm leading-6" maxLength={12000} /></div>
-          <p className="text-xs leading-5 text-muted-foreground">Available placeholders: <code>{"{{name}}"}</code>, <code>{"{{candidate_page}}"}</code>, <code>{"{{site_url}}"}</code>. The same draft is used for every candidate until you edit or reset it.</p>
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs leading-5 text-muted-foreground">
+            <p>Available placeholders: <code>{"{{name}}"}</code>, <code>{"{{candidate_page}}"}</code>, <code>{"{{site_url}}"}</code>.</p>
+            <p>{templateChanged ? "Unsaved changes" : "Template saved"}</p>
+          </div>
         </div>
       </section>
 
@@ -154,7 +219,7 @@ function CandidateEmailPage() {
         </div>
 
         <div className="mt-8 relative max-w-sm"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name or email" className="pl-10" /></div>
-        {message && <p className={`mt-4 text-sm ${message.startsWith("Send failed") || message.startsWith("Unable") ? "text-destructive" : "text-muted-foreground"}`}>{message}</p>}
+        {message && <p className={`mt-4 text-sm ${message.startsWith("Send failed") || message.startsWith("Unable") || message.startsWith("Template save failed") ? "text-destructive" : "text-muted-foreground"}`}>{message}</p>}
 
         <div className="mt-6 overflow-hidden border border-border bg-card">
           {loading && <p className="p-6 text-sm text-muted-foreground">Loading…</p>}
