@@ -25,6 +25,13 @@ function personalize(value: string, candidateName: string, siteUrl: string) {
     .replaceAll("{{site_url}}", siteUrl);
 }
 
+function cleanSubject(value: string) {
+  return value
+    .replace(/^\s*\[TEST\]\s*/i, "")
+    .replace(/^\s*\[TEST candidate reply\]\s*/i, "")
+    .trim();
+}
+
 export const Route = createFileRoute("/api/candidate-email")({
   server: {
     handlers: {
@@ -51,7 +58,7 @@ export const Route = createFileRoute("/api/candidate-email")({
         const { replyDomain, siteUrl } = getEmailConfig();
 
         if (input.mode === "test") {
-          const subject = personalize(input.subject, "Candidate Name", siteUrl);
+          const subject = cleanSubject(personalize(input.subject, "Candidate Name", siteUrl));
           const text = personalize(input.body, "Candidate Name", siteUrl);
           const html = text
             .split(/\n{2,}/)
@@ -61,7 +68,7 @@ export const Route = createFileRoute("/api/candidate-email")({
 
           const messageId = await sendResendEmail({
             to: input.testEmail,
-            subject: `[TEST] ${subject}`,
+            subject,
             replyTo,
             text,
             html,
@@ -81,7 +88,7 @@ export const Route = createFileRoute("/api/candidate-email")({
         if (!candidate.email) return Response.json({ error: "No email address is recorded for this candidate" }, { status: 400 });
 
         const replyTo = `candidate-${candidate.id}@${replyDomain}`;
-        const subject = personalize(input.subject, candidate.name, siteUrl);
+        const subject = cleanSubject(personalize(input.subject, candidate.name, siteUrl));
         const text = personalize(input.body, candidate.name, siteUrl);
         const html = text
           .split(/\n{2,}/)
