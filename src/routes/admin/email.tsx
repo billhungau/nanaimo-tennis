@@ -1,13 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { Mail, RotateCcw, Save, Search } from "lucide-react";
+import { Mail, RotateCcw, Save, Search, Send } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { candidateQuestions } from "@/lib/civic-data";
-import { sendCandidateQuestionnaire } from "@/lib/candidate-email.functions";
 import { supabase } from "@/lib/supabase";
 
 const ADMIN_USER_ID = "05c2f47c-b22d-4d0d-8d14-9c03c33a4472";
@@ -66,7 +64,6 @@ export const Route = createFileRoute("/admin/email")({
 });
 
 function CandidateEmailPage() {
-  const sendQuestionnaire = useServerFn(sendCandidateQuestionnaire);
   const [session, setSession] = useState<Session | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
@@ -82,6 +79,8 @@ function CandidateEmailPage() {
   const [savedSubject, setSavedSubject] = useState(DEFAULT_SUBJECT);
   const [savedBody, setSavedBody] = useState(DEFAULT_BODY);
   const [savingTemplate, setSavingTemplate] = useState(false);
+  const [testEmail, setTestEmail] = useState("");
+  const [sendingTest, setSendingTest] = useState(false);
 
   const isAdmin = session?.user.id === ADMIN_USER_ID;
   const templateChanged = subject !== savedSubject || body !== savedBody;
@@ -127,14 +126,7 @@ function CandidateEmailPage() {
 
     setSavingTemplate(true);
     setMessage("");
-    const { data, error } = await supabase.auth.updateUser({
-      data: {
-        candidate_email_template: {
-          subject,
-          body,
-        },
-      },
-    });
+    const { data, error } = await supabase.auth.updateUser({ data: { candidate_email_template: { subject, body } } });
 
     if (error) {
       setMessage(`Template save failed: ${error.message}`);
@@ -145,19 +137,46 @@ function CandidateEmailPage() {
     setSavedSubject(subject);
     setSavedBody(body);
     setMessage("Email template saved.");
-    if (data.user) {
-      setSession((current) => current ? { ...current, user: data.user } : current);
-    }
+    if (data.user) setSession((current) => current ? { ...current, user: data.user } : current);
     setSavingTemplate(false);
   }
 
+  async function postEmail(payload: Record<string, unknown>) {
+    if (!session?.access_token) throw new Error("Not signed in");
+    const response = await fetch("/api/candidate-email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${session.access_token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json().catch(() => ({})) as { error?: string; to?: string };
+    if (!response.ok) throw new Error(result.error || "Email could not be sent");
+    return result;
+  }
+
+  async function sendTest() {
+    if (!testEmail.trim()) return;
+    setSendingTest(true);
+    setMessage("");
+    try {
+      const result = await postEmail({ mode: "test", testEmail: testEmail.trim(), subject, body });
+      setMessage(`Test email sent to ${result.to || testEmail.trim()}.`);
+    } catch (error) {
+      setMessage(`Test send failed: ${error instanceof Error ? error.message : "Unknown error"}`);
+    } finally {
+      setSendingTest(false);
+    }
+  }
+
   async function send(candidate: Candidate) {
-    if (!session?.access_token || !candidate.email) return;
+    if (!candidate.email) return;
     setSendingId(candidate.id);
     setMessage("");
     try {
-      const result = await sendQuestionnaire({ data: { candidateId: candidate.id, accessToken: session.access_token, subject, body } });
-      setMessage(`Questionnaire sent to ${candidate.name} at ${result.to}.`);
+      const result = await postEmail({ mode: "candidate", candidateId: candidate.id, subject, body });
+      setMessage(`Questionnaire sent to ${candidate.name} at ${result.to || candidate.email}.`);
       await loadCandidates();
     } catch (error) {
       setMessage(`Send failed for ${candidate.name}: ${error instanceof Error ? error.message : "Unknown error"}`);
@@ -207,6 +226,14 @@ function CandidateEmailPage() {
             <p>Available placeholders: <code>{"{{name}}"}</code>, <code>{"{{candidate_page}}"}</code>, <code>{"{{site_url}}"}</code>.</p>
             <p>{templateChanged ? "Unsaved changes" : "Template saved"}</p>
           </div>
+          <div className="border-t border-border pt-5">
+            <p className="text-sm font-semibold">Send a test</p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">Sends the current draft to your test address without changing any candidate record.</p>
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+              <Input type="email" value={testEmail} onChange={(e) => setTestEmail(e.target.value)} placeholder="you@example.com" className="sm:max-w-sm" />
+              <Button type="button" variant="outline" onClick={sendTest} disabled={sendingTest || !testEmail.trim() || !subject.trim() || !body.trim()}><Send className="size-4" />{sendingTest ? "Sending…" : "Send test email"}</Button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -218,11 +245,12 @@ function CandidateEmailPage() {
           <div className="mt-5 whitespace-pre-wrap border-t border-border pt-5 text-sm leading-6">{body.replaceAll("{{name}}", "Candidate Name").replaceAll("{{candidate_page}}", "https://www.nanaimotennis.ca/candidates").replaceAll("{{site_url}}", "https://www.nanaimotennis.ca")}</div>
         </div>
 
-        <div className="mt-8 relative max-w-sm"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search name or email" className="pl-10" /></div>
-        {message && <p className={`mt-4 text-sm ${message.startsWith("Send failed") || message.startsWith("Unable") || message.startsWith("Template save failed") ? "text-destructive" : "text-muted-foreground"}`}>{message}</p>}
+        <div className="mt-8 relative max-w-sm"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search candidate name or email" className="pl-10" /></div>
+        {message && <p className={`mt-4 text-sm ${message.startsWith("Send failed") || message.startsWith("Test send failed") || message.startsWith("Unable") || message.startsWith("Template save failed") ? "text-destructive" : "text-muted-foreground"}`}>{message}</p>}
 
         <div className="mt-6 overflow-hidden border border-border bg-card">
           {loading && <p className="p-6 text-sm text-muted-foreground">Loading…</p>}
+          {!loading && shown.length === 0 && <p className="p-6 text-sm text-muted-foreground">No candidates match this search.</p>}
           {!loading && shown.map((candidate) => {
             const lastSent = latestTimestamp(candidate.internal_notes, "Candidate questionnaire sent");
             const lastReply = latestTimestamp(candidate.internal_notes, "Email reply received");
