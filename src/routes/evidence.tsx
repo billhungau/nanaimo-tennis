@@ -5,7 +5,7 @@ import { sources, unknowns } from "@/lib/civic-data";
 
 export const Route = createFileRoute("/evidence")({
   head: () => ({ meta: [
-    { title: "Evidence | Indoor Tennis Nanaimo" },
+    { title: "Evidence | Nanaimo Tennis" },
     { name: "description", content: "Verified facts, source documents and clearly identified information gaps about indoor tennis at Westwood Lake." },
     { property: "og:title", content: "What do we know about Westwood indoor tennis?" },
     { property: "og:description", content: "An evidence-first record of verified facts and unanswered questions." },
