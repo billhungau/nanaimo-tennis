@@ -74,11 +74,24 @@ function CandidatesPage() {
     return () => { cancelled = true; };
   }, []);
 
-  const shown = useMemo(() => candidates.filter((candidate) => {
-    const matchesOffice = filter === "All" || candidate.office === filter;
-    const matchesQuery = candidate.name.toLowerCase().includes(query.trim().toLowerCase());
-    return matchesOffice && matchesQuery;
-  }), [candidates, filter, query]);
+  const shown = useMemo(() => {
+    const filtered = candidates.filter((candidate) => {
+      const matchesOffice = filter === "All" || candidate.office === filter;
+      const matchesQuery = candidate.name.toLowerCase().includes(query.trim().toLowerCase());
+      return matchesOffice && matchesQuery;
+    });
+
+    // Guard against accidental duplicate candidate rows in the data source.
+    const unique = new Map<string, CandidateRecord>();
+    for (const candidate of filtered) {
+      const key = `${candidate.name.trim().toLowerCase()}::${candidate.office.toLowerCase()}`;
+      const current = unique.get(key);
+      if (!current || (current.response_status !== "received" && candidate.response_status === "received")) {
+        unique.set(key, candidate);
+      }
+    }
+    return Array.from(unique.values());
+  }, [candidates, filter, query]);
 
   return <>
     <PageIntro eyebrow="2026 municipal election" title="Where do Nanaimo's candidates stand?">
@@ -109,13 +122,26 @@ function CandidatesPage() {
             const responses = [candidate.q1_response, candidate.q2_response, candidate.q3_response];
             const hasResponses = responses.some(Boolean);
             return <article key={candidate.id} className="border-b border-border last:border-0">
-              <div className="grid items-center gap-3 px-5 py-5 md:grid-cols-[1.4fr_.7fr_1fr_8rem]">
-                <h2 className="font-serif text-lg">{candidate.name}</h2>
-                <p className="text-sm text-muted-foreground">{candidate.office}</p>
-                <span className="w-fit rounded-sm border border-border bg-secondary px-2 py-1 text-xs font-medium">{received ? "Response received" : "No response received"}</span>
-                <Button variant="ghost" className="justify-start px-0 md:justify-end" onClick={() => setOpen(open === candidate.id ? null : candidate.id)}>{received ? "Read response" : "Details"}<ChevronDown className={open === candidate.id ? "rotate-180" : ""}/></Button>
+              <div className={received
+                ? "grid items-center gap-3 px-4 py-4 sm:px-5 sm:py-5 md:grid-cols-[1.4fr_.7fr_1fr_8rem]"
+                : "grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-4 py-3.5 sm:px-5 md:grid-cols-[1.4fr_.7fr_1fr_8rem] md:gap-3 md:py-5"}>
+                <div className="min-w-0">
+                  <h2 className="truncate font-serif text-lg">{candidate.name}</h2>
+                  {!received && <p className="mt-0.5 text-xs text-muted-foreground md:hidden">{candidate.office}</p>}
+                </div>
+                <p className={`${received ? "text-sm" : "hidden md:block md:text-sm"} text-muted-foreground`}>{candidate.office}</p>
+                <span className={`${received ? "w-fit" : "justify-self-end md:justify-self-start"} rounded-sm border border-border bg-secondary px-2 py-1 text-[11px] font-medium sm:text-xs`}>{received ? "Response received" : "No response"}</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={received ? "justify-start px-0 md:justify-end" : "col-span-2 mt-1 h-auto justify-start px-0 py-1 text-xs md:col-span-1 md:mt-0 md:h-9 md:justify-end md:py-2 md:text-sm"}
+                  onClick={() => setOpen(open === candidate.id ? null : candidate.id)}
+                  aria-expanded={open === candidate.id}
+                >
+                  {received ? "Read response" : "Details"}<ChevronDown className={open === candidate.id ? "rotate-180" : ""}/>
+                </Button>
               </div>
-              {open === candidate.id && <div className="border-t border-border bg-secondary/50 px-5 py-6">
+              {open === candidate.id && <div className="border-t border-border bg-secondary/50 px-4 py-5 sm:px-5 sm:py-6">
                 {received && hasResponses ? <div className="space-y-6">
                   {candidateQuestions.map((question, index) => <div key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="mt-2 text-sm leading-6">{responses[index] || "No response provided for this question."}</p></div>)}
                   <p className="text-xs text-muted-foreground">Response received {candidate.response_date ?? "date not recorded"}. Responses are published as provided.</p>
