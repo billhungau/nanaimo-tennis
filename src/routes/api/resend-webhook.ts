@@ -1,5 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+function extractLatestReply(text: string) {
+  const normalized = text.replace(/\r\n/g, "\n").trim();
+  if (!normalized) return "";
+
+  const cutPatterns = [
+    /\nOn .{0,300} wrote:\s*\n/i,
+    /\n-{2,}\s*Original Message\s*-{2,}\s*\n/i,
+    /\nFrom:\s.+\nSent:\s.+\nTo:\s.+\nSubject:\s.+/i,
+    /\n_{5,}\s*\n/,
+  ];
+
+  let cutAt = normalized.length;
+  for (const pattern of cutPatterns) {
+    const match = pattern.exec(normalized);
+    if (match && match.index < cutAt) cutAt = match.index;
+  }
+
+  let latest = normalized.slice(0, cutAt).trim();
+
+  const lines = latest.split("\n");
+  const firstQuoted = lines.findIndex((line) => /^\s*>/.test(line));
+  if (firstQuoted > 0) latest = lines.slice(0, firstQuoted).join("\n").trim();
+
+  return latest;
+}
+
 export const Route = createFileRoute("/api/resend-webhook")({
   server: {
     handlers: {
@@ -31,7 +57,10 @@ export const Route = createFileRoute("/api/resend-webhook")({
         const from = String(received?.from || event?.data?.from || "Unknown sender");
         const subject = String(received?.subject || event?.data?.subject || "(no subject)");
         const text = String(received?.text || "").trim();
-        const excerpt = text ? text.slice(0, 4000) : "Email received. View the full message in the Resend dashboard.";
+        const latestReply = extractLatestReply(text);
+        const excerpt = latestReply
+          ? latestReply.slice(0, 4000)
+          : "Email received. View the full message in the Resend dashboard.";
 
         if (isTestReply) {
           try {
