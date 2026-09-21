@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { renderEmailMarkdown, stripEmailMarkdown } from "@/lib/email-format";
 
 const ADMIN_USER_ID = "05c2f47c-b22d-4d0d-8d14-9c03c33a4472";
 
@@ -21,7 +22,7 @@ export const sendCandidateQuestionnaire = createServerFn({ method: "POST" })
   .inputValidator((data) => sendCandidateSchema.parse(data))
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { escapeHtml, getEmailConfig, sendResendEmail } = await import("@/lib/email.server");
+    const { getEmailConfig, sendResendEmail } = await import("@/lib/email.server");
 
     const { data: userData, error: userError } = await supabaseAdmin.auth.getUser(data.accessToken);
     if (userError || userData.user?.id !== ADMIN_USER_ID) throw new Error("Not authorized");
@@ -39,11 +40,9 @@ export const sendCandidateQuestionnaire = createServerFn({ method: "POST" })
     const { replyDomain, siteUrl } = getEmailConfig();
     const replyTo = `candidate-${candidate.id}@${replyDomain}`;
     const subject = personalize(data.subject, candidate.name, siteUrl);
-    const text = personalize(data.body, candidate.name, siteUrl);
-    const html = text
-      .split(/\n{2,}/)
-      .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("\n", "<br>")}</p>`)
-      .join("");
+    const formattedBody = personalize(data.body, candidate.name, siteUrl);
+    const text = stripEmailMarkdown(formattedBody);
+    const html = renderEmailMarkdown(formattedBody);
 
     const messageId = await sendResendEmail({
       to: candidate.email,
