@@ -21,6 +21,12 @@ type CandidateRecord = {
   last_updated: string;
 };
 
+const questionSummaries = [
+  "Pause removal until public consultation and a feasibility review are completed?",
+  "Evaluate nonprofit, lease, partnership or other operating models before removal?",
+  "What role should year-round indoor racquet-sport facilities play in long-term recreation planning?",
+];
+
 export const Route = createFileRoute("/candidates")({
   head: () => ({ meta: [
     { title: "2026 Candidate Positions | Nanaimo Tennis" },
@@ -38,6 +44,7 @@ function CandidatesPage() {
   const [filter, setFilter] = useState<Filter>("All");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
+  const [questionsOpen, setQuestionsOpen] = useState(false);
   const [candidates, setCandidates] = useState<CandidateRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -153,8 +160,38 @@ function CandidatesPage() {
 
   return <>
     <PageIntro eyebrow="2026 municipal election" title="Where do Nanaimo's candidates stand?">
-      <p>Every mayoral and council candidate is being asked the same questions. Responses are published without endorsement, ranking or editorial scoring so residents can read candidates' positions directly.</p>
+      <p>Every mayoral and council candidate is being asked the same three questions about the future of year-round indoor tennis. Responses are published without endorsement, ranking or editorial scoring so residents can read candidates' positions directly.</p>
     </PageIntro>
+
+    <section className="border-b border-border bg-card py-6 sm:py-8">
+      <div className="page-wrap">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="eyebrow">Same questions for every candidate</p>
+            <h2 className="mt-2 font-serif text-2xl sm:text-3xl">The 3 questions we asked</h2>
+          </div>
+          <p className="max-w-xl text-sm leading-6 text-muted-foreground">A quick summary is shown here. Expand the section to read the exact wording sent to every candidate.</p>
+        </div>
+
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          {questionSummaries.map((summary, index) => <div key={summary} className="flex gap-3 border border-border bg-secondary/35 p-4">
+            <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-xs font-bold">{index + 1}</span>
+            <p className="text-sm leading-6">{summary}</p>
+          </div>)}
+        </div>
+
+        <Button type="button" variant="ghost" className="mt-3 h-auto px-0 py-2 text-sm" onClick={() => setQuestionsOpen((value) => !value)} aria-expanded={questionsOpen}>
+          {questionsOpen ? "Hide full wording" : "Read full wording"}<ChevronDown className={questionsOpen ? "rotate-180" : ""}/>
+        </Button>
+
+        {questionsOpen && <div className="mt-2 border-t border-border">
+          {candidateQuestions.map((question, index) => <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[7rem_1fr]" key={question}>
+            <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p>
+            <p className="text-sm leading-6">{question}</p>
+          </article>)}
+        </div>}
+      </div>
+    </section>
 
     <section className="section-space">
       <div className="page-wrap">
@@ -178,14 +215,6 @@ function CandidatesPage() {
 
         {!loading && !loadError && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match this search.</p>}
         <p className="mt-4 text-xs text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Candidates are listed alphabetically within each office.</p>
-      </div>
-    </section>
-
-    <section className="section-space bg-secondary">
-      <div className="page-wrap">
-        <h2 className="font-serif text-3xl">Questions sent to every candidate</h2>
-        <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">The same wording is used for every candidate. Full responses are presented without endorsement or ranking.</p>
-        <div className="mt-8 border-t border-border">{candidateQuestions.map((question, index) => <article className="grid gap-3 border-b border-border py-7 md:grid-cols-[9rem_1fr]" key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="text-sm leading-7">{question}</p></article>)}</div>
       </div>
     </section>
   </>;
