@@ -8,6 +8,8 @@ import heroImage from "@/assets/indoor-tennis-community.jpg";
 import { timeline } from "@/lib/civic-data";
 
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
+const cbcVideoUrl = "https://www.youtube.com/watch?v=oCYB8IJWwFI";
+const cbcEmbedUrl = "https://www.youtube.com/embed/oCYB8IJWwFI";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -72,6 +74,37 @@ function Index() {
       </div>
     </section>
 
+    <section className="border-b border-border bg-card py-12 sm:py-16">
+      <div className="page-wrap grid gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center lg:gap-12">
+        <div>
+          <p className="eyebrow">In the news</p>
+          <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">CBC News looks at what happens when the indoor tennis bubble comes down.</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">The report covers the City's Westwood Lake land acquisition, the planned removal of the indoor tennis bubble, community concerns about losing year-round programming, and longer-term discussion of future racquet-sport facilities at Beban Park.</p>
+          <div className="mt-5 border-l-4 border-accent bg-secondary/70 p-4 text-sm leading-6 sm:p-5">
+            <span className="font-semibold">The immediate issue is the gap:</span> the existing indoor facility is expected to be removed before any future replacement facility is available.
+          </div>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Button asChild variant="outline"><a href={cbcVideoUrl} target="_blank" rel="noreferrer">Watch on YouTube<ArrowUpRight /></a></Button>
+            <Button asChild variant="ghost"><Link to="/sources">See source library<ArrowRight /></Link></Button>
+          </div>
+        </div>
+        <div className="overflow-hidden border border-border bg-secondary shadow-sm">
+          <div className="aspect-video">
+            <iframe
+              className="size-full"
+              src={cbcEmbedUrl}
+              title="CBC News coverage of Westwood Lake indoor tennis"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+          <div className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CBC News · September 2026</div>
+        </div>
+      </div>
+    </section>
+
     <section className="py-12 sm:section-space"><div className="page-wrap grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-12"><SectionHeading eyebrow="The central question" title="The question is not whether the City should own the land."/><div className="space-y-5 text-base leading-8 text-muted-foreground sm:space-y-6"><p>The acquisition of land beside Westwood Lake Park and the future of the existing indoor recreation facility are separate policy questions.</p><div className="border-l-4 border-accent bg-secondary p-5 font-serif text-lg leading-7 text-foreground sm:p-7 sm:text-xl sm:leading-8">Should an existing indoor recreation facility be removed before public consultation is completed and alternative operating models have been assessed?</div></div></div></section>
     <section className="bg-secondary py-12 sm:section-space"><div className="page-wrap"><SectionHeading eyebrow="The community request" title="A pause, not a permanent commitment." copy="We are not asking the City to commit to operating a municipal tennis club. We are asking that removal be deferred while the facility, community demand and alternative operating models are properly assessed."/><div className="mt-8 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:mt-10 lg:grid-cols-4">{principles.map(([Icon, title, text]) => <article key={title as string} className="bg-card p-4 sm:p-6"><Icon className="size-5 text-ring"/><h3 className="mt-5 font-semibold sm:mt-8">{title as string}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground sm:text-sm sm:leading-6">{text as string}</p></article>)}</div></div></section>
     <section className="py-12 sm:section-space"><div className="page-wrap grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12"><SectionHeading eyebrow="Why this matters" title="What year-round indoor tennis contributes"/><div className="border-t border-border">{reasons.map(([title,text]) => <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[.7fr_1.3fr] md:gap-3 md:py-7" key={title}><h3 className="font-serif text-xl">{title}</h3><p className="text-sm leading-6 text-muted-foreground">{text}</p></article>)}</div></div></section>
@@ -80,6 +113,7 @@ function Index() {
       <div className="page-wrap grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <SectionHeading eyebrow="Latest developments" title="What has happened most recently"/>
         <div className="border-t border-border">
+          <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 2026</p><div><h3 className="font-serif text-xl">CBC News reports on the indoor tennis issue</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">CBC News reports on the planned removal of the bubble, community concerns about the loss of year-round programming, and the City's longer-term consideration of racquet-sport facilities at Beban Park.</p><a href={cbcVideoUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Watch report<ArrowUpRight className="size-4"/></a></div></article>
           <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 17, 2026</p><div><h3 className="font-serif text-xl">Public petition launched</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A community-organized petition asks City Council to preserve the indoor courts while alternatives are considered.</p><a href={petitionUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">View petition<ArrowUpRight className="size-4"/></a></div></article>
           <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 16, 2026</p><div><h3 className="font-serif text-xl">City announces acquisition</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">The City announces the purchase of the Westwood Lake Tennis Club property and says the bubble will be removed.</p></div></article>
         </div>
