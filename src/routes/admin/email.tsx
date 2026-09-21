@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState, type FormEvent } from "react";
-import { Mail, RotateCcw, Save, Search, Send } from "lucide-react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { Bold, Mail, RotateCcw, Save, Search, Send } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { candidateQuestions } from "@/lib/civic-data";
+import { renderEmailMarkdown } from "@/lib/email-format";
 import { supabase } from "@/lib/supabase";
 
 const ADMIN_USER_ID = "05c2f47c-b22d-4d0d-8d14-9c03c33a4472";
@@ -58,6 +59,13 @@ function templateFromSession(session: Session | null): SavedTemplate | null {
   return subject && body ? { subject, body } : null;
 }
 
+function personalizePreview(value: string) {
+  return value
+    .replaceAll("{{name}}", "Candidate Name")
+    .replaceAll("{{candidate_page}}", "https://www.nanaimotennis.ca/candidates")
+    .replaceAll("{{site_url}}", "https://www.nanaimotennis.ca");
+}
+
 export const Route = createFileRoute("/admin/email")({
   head: () => ({ meta: [{ title: "Candidate Email | Nanaimo Tennis" }, { name: "robots", content: "noindex,nofollow" }] }),
   component: CandidateEmailPage,
@@ -81,6 +89,7 @@ function CandidateEmailPage() {
   const [savingTemplate, setSavingTemplate] = useState(false);
   const [testEmail, setTestEmail] = useState("");
   const [sendingTest, setSendingTest] = useState(false);
+  const bodyRef = useRef<HTMLTextAreaElement | null>(null);
 
   const isAdmin = session?.user.id === ADMIN_USER_ID;
   const templateChanged = subject !== savedSubject || body !== savedBody;
@@ -141,6 +150,25 @@ function CandidateEmailPage() {
     setSavingTemplate(false);
   }
 
+  function applyBold() {
+    const textarea = bodyRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selected = body.slice(start, end);
+    const inner = selected || "bold text";
+    const replacement = `**${inner}**`;
+    const nextBody = `${body.slice(0, start)}${replacement}${body.slice(end)}`;
+    setBody(nextBody);
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      const selectionStart = start + 2;
+      textarea.setSelectionRange(selectionStart, selectionStart + inner.length);
+    });
+  }
+
   async function postEmail(payload: Record<string, unknown>) {
     if (!session?.access_token) throw new Error("Not signed in");
     const response = await fetch("/api/candidate-email", {
@@ -190,6 +218,8 @@ function CandidateEmailPage() {
     return candidates.filter((candidate) => !term || candidate.name.toLowerCase().includes(term) || (candidate.email ?? "").toLowerCase().includes(term));
   }, [candidates, query]);
 
+  const previewHtml = renderEmailMarkdown(personalizePreview(body));
+
   if (!authReady) return <div className="page-wrap py-16 text-sm text-muted-foreground">Checking administrator session…</div>;
 
   if (!session) return <section className="py-16 sm:py-24"><div className="page-wrap max-w-md">
@@ -221,7 +251,14 @@ function CandidateEmailPage() {
         </div>
         <div className="mt-6 space-y-5">
           <div><label className="mb-2 block text-sm font-medium">Subject</label><Input value={subject} onChange={(e) => setSubject(e.target.value)} maxLength={200} /></div>
-          <div><label className="mb-2 block text-sm font-medium">Body</label><Textarea value={body} onChange={(e) => setBody(e.target.value)} className="min-h-[34rem] font-mono text-sm leading-6" maxLength={12000} /></div>
+          <div>
+            <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+              <label className="block text-sm font-medium">Body</label>
+              <Button type="button" variant="outline" size="sm" onClick={applyBold}><Bold className="size-4" />Bold</Button>
+            </div>
+            <Textarea ref={bodyRef} value={body} onChange={(e) => setBody(e.target.value)} className="min-h-[34rem] font-mono text-sm leading-6" maxLength={12000} />
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">Select text and click <strong>Bold</strong>, or type <code>**text**</code>. Raw HTML is not accepted.</p>
+          </div>
           <div className="flex flex-wrap items-center justify-between gap-2 text-xs leading-5 text-muted-foreground">
             <p>Available placeholders: <code>{"{{name}}"}</code>, <code>{"{{candidate_page}}"}</code>, <code>{"{{site_url}}"}</code>.</p>
             <p>{templateChanged ? "Unsaved changes" : "Template saved"}</p>
@@ -242,7 +279,7 @@ function CandidateEmailPage() {
           <p className="eyebrow">Preview</p>
           <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Subject</p>
           <p className="mt-1 text-sm font-semibold">{subject.replaceAll("{{name}}", "Candidate Name")}</p>
-          <div className="mt-5 whitespace-pre-wrap border-t border-border pt-5 text-sm leading-6">{body.replaceAll("{{name}}", "Candidate Name").replaceAll("{{candidate_page}}", "https://www.nanaimotennis.ca/candidates").replaceAll("{{site_url}}", "https://www.nanaimotennis.ca")}</div>
+          <div className="mt-5 border-t border-border pt-5 text-sm leading-6 [&_p]:mb-4 [&_p:last-child]:mb-0" dangerouslySetInnerHTML={{ __html: previewHtml }} />
         </div>
 
         <div className="mt-8 relative max-w-sm"><Search className="absolute left-3 top-3 size-4 text-muted-foreground"/><Input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search candidate name or email" className="pl-10" /></div>
