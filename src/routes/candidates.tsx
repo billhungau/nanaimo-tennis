@@ -130,7 +130,7 @@ function CandidatesPage() {
       </div>
       {open === candidate.id && <div className={`border-t border-border px-4 py-5 sm:px-5 sm:py-6 ${received ? "bg-primary/[0.035]" : "bg-secondary/50"}`}>
         {received && hasResponses ? <div className="space-y-6">
-          {candidateQuestions.map((question, index) => <div key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="mt-2 text-sm leading-6">{responses[index] || "No response provided for this question."}</p></div>)}
+          {candidateQuestions.map((question, index) => <div key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="mt-2 whitespace-pre-line text-sm leading-6">{responses[index] || "No response provided for this question."}</p></div>)}
           <p className="text-xs text-muted-foreground">Response received {candidate.response_date ?? "date not recorded"}. Responses are published as provided.</p>
           {candidate.response_source && <p className="text-xs"><a href={candidate.response_source} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">View response source</a></p>}
         </div> : <p className="text-sm text-muted-foreground">No response has been recorded yet. This page will be updated if a response is provided.</p>}
