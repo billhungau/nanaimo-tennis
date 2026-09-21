@@ -165,12 +165,9 @@ function CandidatesPage() {
 
     <section className="border-b border-border bg-card py-6 sm:py-8">
       <div className="page-wrap">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="eyebrow">Same questions for every candidate</p>
-            <h2 className="mt-2 font-serif text-2xl sm:text-3xl">The 3 questions we asked</h2>
-          </div>
-          <p className="max-w-xl text-sm leading-6 text-muted-foreground">A quick summary is shown here. Expand the section to read the exact wording sent to every candidate.</p>
+        <div>
+          <p className="eyebrow">Same questions for every candidate</p>
+          <h2 className="mt-2 font-serif text-2xl sm:text-3xl">The 3 questions we asked</h2>
         </div>
 
         <div className="mt-5 grid gap-3 md:grid-cols-3">
