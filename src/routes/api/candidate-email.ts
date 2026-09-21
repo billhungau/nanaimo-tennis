@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { renderEmailMarkdown, stripEmailMarkdown } from "@/lib/email-format";
 
 const ADMIN_USER_ID = "05c2f47c-b22d-4d0d-8d14-9c03c33a4472";
 
@@ -48,7 +49,7 @@ export const Route = createFileRoute("/api/candidate-email")({
         }
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        const { escapeHtml, getEmailConfig, sendResendEmail } = await import("@/lib/email.server");
+        const { getEmailConfig, sendResendEmail } = await import("@/lib/email.server");
 
         const { data: userData, error: userError } = await supabaseAdmin.auth.getUser(token);
         if (userError || userData.user?.id !== ADMIN_USER_ID) {
@@ -59,11 +60,9 @@ export const Route = createFileRoute("/api/candidate-email")({
 
         if (input.mode === "test") {
           const subject = cleanSubject(personalize(input.subject, "Candidate Name", siteUrl));
-          const text = personalize(input.body, "Candidate Name", siteUrl);
-          const html = text
-            .split(/\n{2,}/)
-            .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("\n", "<br>")}</p>`)
-            .join("");
+          const formattedBody = personalize(input.body, "Candidate Name", siteUrl);
+          const text = stripEmailMarkdown(formattedBody);
+          const html = renderEmailMarkdown(formattedBody);
           const replyTo = `candidate-test@${replyDomain}`;
 
           const messageId = await sendResendEmail({
@@ -89,11 +88,9 @@ export const Route = createFileRoute("/api/candidate-email")({
 
         const replyTo = `candidate-${candidate.id}@${replyDomain}`;
         const subject = cleanSubject(personalize(input.subject, candidate.name, siteUrl));
-        const text = personalize(input.body, candidate.name, siteUrl);
-        const html = text
-          .split(/\n{2,}/)
-          .map((paragraph) => `<p>${escapeHtml(paragraph).replaceAll("\n", "<br>")}</p>`)
-          .join("");
+        const formattedBody = personalize(input.body, candidate.name, siteUrl);
+        const text = stripEmailMarkdown(formattedBody);
+        const html = renderEmailMarkdown(formattedBody);
 
         const messageId = await sendResendEmail({
           to: candidate.email,
