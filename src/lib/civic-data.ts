@@ -73,7 +73,7 @@ export const sources = [
   {
     title: "Westwood Lake expansion raises concerns over loss of indoor tennis",
     publisher: "CBC News",
-    date: "September 2026",
+    date: "September 20, 2026",
     category: "News" as SourceCategory,
     url: "https://www.youtube.com/watch?v=oCYB8IJWwFI",
     summary: "CBC News reports on the planned removal of the Westwood Lake tennis bubble, community concerns about the loss of year-round programming, and the City's longer-term consideration of future racquet-sport facilities at Beban Park.",
