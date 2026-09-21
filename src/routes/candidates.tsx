@@ -101,29 +101,27 @@ function CandidatesPage() {
     const responses = [candidate.q1_response, candidate.q2_response, candidate.q3_response];
     const hasResponses = responses.some(Boolean);
 
-    return <article key={candidate.id} className={`border-b border-border last:border-0 ${received ? "bg-primary/[0.045]" : "bg-card"}`}>
-      <div className={received
-        ? "grid items-center gap-3 px-4 py-4 sm:px-5 sm:py-5 md:grid-cols-[minmax(0,1fr)_12rem_8rem]"
-        : "grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,1fr)_12rem_8rem] md:gap-3 md:py-5"}>
+    return <article key={candidate.id} className={`border-b border-border last:border-0 ${received ? "bg-primary/[0.065]" : "bg-card"}`}>
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 px-4 py-3 sm:px-5 md:grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] md:gap-3 md:py-4">
         <div className="min-w-0">
-          <h3 className="truncate font-serif text-lg">{candidate.name}</h3>
+          <h3 className="truncate font-serif text-base sm:text-lg">{candidate.name}</h3>
         </div>
         <span className={`${received
-          ? "w-fit border-primary/25 bg-primary/10 text-primary"
-          : "justify-self-end border-border bg-secondary text-muted-foreground md:justify-self-start"} rounded-sm border px-2 py-1 text-[11px] font-medium sm:text-xs`}>
+          ? "justify-self-end border-primary/30 bg-primary/15 text-primary md:justify-self-start"
+          : "justify-self-end border-border bg-secondary/60 text-muted-foreground md:justify-self-start"} rounded-sm border px-2 py-1 text-[11px] font-medium sm:text-xs`}>
           {received ? "Response received" : "No response"}
         </span>
         <Button
           variant="ghost"
           size="sm"
-          className={received ? "justify-start px-0 md:justify-end" : "col-span-2 mt-1 h-auto justify-start px-0 py-1 text-xs md:col-span-1 md:mt-0 md:h-9 md:justify-end md:py-2 md:text-sm"}
+          className="col-span-2 h-auto justify-start px-0 py-1 text-xs md:col-span-1 md:h-9 md:justify-end md:py-2 md:text-sm"
           onClick={() => setOpen(open === candidate.id ? null : candidate.id)}
           aria-expanded={open === candidate.id}
         >
           {received ? "Read response" : "Details"}<ChevronDown className={open === candidate.id ? "rotate-180" : ""}/>
         </Button>
       </div>
-      {open === candidate.id && <div className={`border-t border-border px-4 py-5 sm:px-5 sm:py-6 ${received ? "bg-primary/[0.025]" : "bg-secondary/50"}`}>
+      {open === candidate.id && <div className={`border-t border-border px-4 py-5 sm:px-5 sm:py-6 ${received ? "bg-primary/[0.035]" : "bg-secondary/50"}`}>
         {received && hasResponses ? <div className="space-y-6">
           {candidateQuestions.map((question, index) => <div key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="mt-2 text-sm leading-6">{responses[index] || "No response provided for this question."}</p></div>)}
           <p className="text-xs text-muted-foreground">Response received {candidate.response_date ?? "date not recorded"}. Responses are published as provided.</p>
@@ -136,17 +134,16 @@ function CandidatesPage() {
   function renderCandidateSection(title: string, description: string, items: CandidateRecord[]) {
     if (items.length === 0) return null;
 
-    return <section className="mt-10 first:mt-8">
-      <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h2 className="font-serif text-2xl">{title}</h2>
-          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
-        </div>
-        <p className="text-xs font-medium text-muted-foreground">{items.length} {items.length === 1 ? "candidate" : "candidates"}</p>
+    return <section className="mt-8 first:mt-8">
+      <div className="mb-3">
+        <h2 className="font-serif text-xl sm:text-2xl">{title}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          {description} <span aria-hidden="true">·</span> {items.length} {items.length === 1 ? "candidate" : "candidates"}
+        </p>
       </div>
 
       <div className="overflow-hidden border border-border bg-card">
-        <div className="hidden grid-cols-[minmax(0,1fr)_12rem_8rem] gap-4 border-b border-border bg-secondary px-5 py-3 text-xs font-bold uppercase text-muted-foreground md:grid">
+        <div className="hidden grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] gap-4 border-b border-border bg-secondary px-5 py-3 text-xs font-bold uppercase text-muted-foreground md:grid">
           <span>Candidate</span><span>Response status</span><span>Response</span>
         </div>
         {items.map(renderCandidate)}
