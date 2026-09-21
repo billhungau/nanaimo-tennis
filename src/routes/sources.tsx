@@ -8,6 +8,14 @@ import { sources } from "@/lib/civic-data";
 
 const categories = ["All", "City documents", "News", "Recreation records", "Historical records", "Community statements", "Candidate statements"] as const;
 
+function sourceDateValue(date: string) {
+  const yearOnly = date.match(/^\d{4}$/);
+  if (yearOnly) return Date.UTC(Number(date), 0, 1);
+
+  const parsed = Date.parse(date);
+  return Number.isNaN(parsed) ? 0 : parsed;
+}
+
 export const Route = createFileRoute("/sources")({
   head: () => ({
     meta: [
@@ -27,7 +35,10 @@ export const Route = createFileRoute("/sources")({
 function SourcesPage() {
   const [query,setQuery] = useState("");
   const [category,setCategory] = useState<(typeof categories)[number]>("All");
-  const shown = sources.filter(s => (category === "All" || s.category === category) && `${s.title} ${s.publisher} ${s.summary}`.toLowerCase().includes(query.toLowerCase()));
+  const shown = sources
+    .filter(s => (category === "All" || s.category === category) && `${s.title} ${s.publisher} ${s.summary}`.toLowerCase().includes(query.toLowerCase()))
+    .slice()
+    .sort((a, b) => sourceDateValue(b.date) - sourceDateValue(a.date));
 
   return <>
     <PageIntro eyebrow="Source library" title="Read the record for yourself.">
