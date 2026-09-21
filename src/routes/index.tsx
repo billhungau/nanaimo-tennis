@@ -78,10 +78,10 @@ function Index() {
       <div className="page-wrap grid gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center lg:gap-12">
         <div>
           <p className="eyebrow">In the news</p>
-          <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">CBC News looks at what happens when the indoor tennis bubble comes down.</h2>
-          <p className="mt-4 text-sm leading-7 text-muted-foreground">The report covers the City's Westwood Lake land acquisition, the planned removal of the indoor tennis bubble, community concerns about losing year-round programming, and longer-term discussion of future racquet-sport facilities at Beban Park.</p>
+          <h2 className="mt-2 max-w-xl font-serif text-3xl leading-tight sm:text-[2.15rem]">CBC News examines the future of indoor tennis in Nanaimo.</h2>
+          <p className="mt-4 text-sm leading-7 text-muted-foreground">CBC News reports on the Westwood Lake property acquisition, the planned removal of the indoor tennis bubble, community concerns about losing year-round programming, and the City's longer-term consideration of racquet-sport facilities at Beban Park.</p>
           <div className="mt-5 border-l-4 border-accent bg-secondary/70 p-4 text-sm leading-6 sm:p-5">
-            <span className="font-semibold">The immediate issue is the gap:</span> the existing indoor facility is expected to be removed before any future replacement facility is available.
+            <span className="font-semibold">The immediate issue is the gap:</span> the existing indoor facility is planned to be removed before any future replacement facility is available.
           </div>
           <div className="mt-5 flex flex-wrap gap-3">
             <Button asChild variant="outline"><a href={cbcVideoUrl} target="_blank" rel="noreferrer">Watch on YouTube<ArrowUpRight /></a></Button>
