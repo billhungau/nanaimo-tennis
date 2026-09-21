@@ -71,6 +71,15 @@ export const sources = [
     primary: false,
   },
   {
+    title: "Westwood Lake expansion raises concerns over loss of indoor tennis",
+    publisher: "CBC News",
+    date: "September 2026",
+    category: "News" as SourceCategory,
+    url: "https://www.youtube.com/watch?v=oCYB8IJWwFI",
+    summary: "CBC News reports on the planned removal of the Westwood Lake tennis bubble, community concerns about the loss of year-round programming, and the City's longer-term consideration of future racquet-sport facilities at Beban Park.",
+    primary: false,
+  },
+  {
     title: "Urge Nanaimo to preserve Westwood Lake indoor tennis courts",
     publisher: "Change.org",
     date: "September 17, 2026",
@@ -101,7 +110,7 @@ export const unknowns = [
 
 export const timeline = [
   { date: "Sep 16", year: "2026", title: "Acquisition announced", text: "The City announces its purchase of the Westwood Lake Tennis Club property.", status: "Occurred", source: sources[2] },
-  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A community-organized public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[7] },
+  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A community-organized public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[8] },
   { date: "Oct 17", year: "2026", title: "Municipal election", text: "Nanaimo holds its general local election.", status: "Scheduled", source: sources[1] },
   { date: "Nov 1", year: "2026", title: "Expected club closure", text: "Westwood Lake Tennis Club is expected to cease operations.", status: "Expected", source: sources[2] },
   { date: "Dec 18", year: "2026", title: "Expected possession", text: "The City is expected to take possession of the property.", status: "Expected", source: sources[4] },
