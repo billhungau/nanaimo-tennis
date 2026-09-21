@@ -27,6 +27,17 @@ const questionSummaries = [
   "What role should year-round indoor racquet-sport facilities play in long-term recreation planning?",
 ];
 
+const currentOfficeHolders: Record<string, string> = {
+  "Leonard Eugene Krog": "Incumbent Mayor",
+  "Sheryl Armstrong": "Current Councillor",
+  "Hilary Eastmure": "Current Councillor",
+  "Ben Geselbracht": "Current Councillor",
+  "Erin Colleen Hemmens": "Current Councillor",
+  "Paul Manly": "Current Councillor",
+  "Janice Perrino": "Current Councillor",
+  "Ian Thorpe": "Current Councillor",
+};
+
 export const Route = createFileRoute("/candidates")({
   head: () => ({ meta: [
     { title: "2026 Candidate Positions | Nanaimo Tennis" },
@@ -107,11 +118,15 @@ function CandidatesPage() {
     const received = candidate.response_status === "received";
     const responses = [candidate.q1_response, candidate.q2_response, candidate.q3_response];
     const hasResponses = responses.some(Boolean);
+    const currentRole = currentOfficeHolders[candidate.name];
 
     return <article key={candidate.id} className={`border-b border-border last:border-0 ${received ? "bg-primary/[0.065]" : "bg-card"}`}>
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 px-4 py-3 sm:px-5 md:grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] md:gap-3 md:py-4">
         <div className="min-w-0">
-          <h3 className="truncate font-serif text-base sm:text-lg">{candidate.name}</h3>
+          <div className="flex min-w-0 flex-wrap items-center gap-2">
+            <h3 className="truncate font-serif text-base sm:text-lg">{candidate.name}</h3>
+            {currentRole && <span className="shrink-0 rounded-sm border border-border bg-secondary/70 px-2 py-0.5 text-[10px] font-medium text-muted-foreground sm:text-[11px]">{currentRole}</span>}
+          </div>
         </div>
         <span className={`${received
           ? "justify-self-end border-primary/30 bg-primary/15 text-primary md:justify-self-start"
@@ -211,7 +226,7 @@ function CandidatesPage() {
         </>}
 
         {!loading && !loadError && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match this search.</p>}
-        <p className="mt-4 text-xs text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Candidates are listed alphabetically within each office.</p>
+        <p className="mt-4 text-xs text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Candidates are listed alphabetically within each office. Incumbency labels identify current City office-holders as of September 2026 and are provided as factual context only.</p>
       </div>
     </section>
   </>;
