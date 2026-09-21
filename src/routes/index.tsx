@@ -100,7 +100,7 @@ function Index() {
               allowFullScreen
             />
           </div>
-          <div className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CBC News · September 2026</div>
+          <div className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CBC News · September 20, 2026</div>
         </div>
       </div>
     </section>
@@ -113,7 +113,7 @@ function Index() {
       <div className="page-wrap grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <SectionHeading eyebrow="Latest developments" title="What has happened most recently"/>
         <div className="border-t border-border">
-          <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 2026</p><div><h3 className="font-serif text-xl">CBC News reports on the indoor tennis issue</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">CBC News reports on the planned removal of the bubble, community concerns about the loss of year-round programming, and the City's longer-term consideration of racquet-sport facilities at Beban Park.</p><a href={cbcVideoUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Watch report<ArrowUpRight className="size-4"/></a></div></article>
+          <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 20, 2026</p><div><h3 className="font-serif text-xl">CBC News reports on the indoor tennis issue</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">CBC News reports on the planned removal of the bubble, community concerns about the loss of year-round programming, and the City's longer-term consideration of racquet-sport facilities at Beban Park.</p><a href={cbcVideoUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Watch report<ArrowUpRight className="size-4"/></a></div></article>
           <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 17, 2026</p><div><h3 className="font-serif text-xl">Public petition launched</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">A community-organized petition asks City Council to preserve the indoor courts while alternatives are considered.</p><a href={petitionUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">View petition<ArrowUpRight className="size-4"/></a></div></article>
           <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 16, 2026</p><div><h3 className="font-serif text-xl">City announces acquisition</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">The City announces the purchase of the Westwood Lake Tennis Club property and says the bubble will be removed.</p></div></article>
         </div>
