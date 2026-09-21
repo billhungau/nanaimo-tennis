@@ -13,7 +13,7 @@ export const Route = createFileRoute("/get-involved")({
     { title: "Get Involved | Nanaimo Tennis" },
     { name: "description", content: "Take part in the civic conversation about the future of year-round indoor tennis in Nanaimo." },
     { property: "og:title", content: "Participate in the conversation" },
-    { property: "og:description", content: "Read the public petition, contact Council, attend a meeting or share your experience with indoor tennis." },
+    { property: "og:description", content: "Join community updates, read the public petition, contact Council, attend a meeting or share your experience with indoor tennis." },
     { property: "og:type", content: "website" },
     { property: "og:url", content: "https://nanaimo-tennis.lovable.app/get-involved" },
     { name: "twitter:card", content: "summary_large_image" },
@@ -55,6 +55,7 @@ function GetInvolvedPage() {
   }
 
   const actions = [
+    ["Join community updates on Google Groups", "https://groups.google.com/g/fitin2"],
     ["Read and sign the public petition", "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts"],
     ["Contact Mayor & Council", "https://www.nanaimo.ca/your-government/city-council"],
     ["Attend a Council meeting", "https://www.nanaimo.ca/your-government/city-council/council-meetings"],
@@ -63,7 +64,7 @@ function GetInvolvedPage() {
 
   return <>
     <PageIntro eyebrow="Get involved" title="Participate in the conversation.">
-      <p>Learn from the public record, share your experience and take part respectfully in Nanaimo's civic process.</p>
+      <p>Learn from the public record, join community updates, share your experience and take part respectfully in Nanaimo's civic process.</p>
     </PageIntro>
     <section className="section-space">
       <div className="page-wrap grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
@@ -72,7 +73,7 @@ function GetInvolvedPage() {
           <div className="mt-5 grid gap-2 sm:mt-6">
             {actions.map(([label,url]) => <a key={label} href={url} target="_blank" rel="noreferrer" className="group flex items-center justify-between border border-border bg-card px-4 py-4 text-sm font-semibold transition-colors hover:border-ring hover:text-ring sm:px-5">{label}<ArrowUpRight className="size-4 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"/></a>)}
           </div>
-          <p className="mt-4 text-xs leading-5 text-muted-foreground sm:mt-5">External links go to the City of Nanaimo or the community-organized Change.org petition. This site does not endorse candidates or tell residents how to vote.</p>
+          <p className="mt-4 text-xs leading-5 text-muted-foreground sm:mt-5">The Google Group is the community update and coordination channel. Other external links go to the City of Nanaimo or the community-organized Change.org petition. This site does not endorse candidates or tell residents how to vote.</p>
         </div>
         <div className="civic-card p-5 sm:p-8">
           <p className="text-xs font-bold uppercase tracking-[.14em] text-muted-foreground">Community experiences</p>
