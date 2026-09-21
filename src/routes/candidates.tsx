@@ -103,13 +103,11 @@ function CandidatesPage() {
 
     return <article key={candidate.id} className={`border-b border-border last:border-0 ${received ? "bg-primary/[0.045]" : "bg-card"}`}>
       <div className={received
-        ? "grid items-center gap-3 px-4 py-4 sm:px-5 sm:py-5 md:grid-cols-[1.4fr_.7fr_1fr_8rem]"
-        : "grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-4 py-3.5 sm:px-5 md:grid-cols-[1.4fr_.7fr_1fr_8rem] md:gap-3 md:py-5"}>
+        ? "grid items-center gap-3 px-4 py-4 sm:px-5 sm:py-5 md:grid-cols-[minmax(0,1fr)_12rem_8rem]"
+        : "grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,1fr)_12rem_8rem] md:gap-3 md:py-5"}>
         <div className="min-w-0">
           <h3 className="truncate font-serif text-lg">{candidate.name}</h3>
-          {!received && <p className="mt-0.5 text-xs text-muted-foreground md:hidden">{candidate.office}</p>}
         </div>
-        <p className={`${received ? "text-sm" : "hidden md:block md:text-sm"} text-muted-foreground`}>{candidate.office}</p>
         <span className={`${received
           ? "w-fit border-primary/25 bg-primary/10 text-primary"
           : "justify-self-end border-border bg-secondary text-muted-foreground md:justify-self-start"} rounded-sm border px-2 py-1 text-[11px] font-medium sm:text-xs`}>
@@ -148,8 +146,8 @@ function CandidatesPage() {
       </div>
 
       <div className="overflow-hidden border border-border bg-card">
-        <div className="hidden grid-cols-[1.4fr_.7fr_1fr_8rem] gap-4 border-b border-border bg-secondary px-5 py-3 text-xs font-bold uppercase text-muted-foreground md:grid">
-          <span>Candidate</span><span>Office</span><span>Response status</span><span>Response</span>
+        <div className="hidden grid-cols-[minmax(0,1fr)_12rem_8rem] gap-4 border-b border-border bg-secondary px-5 py-3 text-xs font-bold uppercase text-muted-foreground md:grid">
+          <span>Candidate</span><span>Response status</span><span>Response</span>
         </div>
         {items.map(renderCandidate)}
       </div>
