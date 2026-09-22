@@ -127,13 +127,12 @@ function CandidatesPage() {
     if (!text) return <p className="text-[15px] leading-7 text-muted-foreground sm:text-base">No response provided for this question.</p>;
 
     const paragraphs = text
-      .replace(/\r\n/g, "\n")
-      .split(/\n\s*\n+/)
-      .map((paragraph) => paragraph.replace(/\s*\n\s*/g, " ").replace(/[ \t]+/g, " ").trim())
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.trim())
       .filter(Boolean);
 
     return <div className="space-y-4 text-[15px] leading-7 text-foreground/90 sm:text-base sm:leading-7">
-      {paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+      {paragraphs.map((paragraph, index) => <p key={index} className="whitespace-pre-line">{paragraph}</p>)}
     </div>;
   }
 
