@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
-import { Bold, Mail, RotateCcw, Save, Search, Send } from "lucide-react";
+import { Bold, CheckCircle2, Mail, RotateCcw, Save, Search, Send } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,6 +37,8 @@ type Candidate = {
   office: "Mayor" | "Council";
   email: string | null;
   internal_notes: string | null;
+  response_status: "received" | "not_received";
+  response_date: string | null;
 };
 
 type SavedTemplate = {
@@ -114,7 +116,7 @@ function CandidateEmailPage() {
 
   async function loadCandidates() {
     setLoading(true);
-    const { data, error } = await (supabase as any).from("candidates").select("id,name,office,email,internal_notes").order("name", { ascending: true });
+    const { data, error } = await (supabase as any).from("candidates").select("id,name,office,email,internal_notes,response_status,response_date").order("name", { ascending: true });
     if (error) setMessage(`Unable to load candidates: ${error.message}`);
     else setCandidates((data ?? []) as Candidate[]);
     setLoading(false);
@@ -291,12 +293,23 @@ function CandidateEmailPage() {
           {!loading && shown.map((candidate) => {
             const lastSent = latestTimestamp(candidate.internal_notes, "Candidate questionnaire sent");
             const lastReply = latestTimestamp(candidate.internal_notes, "Email reply received");
+            const responseReceived = candidate.response_status === "received";
             return <article key={candidate.id} className="grid gap-4 border-b border-border p-5 last:border-0 sm:grid-cols-[1fr_auto] sm:items-center">
-              <div><div className="flex flex-wrap items-center gap-2"><h2 className="font-serif text-lg">{candidate.name}</h2><span className="text-xs text-muted-foreground">{candidate.office}</span></div>
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="font-serif text-lg">{candidate.name}</h2>
+                  <span className="text-xs text-muted-foreground">{candidate.office}</span>
+                  {responseReceived && <span className="inline-flex items-center gap-1 rounded-sm border border-primary/25 bg-primary/10 px-2 py-0.5 text-[11px] font-semibold text-primary"><CheckCircle2 className="size-3" />Response received</span>}
+                </div>
                 <p className="mt-1 text-sm text-muted-foreground">{candidate.email || "No email recorded"}</p>
-                <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground"><span>{lastSent ? `Last sent: ${new Date(lastSent).toLocaleString()}` : "Not sent yet"}</span>{lastReply && <span>Reply received: {new Date(lastReply).toLocaleString()}</span>}</div>
+                <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted-foreground">
+                  <span>{lastSent ? `Last sent: ${new Date(lastSent).toLocaleString()}` : "Not sent yet"}</span>
+                  {responseReceived && candidate.response_date
+                    ? <span className="font-medium text-primary">Response recorded: {new Date(`${candidate.response_date}T12:00:00`).toLocaleDateString()}</span>
+                    : lastReply && <span>Reply received: {new Date(lastReply).toLocaleString()}</span>}
+                </div>
               </div>
-              <Button onClick={() => send(candidate)} disabled={!candidate.email || sendingId === candidate.id || !subject.trim() || !body.trim()} variant={lastSent ? "outline" : "default"}><Mail className="size-4" />{sendingId === candidate.id ? "Sending…" : lastSent ? "Send again" : "Send questionnaire"}</Button>
+              <Button onClick={() => send(candidate)} disabled={!candidate.email || sendingId === candidate.id || !subject.trim() || !body.trim()} variant={lastSent || responseReceived ? "outline" : "default"}><Mail className="size-4" />{sendingId === candidate.id ? "Sending…" : responseReceived ? "Send again" : lastSent ? "Send again" : "Send questionnaire"}</Button>
             </article>;
           })}
         </div>
