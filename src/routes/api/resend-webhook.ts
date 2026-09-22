@@ -69,7 +69,8 @@ export const Route = createFileRoute("/api/resend-webhook")({
         const latestReply = extractLatestReply(text);
         const excerpt = latestReply
           ? latestReply.slice(0, 4000)
-          : "Email received. View the full message in the Resend dashboard.";
+          : "No separate top-posted reply was detected. Check the full received email below for inline answers.";
+        const fullEmail = text || "Plain-text email body was unavailable. View the original received message in the Resend dashboard.";
 
         if (isTestReply) {
           try {
@@ -83,10 +84,14 @@ export const Route = createFileRoute("/api/resend-webhook")({
                   <h2>Candidate email reply received</h2>
                   <p><strong>From:</strong> ${escapeHtml(from)}</p>
                   <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-                  <p><strong>Message:</strong></p>
-                  <p>${escapeHtml(excerpt).replace(/\n/g, "<br>")}</p>
+                  <h3>Extracted reply</h3>
+                  <p style="white-space:pre-wrap">${escapeHtml(excerpt)}</p>
+                  <hr>
+                  <h3>Full received email</h3>
+                  <p><em>This is the complete plain-text body returned by Resend. Use this section if the candidate answered inline inside the quoted questionnaire.</em></p>
+                  <pre style="white-space:pre-wrap;font-family:inherit">${escapeHtml(fullEmail)}</pre>
                 `,
-                text: `Candidate reply received\nFrom: ${from}\nSubject: ${subject}\n\n${excerpt}`,
+                text: `Candidate reply received\nFrom: ${from}\nSubject: ${subject}\n\nEXTRACTED REPLY\n${excerpt}\n\n--- FULL RECEIVED EMAIL ---\n${fullEmail}`,
               });
             }
           } catch (mailError) {
@@ -147,12 +152,17 @@ export const Route = createFileRoute("/api/resend-webhook")({
                 <p><strong>Candidate:</strong> ${escapeHtml(candidate.name)}</p>
                 <p><strong>From:</strong> ${escapeHtml(from)}</p>
                 <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
-                <p><strong>Message:</strong></p>
-                <p>${escapeHtml(excerpt).replace(/\n/g, "<br>")}</p>
+                <h3>Extracted reply</h3>
+                <p style="white-space:pre-wrap">${escapeHtml(excerpt)}</p>
+                <hr>
+                <h3>Full received email</h3>
+                <p><em>This is the complete plain-text body returned by Resend. Use this section if the candidate answered inline inside the quoted questionnaire.</em></p>
+                <pre style="white-space:pre-wrap;font-family:inherit">${escapeHtml(fullEmail)}</pre>
+                <hr>
                 <p>The reply has also been noted in the private candidate administration record.</p>
                 <p><strong>Reply:</strong> Use your email client's Reply button to respond directly to ${escapeHtml(candidate.email || from)}.</p>
               `,
-              text: `Candidate: ${candidate.name}\nFrom: ${from}\nSubject: ${subject}\n\n${excerpt}\n\nReply to this notification to respond directly to ${candidate.email || from}.`,
+              text: `Candidate: ${candidate.name}\nFrom: ${from}\nSubject: ${subject}\n\nEXTRACTED REPLY\n${excerpt}\n\n--- FULL RECEIVED EMAIL ---\n${fullEmail}\n\nReply to this notification to respond directly to ${candidate.email || from}.`,
             });
           }
         } catch (mailError) {
