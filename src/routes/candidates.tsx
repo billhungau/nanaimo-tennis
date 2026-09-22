@@ -8,6 +8,7 @@ import { candidateQuestions } from "@/lib/civic-data";
 import { supabase } from "@/lib/supabase";
 
 type Filter = "All" | "Mayor" | "Council";
+type ResponseFilter = "all" | "received" | "not_received";
 type CandidateRecord = {
   id: string;
   name: string;
@@ -53,6 +54,7 @@ export const Route = createFileRoute("/candidates")({
 
 function CandidatesPage() {
   const [filter, setFilter] = useState<Filter>("All");
+  const [responseFilter, setResponseFilter] = useState<ResponseFilter>("all");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
   const [questionsOpen, setQuestionsOpen] = useState(false);
@@ -92,36 +94,57 @@ function CandidatesPage() {
     return () => { cancelled = true; };
   }, []);
 
-  const shown = useMemo(() => {
-    const filtered = candidates.filter((candidate) => {
-      const matchesOffice = filter === "All" || candidate.office === filter;
-      const matchesQuery = candidate.name.toLowerCase().includes(query.trim().toLowerCase());
-      return matchesOffice && matchesQuery;
-    });
-
+  const uniqueCandidates = useMemo(() => {
     const unique = new Map<string, CandidateRecord>();
-    for (const candidate of filtered) {
+    for (const candidate of candidates) {
       const key = `${candidate.name.trim().toLowerCase()}::${candidate.office.toLowerCase()}`;
       const current = unique.get(key);
       if (!current || (current.response_status !== "received" && candidate.response_status === "received")) {
         unique.set(key, candidate);
       }
     }
+    return Array.from(unique.values());
+  }, [candidates]);
 
-    return Array.from(unique.values()).sort((a, b) => a.name.localeCompare(b.name));
-  }, [candidates, filter, query]);
+  const receivedCount = uniqueCandidates.filter((candidate) => candidate.response_status === "received").length;
+  const awaitingCount = uniqueCandidates.length - receivedCount;
+
+  const shown = useMemo(() => {
+    return uniqueCandidates
+      .filter((candidate) => {
+        const matchesOffice = filter === "All" || candidate.office === filter;
+        const matchesResponse = responseFilter === "all" || candidate.response_status === responseFilter;
+        const matchesQuery = candidate.name.toLowerCase().includes(query.trim().toLowerCase());
+        return matchesOffice && matchesResponse && matchesQuery;
+      })
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [uniqueCandidates, filter, responseFilter, query]);
 
   const mayoralCandidates = shown.filter((candidate) => candidate.office === "Mayor");
   const councilCandidates = shown.filter((candidate) => candidate.office === "Council");
+
+  function renderResponseText(text: string | null) {
+    if (!text) return <p className="text-[15px] leading-7 text-muted-foreground sm:text-base">No response provided for this question.</p>;
+
+    const paragraphs = text
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+
+    return <div className="space-y-4 text-[15px] leading-7 text-foreground/90 sm:text-base sm:leading-7">
+      {paragraphs.map((paragraph, index) => <p key={index} className="whitespace-pre-line">{paragraph}</p>)}
+    </div>;
+  }
 
   function renderCandidate(candidate: CandidateRecord) {
     const received = candidate.response_status === "received";
     const responses = [candidate.q1_response, candidate.q2_response, candidate.q3_response];
     const hasResponses = responses.some(Boolean);
     const currentRole = currentOfficeHolders[candidate.name];
+    const isOpen = open === candidate.id;
 
-    return <article key={candidate.id} className={`border-b border-border last:border-0 ${received ? "bg-primary/[0.065]" : "bg-card"}`}>
-      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-1 px-4 py-3 sm:px-5 md:grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] md:gap-3 md:py-4">
+    return <article key={candidate.id} className="border-b border-border last:border-0 bg-card">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] md:gap-3 md:py-4">
         <div className="min-w-0">
           <div className="flex min-w-0 flex-wrap items-center gap-2">
             <h3 className="truncate font-serif text-base sm:text-lg">{candidate.name}</h3>
@@ -129,26 +152,37 @@ function CandidatesPage() {
           </div>
         </div>
         <span className={`${received
-          ? "justify-self-end border-primary/30 bg-primary/15 text-primary md:justify-self-start"
-          : "justify-self-end border-border bg-secondary/60 text-muted-foreground md:justify-self-start"} rounded-sm border px-2 py-1 text-[11px] font-medium sm:text-xs`}>
-          {received ? "Response received" : "No response"}
+          ? "justify-self-end border-primary/20 bg-primary/[0.08] text-primary md:justify-self-start"
+          : "justify-self-end border-border bg-secondary/50 text-muted-foreground md:justify-self-start"} rounded-sm border px-2 py-1 text-[11px] font-medium sm:text-xs`}>
+          {received ? "Response received" : "No response yet"}
         </span>
         <Button
           variant="ghost"
           size="sm"
           className="col-span-2 h-auto justify-start px-0 py-1 text-xs md:col-span-1 md:h-9 md:justify-end md:py-2 md:text-sm"
-          onClick={() => setOpen(open === candidate.id ? null : candidate.id)}
-          aria-expanded={open === candidate.id}
+          onClick={() => setOpen(isOpen ? null : candidate.id)}
+          aria-expanded={isOpen}
         >
-          {received ? "Read response" : "Details"}<ChevronDown className={open === candidate.id ? "rotate-180" : ""}/>
+          {received ? (isOpen ? "Hide response" : "Read response") : (isOpen ? "Hide details" : "Details")}
+          <ChevronDown className={`transition-transform ${isOpen ? "rotate-180" : ""}`}/>
         </Button>
       </div>
-      {open === candidate.id && <div className={`border-t border-border px-4 py-5 sm:px-5 sm:py-6 ${received ? "bg-primary/[0.035]" : "bg-secondary/50"}`}>
-        {received && hasResponses ? <div className="space-y-6">
-          {candidateQuestions.map((question, index) => <div key={question}><p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p><p className="mt-2 whitespace-pre-line text-sm leading-6">{responses[index] || "No response provided for this question."}</p></div>)}
-          <p className="text-xs text-muted-foreground">Response received {candidate.response_date ?? "date not recorded"}. Responses are published as provided.</p>
-          {candidate.response_source && <p className="text-xs"><a href={candidate.response_source} target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">View response source</a></p>}
-        </div> : <p className="text-sm text-muted-foreground">No response has been recorded yet. This page will be updated if a response is provided.</p>}
+
+      {isOpen && <div className="border-t border-border bg-secondary/25 px-4 py-6 sm:px-6 sm:py-8">
+        {received && hasResponses ? <div className="mx-auto max-w-4xl">
+          <div className="rounded-sm border border-border bg-background px-4 py-1 sm:px-7 sm:py-2">
+            {candidateQuestions.map((question, index) => <section key={question} className="border-b border-border py-6 last:border-0 sm:py-7">
+              <p className="text-[11px] font-bold uppercase tracking-[.14em] text-muted-foreground">Question {index + 1}</p>
+              <h4 className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-foreground sm:text-[15px]">{question}</h4>
+              <div className="mt-4 max-w-3xl">{renderResponseText(responses[index])}</div>
+            </section>)}
+          </div>
+
+          <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4 text-xs leading-5 text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+            <p>Response received {candidate.response_date ?? "date not recorded"}. Responses are published as provided.</p>
+            {candidate.response_source && <p><a href={candidate.response_source} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline underline-offset-4">View response source</a></p>}
+          </div>
+        </div> : <div className="mx-auto max-w-3xl rounded-sm border border-border bg-background p-5 sm:p-6"><p className="text-sm leading-6 text-muted-foreground">No response has been recorded yet. This page will be updated if a response is provided.</p></div>}
       </div>}
     </article>;
   }
@@ -156,17 +190,18 @@ function CandidatesPage() {
   function renderCandidateSection(title: string, description: string, items: CandidateRecord[]) {
     if (items.length === 0) return null;
 
-    return <section className="mt-8 first:mt-8">
-      <div className="mb-3">
-        <h2 className="font-serif text-xl sm:text-2xl">{title}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">
-          {description} <span aria-hidden="true">·</span> {items.length} {items.length === 1 ? "candidate" : "candidates"}
-        </p>
+    return <section className="mt-9 first:mt-8">
+      <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="font-serif text-xl sm:text-2xl">{title}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+        </div>
+        <p className="text-xs font-medium text-muted-foreground">{items.length} {items.length === 1 ? "candidate" : "candidates"}</p>
       </div>
 
-      <div className="overflow-hidden border border-border bg-card">
-        <div className="hidden grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] gap-4 border-b border-border bg-secondary px-5 py-3 text-xs font-bold uppercase text-muted-foreground md:grid">
-          <span>Candidate</span><span>Response status</span><span>Response</span>
+      <div className="overflow-hidden rounded-sm border border-border bg-card shadow-sm">
+        <div className="hidden grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] gap-4 border-b border-border bg-secondary/70 px-5 py-3 text-[11px] font-bold uppercase tracking-[.08em] text-muted-foreground md:grid">
+          <span>Candidate</span><span>Response status</span><span className="text-right">Response</span>
         </div>
         {items.map(renderCandidate)}
       </div>
@@ -199,7 +234,7 @@ function CandidatesPage() {
         {questionsOpen && <div className="mt-2 border-t border-border">
           {candidateQuestions.map((question, index) => <article className="grid gap-2 border-b border-border py-5 md:grid-cols-[7rem_1fr]" key={question}>
             <p className="text-xs font-bold uppercase tracking-wide text-muted-foreground">Question {index + 1}</p>
-            <p className="text-sm leading-6">{question}</p>
+            <p className="max-w-3xl text-sm leading-6">{question}</p>
           </article>)}
         </div>}
       </div>
@@ -207,11 +242,25 @@ function CandidatesPage() {
 
     <section className="section-space">
       <div className="page-wrap">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter candidates">
-            {(["All","Mayor","Council"] as Filter[]).map((item) => <Button key={item} variant={filter === item ? "default" : "outline"} onClick={() => setFilter(item)}>{item}</Button>)}
+        {!loading && !loadError && <div className="mb-6 flex flex-wrap gap-x-5 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
+          <span><strong className="font-semibold text-foreground">{receivedCount}</strong> responses received</span>
+          <span><strong className="font-semibold text-foreground">{awaitingCount}</strong> awaiting response</span>
+          <span><strong className="font-semibold text-foreground">{uniqueCandidates.length}</strong> candidates listed</span>
+        </div>}
+
+        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter candidates by office">
+              {(["All","Mayor","Council"] as Filter[]).map((item) => <Button key={item} size="sm" variant={filter === item ? "default" : "outline"} onClick={() => setFilter(item)}>{item}</Button>)}
+            </div>
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter candidates by response status">
+              <Button size="sm" variant={responseFilter === "all" ? "secondary" : "ghost"} onClick={() => setResponseFilter("all")}>All responses</Button>
+              <Button size="sm" variant={responseFilter === "received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("received")}>Responses received</Button>
+              <Button size="sm" variant={responseFilter === "not_received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("not_received")}>No response yet</Button>
+            </div>
           </div>
-          <div className="relative w-full sm:max-w-xs">
+
+          <div className="relative w-full lg:w-72">
             <Search className="absolute left-3 top-3 size-4 text-muted-foreground" />
             <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search candidate" className="pl-10" aria-label="Search candidate" />
           </div>
@@ -225,8 +274,8 @@ function CandidatesPage() {
           {renderCandidateSection("Council candidates", "Candidates for Nanaimo City Council", councilCandidates)}
         </>}
 
-        {!loading && !loadError && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match this search.</p>}
-        <p className="mt-4 text-xs text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Candidates are listed alphabetically within each office. Incumbency labels identify current City office-holders as of September 2026 and are provided as factual context only.</p>
+        {!loading && !loadError && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match these filters.</p>}
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Candidates are listed alphabetically within each office. Incumbency labels identify current City office-holders as of September 2026 and are provided as factual context only.</p>
       </div>
     </section>
   </>;
