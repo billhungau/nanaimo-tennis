@@ -1,15 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PageIntro } from "@/components/page-elements";
 import { candidateQuestions } from "@/lib/civic-data";
-import { getPublicCandidates, type PublicCandidate } from "@/lib/public-candidates.functions";
+import { supabase } from "@/lib/supabase";
 
 type Filter = "All" | "Mayor" | "Council";
 type ResponseFilter = "all" | "received" | "not_received";
-type CandidateRecord = PublicCandidate;
+type CandidateRecord = {
+  id: string;
+  name: string;
+  office: "Mayor" | "Council";
+  response_status: "received" | "not_received";
+  response_date: string | null;
+  q1_response: string | null;
+  q2_response: string | null;
+  q3_response: string | null;
+  response_source: string | null;
+  last_updated: string;
+};
 
 const questionSummaries = [
   "Pause removal until public consultation and a feasibility review are completed?",
@@ -29,7 +40,6 @@ const currentOfficeHolders: Record<string, string> = {
 };
 
 export const Route = createFileRoute("/candidates")({
-  loader: () => getPublicCandidates(),
   head: () => ({ meta: [
     { title: "2026 Candidate Positions | Nanaimo Tennis" },
     { name: "description", content: "Read Nanaimo mayoral and council candidate responses to the same three questions about year-round indoor tennis." },
@@ -43,12 +53,46 @@ export const Route = createFileRoute("/candidates")({
 });
 
 function CandidatesPage() {
-  const { candidates, unavailable } = Route.useLoaderData();
   const [filter, setFilter] = useState<Filter>("All");
   const [responseFilter, setResponseFilter] = useState<ResponseFilter>("all");
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState<string | null>(null);
   const [questionsOpen, setQuestionsOpen] = useState(false);
+  const [candidates, setCandidates] = useState<CandidateRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const client = supabase;
+
+    async function loadCandidates() {
+      if (!client) {
+        if (!cancelled) {
+          setLoadError("Candidate data is temporarily unavailable because the Supabase connection is not configured.");
+          setLoading(false);
+        }
+        return;
+      }
+
+      const { data, error } = await client
+        .from("candidates")
+        .select("id,name,office,response_status,response_date,q1_response,q2_response,q3_response,response_source,last_updated")
+        .order("name", { ascending: true });
+
+      if (cancelled) return;
+      if (error) {
+        console.error("Unable to load candidates from Supabase", error);
+        setLoadError("Candidate data is temporarily unavailable. Please try again shortly.");
+      } else {
+        setCandidates((data ?? []) as CandidateRecord[]);
+      }
+      setLoading(false);
+    }
+
+    loadCandidates();
+    return () => { cancelled = true; };
+  }, []);
 
   const uniqueCandidates = useMemo(() => {
     const unique = new Map<string, CandidateRecord>();
@@ -124,7 +168,7 @@ function CandidatesPage() {
         </Button>
       </div>
 
-      <div hidden={!isOpen} className="border-t border-border bg-secondary/25 px-4 py-6 sm:px-6 sm:py-8">
+      {isOpen && <div className="border-t border-border bg-secondary/25 px-4 py-6 sm:px-6 sm:py-8">
         {received && hasResponses ? <div className="mx-auto max-w-4xl">
           <div className="rounded-sm border border-border bg-background px-4 py-1 sm:px-7 sm:py-2">
             {candidateQuestions.map((question, index) => <section key={question} className="border-b border-border py-6 last:border-0 sm:py-7">
@@ -139,7 +183,7 @@ function CandidatesPage() {
             {candidate.response_source && <p><a href={candidate.response_source} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline underline-offset-4">View response source</a></p>}
           </div>
         </div> : <div className="mx-auto max-w-3xl rounded-sm border border-border bg-background p-5 sm:p-6"><p className="text-sm leading-6 text-muted-foreground">No response has been recorded yet. This page will be updated if a response is provided.</p></div>}
-      </div>
+      </div>}
     </article>;
   }
 
@@ -198,7 +242,7 @@ function CandidatesPage() {
 
     <section className="section-space">
       <div className="page-wrap">
-        {!unavailable && <div className="mb-6 flex flex-wrap gap-x-5 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
+        {!loading && !loadError && <div className="mb-6 flex flex-wrap gap-x-5 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
           <span><strong className="font-semibold text-foreground">{receivedCount}</strong> responses received</span>
           <span><strong className="font-semibold text-foreground">{awaitingCount}</strong> awaiting response</span>
           <span><strong className="font-semibold text-foreground">{uniqueCandidates.length}</strong> candidates listed</span>
@@ -222,14 +266,15 @@ function CandidatesPage() {
           </div>
         </div>
 
-        {unavailable && <div className="mt-8 border border-border bg-card px-5 py-10 text-center text-sm text-muted-foreground">Candidate data is temporarily unavailable. Please try again shortly.</div>}
+        {loading && <div className="mt-8 border border-border bg-card px-5 py-10 text-center text-sm text-muted-foreground">Loading candidate information…</div>}
+        {!loading && loadError && <div className="mt-8 border border-border bg-card px-5 py-10 text-center text-sm text-muted-foreground">{loadError}</div>}
 
-        {!unavailable && <>
+        {!loading && !loadError && <>
           {renderCandidateSection("Mayoral candidates", "Candidates for Mayor", mayoralCandidates)}
           {renderCandidateSection("Council candidates", "Candidates for Nanaimo City Council", councilCandidates)}
         </>}
 
-        {!unavailable && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match these filters.</p>}
+        {!loading && !loadError && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match these filters.</p>}
         <p className="mt-4 text-xs leading-5 text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Candidates are listed alphabetically within each office. Incumbency labels identify current City office-holders as of September 2026 and are provided as factual context only.</p>
       </div>
     </section>
