@@ -24,10 +24,10 @@ export const Route = createFileRoute("/sources")({
       { property: "og:title", content: "Nanaimo Tennis source library" },
       { property: "og:description", content: "A searchable, transparent record of primary sources and responsible reporting." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://nanaimo-tennis.lovable.app/sources" },
+      { property: "og:url", content: "https://www.nanaimotennis.ca/sources" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [{ rel: "canonical", href: "https://nanaimo-tennis.lovable.app/sources" }],
+    links: [{ rel: "canonical", href: "https://www.nanaimotennis.ca/sources" }],
   }),
   component: SourcesPage,
 });

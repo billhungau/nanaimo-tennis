@@ -15,9 +15,9 @@ export const Route = createFileRoute("/get-involved")({
     { property: "og:title", content: "Participate in the conversation" },
     { property: "og:description", content: "Join community updates, read the public petition, contact Council, attend a meeting or share your experience with indoor tennis." },
     { property: "og:type", content: "website" },
-    { property: "og:url", content: "https://nanaimo-tennis.lovable.app/get-involved" },
+    { property: "og:url", content: "https://www.nanaimotennis.ca/get-involved" },
     { name: "twitter:card", content: "summary_large_image" },
-  ], links: [{ rel: "canonical", href: "https://nanaimo-tennis.lovable.app/get-involved" }] }),
+  ], links: [{ rel: "canonical", href: "https://www.nanaimotennis.ca/get-involved" }] }),
   component: GetInvolvedPage,
 });
 
