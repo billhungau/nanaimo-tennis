@@ -9,9 +9,9 @@ export const Route = createFileRoute("/timeline")({
     { property: "og:title", content: "Westwood indoor tennis timeline" },
     { property: "og:description", content: "Key dates in the acquisition and future of the indoor tennis facility." },
     { property: "og:type", content: "article" },
-    { property: "og:url", content: "https://nanaimo-tennis.lovable.app/timeline" },
+    { property: "og:url", content: "https://www.nanaimotennis.ca/timeline" },
     { name: "twitter:card", content: "summary_large_image" },
-  ], links: [{ rel: "canonical", href: "https://nanaimo-tennis.lovable.app/timeline" }] }),
+  ], links: [{ rel: "canonical", href: "https://www.nanaimotennis.ca/timeline" }] }),
   component: TimelinePage,
 });
 

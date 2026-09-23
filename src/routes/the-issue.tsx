@@ -13,9 +13,9 @@ export const Route = createFileRoute("/the-issue")({
     { property: "og:title", content: "The issue: indoor tennis at Westwood Lake" },
     { property: "og:description", content: "A clear distinction between the land purchase and the future of the indoor courts." },
     { property: "og:type", content: "article" },
-    { property: "og:url", content: "https://nanaimo-tennis.lovable.app/the-issue" },
+    { property: "og:url", content: "https://www.nanaimotennis.ca/the-issue" },
     { name: "twitter:card", content: "summary_large_image" },
-  ], links: [{ rel: "canonical", href: "https://nanaimo-tennis.lovable.app/the-issue" }] }),
+  ], links: [{ rel: "canonical", href: "https://www.nanaimotennis.ca/the-issue" }] }),
   component: IssuePage,
 });
 

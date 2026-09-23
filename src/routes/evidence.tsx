@@ -10,9 +10,9 @@ export const Route = createFileRoute("/evidence")({
     { property: "og:title", content: "What do we know about Westwood indoor tennis?" },
     { property: "og:description", content: "An evidence-first record of verified facts and unanswered questions." },
     { property: "og:type", content: "article" },
-    { property: "og:url", content: "https://nanaimo-tennis.lovable.app/evidence" },
+    { property: "og:url", content: "https://www.nanaimotennis.ca/evidence" },
     { name: "twitter:card", content: "summary_large_image" },
-  ], links: [{ rel: "canonical", href: "https://nanaimo-tennis.lovable.app/evidence" }] }),
+  ], links: [{ rel: "canonical", href: "https://www.nanaimotennis.ca/evidence" }] }),
   component: EvidencePage,
 });
 
