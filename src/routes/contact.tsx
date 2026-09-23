@@ -12,6 +12,7 @@ export const Route = createFileRoute("/contact")({
     meta: [
       { title: "Contact | Nanaimo Tennis" },
       { name: "description", content: "Contact the Nanaimo Tennis community information initiative." },
+      { property: "og:url", content: "https://www.nanaimotennis.ca/contact" },
       { name: "robots", content: "index,follow" },
     ],
     links: [{ rel: "canonical", href: "https://www.nanaimotennis.ca/contact" }],

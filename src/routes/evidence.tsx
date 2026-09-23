@@ -18,10 +18,10 @@ export const Route = createFileRoute("/evidence")({
 
 function EvidencePage() {
   const facts = [
-    ["The City announced a $2.88-million purchase of the 2.85-acre property.", sources[3]],
+    ["The City announced a $2.88-million purchase of the 2.85-acre property.", sources[2]],
     ["The club is expected to cease operations November 1, 2026.", sources[2]],
     ["The indoor tennis bubble is expected to be removed after closure.", sources[2]],
-    ["The City is expected to take possession December 18, 2026.", sources[4]],
+    ["The City is expected to take possession December 18, 2026.", sources[2]],
     ["The City has said long-term uses will involve planning and community engagement.", sources[2]],
   ];
 
@@ -34,7 +34,7 @@ function EvidencePage() {
         <div>
           <div className="flex flex-wrap items-end justify-between gap-3 sm:gap-4">
             <h2 className="font-serif text-3xl">Verified in the public record</h2>
-            <p className="text-xs text-muted-foreground">Last checked: September 19, 2026</p>
+            <p className="text-xs text-muted-foreground">City source reviewed: September 23, 2026</p>
           </div>
           <div className="mt-5 border-t border-border sm:mt-6">{facts.map(([finding, source]) => {
             const item = source as typeof sources[number];
@@ -48,9 +48,9 @@ function EvidencePage() {
         </div>
         <aside className="civic-card h-fit p-5 sm:p-6">
           <div className="flex items-center gap-3"><AlertCircle className="size-5 shrink-0 text-ring"/><h2 className="font-serif text-2xl">What we still don't know</h2></div>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">These details may materially affect the decision. No public documentation was located as of September 19, 2026.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">These details may materially affect the decision. They are not established in the City announcement reviewed September 23, 2026; other documents may exist or be published later.</p>
           <div className="mt-4">{unknowns.map((item) => <EmptyFact key={item}>{item}</EmptyFact>)}</div>
-          <p className="mt-5 border-t border-border pt-5 text-xs leading-5 text-muted-foreground">Where information has not been publicly established, this site labels it as unknown rather than speculating.</p>
+          <p className="mt-5 border-t border-border pt-5 text-xs leading-5 text-muted-foreground">Review this record when the City publishes new plans or documents. Update the review date only after checking the linked source and revising affected facts and information gaps.</p>
         </aside>
       </div>
     </section>
