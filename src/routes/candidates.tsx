@@ -346,6 +346,7 @@ function CandidatesPage() {
             <p><strong className="text-foreground">Support:</strong> the response clearly supports the proposition. <strong className="text-foreground">Conditional:</strong> support depends on feasibility, cost, safety, consultation or another stated condition.</p>
             <p><strong className="text-foreground">Unclear:</strong> the response does not establish a sufficiently clear position. <strong className="text-foreground">Does not support:</strong> the response clearly opposes the proposition.</p>
             <p>Each question was coded separately, so a candidate can receive different codes for Q1, Q2 and Q3. Candidates who did not respond are excluded from the response distributions and are reported separately; non-response is never interpreted as a position.</p>
+            <p><strong className="text-foreground">Review process:</strong> Responses were coded using the same predefined four-category framework. Coding was independently cross-checked, and any differences were manually reviewed against the candidate's verbatim response before the final category was assigned.</p>
           </div>
         </details>
       </div>
