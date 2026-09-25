@@ -9,6 +9,9 @@ import { supabase } from "@/lib/supabase";
 
 type Filter = "All" | "Mayor" | "Council";
 type ResponseFilter = "all" | "received" | "not_received";
+type PositionCode = "support" | "conditional" | "unclear" | "oppose";
+type CandidateCodes = { q1: PositionCode; q2: PositionCode; q3: PositionCode };
+
 type CandidateRecord = {
   id: string;
   name: string;
@@ -37,6 +40,39 @@ const currentOfficeHolders: Record<string, string> = {
   "Paul Manly": "Current Councillor",
   "Janice Perrino": "Current Councillor",
   "Ian Thorpe": "Current Councillor",
+};
+
+const candidateCodes: Record<string, CandidateCodes> = {
+  "Andrew Merilees": { q1: "support", q2: "support", q3: "unclear" },
+  "Andréa Coutu": { q1: "support", q2: "support", q3: "support" },
+  "Austin Seng": { q1: "support", q2: "support", q3: "support" },
+  "Ben Geselbracht": { q1: "support", q2: "support", q3: "support" },
+  "Bill McKay": { q1: "support", q2: "support", q3: "support" },
+  "Brunie Brunie": { q1: "support", q2: "support", q3: "support" },
+  "Derek Hanna": { q1: "unclear", q2: "support", q3: "conditional" },
+  "Hilary Eastmure": { q1: "conditional", q2: "conditional", q3: "support" },
+  "Jackie Bolen": { q1: "conditional", q2: "conditional", q3: "conditional" },
+  "Janice Perrino": { q1: "unclear", q2: "unclear", q3: "unclear" },
+  "Joe Figel": { q1: "support", q2: "conditional", q3: "support" },
+  "Ken Bennett": { q1: "support", q2: "support", q3: "support" },
+  "Mark Richard Chandler": { q1: "support", q2: "support", q3: "support" },
+  "Marnie Boers": { q1: "conditional", q2: "conditional", q3: "support" },
+  "Meg Fyfe Watkins": { q1: "unclear", q2: "support", q3: "conditional" },
+  "Paul Chapman": { q1: "unclear", q2: "support", q3: "support" },
+  "Paul Manly": { q1: "support", q2: "support", q3: "support" },
+  "Paul Van Ryssel": { q1: "support", q2: "support", q3: "support" },
+  "Richard Harlow": { q1: "support", q2: "support", q3: "support" },
+  "Ryan Djakovic": { q1: "support", q2: "support", q3: "support" },
+  "Sarah Lovegrove": { q1: "support", q2: "support", q3: "support" },
+  "Sheryl Armstrong": { q1: "unclear", q2: "unclear", q3: "unclear" },
+  "Steven Mark Johns": { q1: "conditional", q2: "support", q3: "support" },
+};
+
+const codeMeta: Record<PositionCode, { label: string; className: string }> = {
+  support: { label: "Support", className: "border-blue-200 bg-blue-50 text-blue-800" },
+  conditional: { label: "Conditional", className: "border-amber-200 bg-amber-50 text-amber-800" },
+  unclear: { label: "Unclear", className: "border-orange-200 bg-orange-50 text-orange-800" },
+  oppose: { label: "Does not support", className: "border-purple-200 bg-purple-50 text-purple-800" },
 };
 
 export const Route = createFileRoute("/candidates")({
@@ -99,7 +135,10 @@ function CandidatesPage() {
         const matchesQuery = candidate.name.toLowerCase().includes(query.trim().toLowerCase());
         return matchesOffice && matchesResponse && matchesQuery;
       })
-      .sort((a, b) => a.name.localeCompare(b.name));
+      .sort((a, b) => {
+        if (a.response_status !== b.response_status) return a.response_status === "received" ? -1 : 1;
+        return a.name.localeCompare(b.name);
+      });
   }, [uniqueCandidates, filter, responseFilter, query]);
 
   const mayoralCandidates = shown.filter((candidate) => candidate.office === "Mayor");
@@ -118,12 +157,32 @@ function CandidatesPage() {
     </div>;
   }
 
+  function renderCodePill(question: "Q1" | "Q2" | "Q3", code: PositionCode) {
+    const meta = codeMeta[code];
+    return <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[10px] font-semibold sm:text-[11px] ${meta.className}`}>
+      <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />{question} {meta.label}
+    </span>;
+  }
+
+  const resultCounts = useMemo(() => {
+    const keys = ["q1", "q2", "q3"] as const;
+    return keys.map((key) => {
+      const counts = { support: 0, conditional: 0, unclear: 0, oppose: 0 };
+      uniqueCandidates.filter((candidate) => candidate.response_status === "received").forEach((candidate) => {
+        const code = candidateCodes[candidate.name]?.[key];
+        if (code) counts[code] += 1;
+      });
+      return counts;
+    });
+  }, [uniqueCandidates]);
+
   function renderCandidate(candidate: CandidateRecord) {
     const received = candidate.response_status === "received";
     const responses = [candidate.q1_response, candidate.q2_response, candidate.q3_response];
     const hasResponses = responses.some(Boolean);
     const currentRole = currentOfficeHolders[candidate.name];
     const isOpen = open === candidate.id;
+    const codes = candidateCodes[candidate.name];
 
     return <article key={candidate.id} className="border-b border-border last:border-0 bg-card">
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] md:gap-3 md:py-4">
@@ -133,11 +192,13 @@ function CandidatesPage() {
             {currentRole && <span className="shrink-0 rounded-sm border border-border bg-secondary/70 px-2 py-0.5 text-[10px] font-medium text-muted-foreground sm:text-[11px]">{currentRole}</span>}
           </div>
         </div>
-        <span className={`${received
-          ? "justify-self-end border-primary/20 bg-primary/[0.08] text-primary md:justify-self-start"
-          : "justify-self-end border-border bg-secondary/50 text-muted-foreground md:justify-self-start"} rounded-sm border px-2 py-1 text-[11px] font-medium sm:text-xs`}>
-          {received ? "Response received" : "No response yet"}
-        </span>
+        <div className="flex flex-wrap justify-end gap-1.5 md:justify-start">
+          {received && codes ? <>
+            {renderCodePill("Q1", codes.q1)}
+            {renderCodePill("Q2", codes.q2)}
+            {renderCodePill("Q3", codes.q3)}
+          </> : <span className="rounded-sm border border-border bg-secondary/50 px-2 py-1 text-[11px] font-medium text-muted-foreground sm:text-xs">No response yet</span>}
+        </div>
         <Button
           variant="ghost"
           size="sm"
@@ -183,7 +244,7 @@ function CandidatesPage() {
 
       <div className="overflow-hidden rounded-sm border border-border bg-card shadow-sm">
         <div className="hidden grid-cols-[minmax(0,3fr)_minmax(10rem,1.25fr)_7.5rem] gap-4 border-b border-border bg-secondary/70 px-5 py-3 text-[11px] font-bold uppercase tracking-[.08em] text-muted-foreground md:grid">
-          <span>Candidate</span><span>Response status</span><span className="text-right">Response</span>
+          <span>Candidate</span><span>Position summary</span><span className="text-right">Response</span>
         </div>
         {items.map(renderCandidate)}
       </div>
@@ -219,6 +280,43 @@ function CandidatesPage() {
             <p className="max-w-3xl text-sm leading-6">{question}</p>
           </article>)}
         </div>}
+      </div>
+    </section>
+
+    <section className="border-b border-border bg-secondary/20 py-7 sm:py-10">
+      <div className="page-wrap">
+        <p className="eyebrow">Questionnaire results</p>
+        <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <h2 className="font-serif text-2xl sm:text-3xl">What responding candidates said</h2>
+          <p className="text-sm text-muted-foreground"><strong className="text-foreground">{receivedCount} of {uniqueCandidates.length}</strong> candidates responded · {uniqueCandidates.length ? Math.round((receivedCount / uniqueCandidates.length) * 1000) / 10 : 0}%</p>
+        </div>
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          {[
+            ["Q1", "Pause removal"],
+            ["Q2", "Evaluate alternatives"],
+            ["Q3", "Long-term planning"],
+          ].map(([question, title], index) => {
+            const counts = resultCounts[index];
+            return <article key={question} className="border border-border bg-card p-4 sm:p-5">
+              <p className="text-[11px] font-bold uppercase tracking-[.12em] text-muted-foreground">{question}</p>
+              <h3 className="mt-1 font-serif text-lg">{title}</h3>
+              <div className="mt-4 space-y-2 text-sm">
+                {(["support","conditional","unclear","oppose"] as PositionCode[]).map((code) => <div key={code} className="flex items-center justify-between gap-3">
+                  <span className={`inline-flex items-center gap-2 ${codeMeta[code].className.split(" ").find((item) => item.startsWith("text-")) ?? ""}`}><span className="size-2 rounded-full bg-current" />{codeMeta[code].label}</span>
+                  <strong>{counts[code]}</strong>
+                </div>)}
+              </div>
+            </article>;
+          })}
+        </div>
+        <p className="mt-4 max-w-4xl text-xs leading-5 text-muted-foreground">Counts summarize the {receivedCount} candidates who responded. {awaitingCount} candidates have not responded and are shown separately below. Categories describe the wording of each response; they are not candidate ratings or endorsements.</p>
+        <details className="mt-3 text-sm">
+          <summary className="cursor-pointer font-semibold text-foreground">How responses were categorized</summary>
+          <div className="mt-3 max-w-4xl space-y-2 border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">
+            <p><strong className="text-foreground">Support:</strong> the response clearly supports the proposition. <strong className="text-foreground">Conditional:</strong> support depends on feasibility, cost, safety, consultation or another stated condition.</p>
+            <p><strong className="text-foreground">Unclear:</strong> the response does not establish a sufficiently clear position. <strong className="text-foreground">Does not support:</strong> the response clearly opposes the proposition. Non-response is recorded separately and is never interpreted as a position.</p>
+          </div>
+        </details>
       </div>
     </section>
 
