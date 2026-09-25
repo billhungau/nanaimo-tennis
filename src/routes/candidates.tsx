@@ -208,7 +208,7 @@ function CandidatesPage() {
 
   function renderCodePill(question: "Q1" | "Q2" | "Q3", code: PositionCode) {
     const meta = codeMeta[code];
-    return <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-1 text-[10px] font-semibold sm:text-[11px] ${meta.className}`}>
+    return <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-1 text-[10px] font-semibold sm:text-[11px] md:px-1.5 md:py-0.5 md:text-[10px] ${meta.className}`}>
       <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />
       {question} {meta.label}
     </span>;
@@ -225,7 +225,7 @@ function CandidatesPage() {
     const codes = candidateCodesByKey.get(nameKey);
 
     return <article key={candidateKey} className="border-b border-border bg-card last:border-0">
-      <div className="grid grid-cols-1 gap-2 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,3fr)_minmax(14rem,1.7fr)_7.5rem] md:items-center md:gap-3 md:py-4">
+      <div className="grid grid-cols-1 gap-2 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,2.2fr)_minmax(22rem,2.2fr)_7.5rem] md:items-center md:gap-3 md:py-4">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-serif text-base leading-snug sm:text-lg">{candidate.name}</h3>
@@ -233,7 +233,7 @@ function CandidatesPage() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 md:justify-start">
+        <div className="flex flex-wrap gap-1.5 md:flex-nowrap md:justify-start md:gap-1 md:whitespace-nowrap">
           {received && codes ? <>
             {renderCodePill("Q1", codes.q1)}
             {renderCodePill("Q2", codes.q2)}
@@ -290,7 +290,7 @@ function CandidatesPage() {
       </div>
 
       <div className="overflow-hidden rounded-sm border border-border bg-card shadow-sm">
-        <div className="hidden grid-cols-[minmax(0,3fr)_minmax(14rem,1.7fr)_7.5rem] gap-4 border-b border-border bg-secondary/70 px-5 py-3 text-[11px] font-bold uppercase tracking-[.08em] text-muted-foreground md:grid">
+        <div className="hidden grid-cols-[minmax(0,2.2fr)_minmax(22rem,2.2fr)_7.5rem] gap-4 border-b border-border bg-secondary/70 px-5 py-3 text-[11px] font-bold uppercase tracking-[.08em] text-muted-foreground md:grid">
           <span>Candidate</span>
           <span>Response coding</span>
           <span className="text-right">Response</span>
