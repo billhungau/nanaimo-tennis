@@ -198,14 +198,37 @@ function CandidateAdminPage() {
       internal_notes: draft.internal_notes || null,
     };
 
-    const { error } = await supabase.from("candidates").update(payload).eq("id", draft.id);
+    const { data: saved, error } = await supabase
+      .from("candidates")
+      .update(payload)
+      .eq("id", draft.id)
+      .select("id,q1_code,q2_code,q3_code,coding_notes,coded_at")
+      .maybeSingle();
+
     if (error) {
       setMessage(`Save failed: ${error.message}`);
       setSaving(false);
       return;
     }
 
-    setMessage("Saved.");
+    if (!saved) {
+      setMessage("Save failed: Supabase did not return an updated candidate row. Check row-level security and the candidate ID.");
+      setSaving(false);
+      return;
+    }
+
+    const codingMatches =
+      saved.q1_code === payload.q1_code &&
+      saved.q2_code === payload.q2_code &&
+      saved.q3_code === payload.q3_code;
+
+    if (!codingMatches) {
+      setMessage(`Save failed verification: Supabase returned Q1=${saved.q1_code ?? "null"}, Q2=${saved.q2_code ?? "null"}, Q3=${saved.q3_code ?? "null"}.`);
+      setSaving(false);
+      return;
+    }
+
+    setMessage("Saved and verified in Supabase.");
     await loadCandidates();
     setSaving(false);
   }
