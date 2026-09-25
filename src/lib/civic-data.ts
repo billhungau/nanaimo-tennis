@@ -1,4 +1,4 @@
-export type SourceCategory = "City documents" | "News" | "Recreation records" | "Historical records" | "Community statements" | "Candidate statements";
+export type SourceCategory = "City documents" | "News" | "Recreation records" | "Health & recreation" | "Historical records" | "Community statements" | "Candidate statements";
 
 export const candidateQuestions = [
   "Would you support pausing removal of the Westwood Lake indoor tennis facility until the City has completed public consultation and assessed whether year-round indoor tennis can feasibly be retained? Please explain.",
@@ -80,6 +80,15 @@ export const sources = [
     primary: false,
   },
   {
+    title: "More than just a beautiful game",
+    publisher: "British Columbia Medical Journal",
+    date: "September 2026",
+    category: "Health & recreation" as SourceCategory,
+    url: "https://bcmj.org/editorials/more-just-beautiful-game",
+    summary: "An editorial by Inderveer Mahal, MD, CCFP, discussing the public-health value of social connection, accessible sport and community infrastructure. It provides broader context for community recreation and does not address the Westwood Lake facility specifically.",
+    primary: false,
+  },
+  {
     title: "Urge Nanaimo to preserve Westwood Lake indoor tennis courts",
     publisher: "Change.org",
     date: "September 17, 2026",
@@ -110,7 +119,7 @@ export const unknowns = [
 
 export const timeline = [
   { date: "Sep 16", year: "2026", title: "Acquisition announced", text: "The City announces its purchase of the Westwood Lake Tennis Club property.", status: "Occurred", source: sources[2] },
-  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A community-organized public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[8] },
+  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A community-organized public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[9] },
   { date: "Oct 17", year: "2026", title: "Municipal election", text: "Nanaimo holds its general local election.", status: "Scheduled", source: sources[1] },
   { date: "Nov 1", year: "2026", title: "Expected club closure", text: "Westwood Lake Tennis Club is expected to cease operations.", status: "Expected", source: sources[2] },
   { date: "Dec 18", year: "2026", title: "Expected possession", text: "The City is expected to take possession of the property.", status: "Expected", source: sources[4] },
