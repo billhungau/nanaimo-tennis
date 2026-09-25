@@ -33,6 +33,16 @@ const outreachStatuses = [
   ["failed", "Failed"],
 ] as const;
 
+type PositionCode = "support" | "conditional" | "unclear" | "oppose";
+
+const positionCodes = [
+  ["", "Not coded"],
+  ["support", "Support"],
+  ["conditional", "Conditional / qualified"],
+  ["unclear", "Unclear / position not stated"],
+  ["oppose", "Does not support"],
+] as const;
+
 type CandidateRow = {
   id: string;
   name: string;
@@ -49,6 +59,11 @@ type CandidateRow = {
   q1_response: string | null;
   q2_response: string | null;
   q3_response: string | null;
+  q1_code: PositionCode | null;
+  q2_code: PositionCode | null;
+  q3_code: PositionCode | null;
+  coding_notes: string | null;
+  coded_at: string | null;
   response_source: string | null;
   internal_notes: string | null;
   last_updated: string;
@@ -119,7 +134,7 @@ function CandidateAdminPage() {
     setMessage("");
     const { data, error } = await supabase
       .from("candidates")
-      .select("id,name,office,email,contact_type,contact_source,outreach_method,outreach_status,outreach_at,outreach_notes,response_status,response_date,q1_response,q2_response,q3_response,response_source,internal_notes,last_updated")
+      .select("id,name,office,email,contact_type,contact_source,outreach_method,outreach_status,outreach_at,outreach_notes,response_status,response_date,q1_response,q2_response,q3_response,q1_code,q2_code,q3_code,coding_notes,coded_at,response_source,internal_notes,last_updated")
       .order("name", { ascending: true });
 
     if (error) {
@@ -160,6 +175,7 @@ function CandidateAdminPage() {
     setSaving(true);
     setMessage("");
 
+    const hasCoding = draft.response_status === "received" && Boolean(draft.q1_code || draft.q2_code || draft.q3_code);
     const payload = {
       email: draft.email?.trim() || null,
       contact_type: draft.contact_type || null,
@@ -173,6 +189,11 @@ function CandidateAdminPage() {
       q1_response: draft.response_status === "received" ? draft.q1_response || null : null,
       q2_response: draft.response_status === "received" ? draft.q2_response || null : null,
       q3_response: draft.response_status === "received" ? draft.q3_response || null : null,
+      q1_code: draft.response_status === "received" ? draft.q1_code || null : null,
+      q2_code: draft.response_status === "received" ? draft.q2_code || null : null,
+      q3_code: draft.response_status === "received" ? draft.q3_code || null : null,
+      coding_notes: draft.coding_notes?.trim() || null,
+      coded_at: hasCoding ? new Date().toISOString() : null,
       response_source: draft.response_status === "received" ? draft.response_source || null : null,
       internal_notes: draft.internal_notes || null,
     };
@@ -209,6 +230,11 @@ function CandidateAdminPage() {
       q1_response: null,
       q2_response: null,
       q3_response: null,
+      q1_code: null,
+      q2_code: null,
+      q3_code: null,
+      coding_notes: null,
+      coded_at: null,
       response_source: null,
     });
     setMessage("Marked as no response in the form. Click Save to apply.");
@@ -308,7 +334,37 @@ function CandidateAdminPage() {
             </div>
 
             <div className="mt-6 space-y-7">
-              {["q1_response", "q2_response", "q3_response"].map((field, index) => <div key={field}><label className="block text-sm font-semibold">Question {index + 1}</label><p className="mt-1 text-xs leading-5 text-muted-foreground">{candidateQuestions[index]}</p><textarea className="mt-3 min-h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={(draft[field as keyof CandidateDraft] as string | null) ?? ""} disabled={draft.response_status !== "received"} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })}/></div>)}
+              {(["q1_response", "q2_response", "q3_response"] as const).map((field, index) => {
+                const codeField = `q${index + 1}_code` as "q1_code" | "q2_code" | "q3_code";
+                return <div key={field} className="rounded-md border border-border bg-secondary/20 p-4 sm:p-5">
+                  <div className="grid gap-4 lg:grid-cols-[1fr_15rem] lg:items-start">
+                    <div>
+                      <label className="block text-sm font-semibold">Question {index + 1}</label>
+                      <p className="mt-1 text-xs leading-5 text-muted-foreground">{candidateQuestions[index]}</p>
+                    </div>
+                    <div>
+                      <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-muted-foreground" htmlFor={`candidate-${codeField}`}>Response code</label>
+                      <select
+                        id={`candidate-${codeField}`}
+                        className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                        value={draft[codeField] ?? ""}
+                        disabled={draft.response_status !== "received"}
+                        onChange={(event) => setDraft({ ...draft, [codeField]: (event.target.value || null) as PositionCode | null })}
+                      >
+                        {positionCodes.map(([value, label]) => <option key={value || "none"} value={value}>{label}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <textarea className="mt-3 min-h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={draft[field] ?? ""} disabled={draft.response_status !== "received"} onChange={(event) => setDraft({ ...draft, [field]: event.target.value })}/>
+                </div>;
+              })}
+
+              <div>
+                <label className="mb-2 block text-sm font-medium">Coding notes</label>
+                <textarea className="min-h-24 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={draft.coding_notes ?? ""} onChange={(event) => setDraft({ ...draft, coding_notes: event.target.value })} placeholder="Internal rationale or coding notes — not shown publicly"/>
+                {draft.coded_at && <p className="mt-2 text-xs text-muted-foreground">Last coding save: {new Date(draft.coded_at).toLocaleString()}</p>}
+              </div>
+
               <div><label className="mb-2 block text-sm font-medium">Response source</label><Input value={draft.response_source ?? ""} disabled={draft.response_status !== "received"} onChange={(event) => setDraft({ ...draft, response_source: event.target.value })} placeholder="Email, website URL, public statement, etc."/></div>
               <div><label className="mb-2 block text-sm font-medium">Internal notes</label><textarea className="min-h-24 w-full rounded-md border border-input bg-background px-3 py-2 text-sm leading-6" value={draft.internal_notes ?? ""} onChange={(event) => setDraft({ ...draft, internal_notes: event.target.value })} placeholder="Private notes — not shown on the public page"/></div>
             </div>
