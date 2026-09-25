@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { PageIntro, SourceLink } from "@/components/page-elements";
 import { sources } from "@/lib/civic-data";
 
-const categories = ["All", "City documents", "News", "Recreation records", "Historical records", "Community statements", "Candidate statements"] as const;
+const categories = ["All", "City documents", "News", "Recreation records", "Health & recreation", "Historical records", "Community statements", "Candidate statements"] as const;
 
 function sourceDateValue(date: string) {
   const yearOnly = date.match(/^\d{4}$/);
