@@ -181,8 +181,8 @@ function CandidatesPage() {
 
   function renderCodePill(question: "Q1" | "Q2" | "Q3", code: PositionCode) {
     const meta = codeMeta[code];
-    return <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-1 text-[10px] font-semibold sm:text-[11px] md:px-1.5 md:py-0.5 md:text-[10px] ${meta.className}`}>
-      <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />
+    return <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2 py-1 text-[10px] font-semibold sm:text-[11px] md:px-1.5 md:py-0.5 md:text-[10px] ${meta.className}`}>
+      <span className="size-2.5 shrink-0 rounded-full bg-current ring-2 ring-current/15" aria-hidden="true" />
       {question} {meta.label}
     </span>;
   }
@@ -329,7 +329,7 @@ function CandidatesPage() {
                   const percentage = receivedCount ? Math.round((counts[code] / receivedCount) * 100) : 0;
                   const textClass = codeMeta[code].className.split(" ").find((item) => item.startsWith("text-")) ?? "";
                   return <div key={code} className="flex items-center justify-between gap-3">
-                    <span className={`inline-flex items-center gap-2 ${textClass}`}><span className="size-2 rounded-full bg-current" />{codeMeta[code].label}</span>
+                    <span className={`inline-flex items-center gap-2 ${textClass}`}><span className="size-2.5 rounded-full bg-current ring-2 ring-current/15" />{codeMeta[code].label}</span>
                     <strong>{counts[code]} <span className="font-normal text-muted-foreground">({percentage}%)</span></strong>
                   </div>;
                 })}
