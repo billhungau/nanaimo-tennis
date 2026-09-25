@@ -10,7 +10,7 @@ import { supabase } from "@/lib/supabase";
 type Filter = "All" | "Mayor" | "Council";
 type ResponseFilter = "all" | "received" | "not_received";
 type PositionCode = "support" | "conditional" | "unclear" | "oppose";
-type CandidateCodes = { q1: PositionCode; q2: PositionCode; q3: PositionCode };
+type CodeField = "q1_code" | "q2_code" | "q3_code";
 
 type CandidateRecord = {
   id: string;
@@ -21,6 +21,9 @@ type CandidateRecord = {
   q1_response: string | null;
   q2_response: string | null;
   q3_response: string | null;
+  q1_code: PositionCode | null;
+  q2_code: PositionCode | null;
+  q3_code: PositionCode | null;
   response_source: string | null;
   last_updated: string;
 };
@@ -42,32 +45,6 @@ const currentOfficeHolders: Record<string, string> = {
   "Ian Thorpe": "Current Councillor",
 };
 
-const candidateCodes: Record<string, CandidateCodes> = {
-  "Andrew Merilees": { q1: "support", q2: "support", q3: "unclear" },
-  "Andréa Coutu": { q1: "support", q2: "support", q3: "support" },
-  "Austin Seng": { q1: "support", q2: "support", q3: "support" },
-  "Ben Geselbracht": { q1: "support", q2: "support", q3: "support" },
-  "Bill McKay": { q1: "support", q2: "support", q3: "support" },
-  "Brunie Brunie": { q1: "support", q2: "support", q3: "support" },
-  "Derek Hanna": { q1: "unclear", q2: "support", q3: "conditional" },
-  "Hilary Eastmure": { q1: "conditional", q2: "conditional", q3: "support" },
-  "Jackie Bolen": { q1: "conditional", q2: "conditional", q3: "conditional" },
-  "Janice Perrino": { q1: "unclear", q2: "unclear", q3: "unclear" },
-  "Joe Figel": { q1: "support", q2: "conditional", q3: "support" },
-  "Ken Bennett": { q1: "support", q2: "support", q3: "support" },
-  "Mark Richard Chandler": { q1: "support", q2: "support", q3: "support" },
-  "Marnie Boers": { q1: "conditional", q2: "conditional", q3: "support" },
-  "Meg Fyfe Watkins": { q1: "unclear", q2: "support", q3: "conditional" },
-  "Paul Chapman": { q1: "unclear", q2: "support", q3: "support" },
-  "Paul Manly": { q1: "support", q2: "support", q3: "support" },
-  "Paul Van Ryssel": { q1: "support", q2: "support", q3: "support" },
-  "Richard Harlow": { q1: "support", q2: "support", q3: "support" },
-  "Ryan Djakovic": { q1: "support", q2: "support", q3: "support" },
-  "Sarah Lovegrove": { q1: "support", q2: "support", q3: "support" },
-  "Sheryl Armstrong": { q1: "unclear", q2: "unclear", q3: "unclear" },
-  "Steven Mark Johns": { q1: "conditional", q2: "support", q3: "support" },
-};
-
 const codeMeta: Record<PositionCode, { label: string; className: string }> = {
   support: { label: "Support", className: "border-blue-200 bg-blue-50 text-blue-800" },
   conditional: { label: "Conditional", className: "border-amber-200 bg-amber-50 text-amber-800" },
@@ -85,10 +62,6 @@ function normalizeCandidateName(name: string) {
     .toLowerCase();
 }
 
-const candidateCodesByKey = new Map(
-  Object.entries(candidateCodes).map(([name, codes]) => [normalizeCandidateName(name), codes]),
-);
-
 const officeHoldersByKey = new Map(
   Object.entries(currentOfficeHolders).map(([name, role]) => [normalizeCandidateName(name), role]),
 );
@@ -97,7 +70,7 @@ export const Route = createFileRoute("/candidates")({
   loader: async () => {
     const { data, error } = await supabase
       .from("candidates")
-      .select("id,name,office,response_status,response_date,q1_response,q2_response,q3_response,response_source,last_updated")
+      .select("id,name,office,response_status,response_date,q1_response,q2_response,q3_response,q1_code,q2_code,q3_code,response_source,last_updated")
       .order("name", { ascending: true });
 
     if (error) {
@@ -178,13 +151,13 @@ function CandidatesPage() {
   const councilCandidates = shown.filter((candidate) => candidate.office === "Council");
 
   const resultCounts = useMemo(() => {
-    const keys = ["q1", "q2", "q3"] as const;
-    return keys.map((key) => {
-      const counts = { support: 0, conditional: 0, unclear: 0, oppose: 0 };
+    const fields: CodeField[] = ["q1_code", "q2_code", "q3_code"];
+    return fields.map((field) => {
+      const counts: Record<PositionCode, number> = { support: 0, conditional: 0, unclear: 0, oppose: 0 };
       uniqueCandidates
         .filter((candidate) => candidate.response_status === "received")
         .forEach((candidate) => {
-          const code = candidateCodesByKey.get(normalizeCandidateName(candidate.name))?.[key];
+          const code = candidate[field];
           if (code) counts[code] += 1;
         });
       return counts;
@@ -217,12 +190,12 @@ function CandidatesPage() {
   function renderCandidate(candidate: CandidateRecord) {
     const received = candidate.response_status === "received";
     const responses = [candidate.q1_response, candidate.q2_response, candidate.q3_response];
+    const codes = [candidate.q1_code, candidate.q2_code, candidate.q3_code];
     const hasResponses = responses.some(Boolean);
     const nameKey = normalizeCandidateName(candidate.name);
     const currentRole = officeHoldersByKey.get(nameKey);
     const candidateKey = `${nameKey}::${candidate.office.toLowerCase()}`;
     const isOpen = open === candidateKey;
-    const codes = candidateCodesByKey.get(nameKey);
 
     return <article key={candidateKey} className="border-b border-border bg-card last:border-0">
       <div className="grid grid-cols-1 gap-2 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,2.2fr)_minmax(22rem,2.2fr)_7.5rem] md:items-center md:gap-3 md:py-4">
@@ -234,10 +207,10 @@ function CandidatesPage() {
         </div>
 
         <div className="flex flex-wrap gap-1.5 md:flex-nowrap md:justify-start md:gap-1 md:whitespace-nowrap">
-          {received && codes ? <>
-            {renderCodePill("Q1", codes.q1)}
-            {renderCodePill("Q2", codes.q2)}
-            {renderCodePill("Q3", codes.q3)}
+          {received ? <>
+            {codes.map((code, index) => code
+              ? <span key={index}>{renderCodePill(`Q${index + 1}` as "Q1" | "Q2" | "Q3", code)}</span>
+              : <span key={index} className="inline-flex shrink-0 items-center rounded-full border border-border bg-secondary/50 px-2 py-1 text-[10px] font-semibold text-muted-foreground sm:text-[11px] md:px-1.5 md:py-0.5 md:text-[10px]">Q{index + 1} Not coded</span>)}
           </> : <span className="rounded-sm border border-border bg-secondary/50 px-2 py-1 text-[11px] font-medium text-muted-foreground sm:text-xs">No response yet</span>}
         </div>
 
@@ -259,7 +232,7 @@ function CandidatesPage() {
             {candidateQuestions.map((question, index) => <section key={question} className="border-b border-border py-6 last:border-0 sm:py-7">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="text-[11px] font-bold uppercase tracking-[.14em] text-muted-foreground">Question {index + 1}</p>
-                {codes && renderCodePill(`Q${index + 1}` as "Q1" | "Q2" | "Q3", codes[`q${index + 1}` as keyof CandidateCodes])}
+                {codes[index] && renderCodePill(`Q${index + 1}` as "Q1" | "Q2" | "Q3", codes[index] as PositionCode)}
               </div>
               <h4 className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-foreground sm:text-[15px]">{question}</h4>
               <div className="mt-4 max-w-3xl">{renderResponseText(responses[index])}</div>
