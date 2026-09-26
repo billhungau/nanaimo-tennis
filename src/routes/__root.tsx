@@ -79,6 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Nanaimo Tennis" },
       { property: "og:image", content: "https://www.nanaimotennis.ca/social-preview.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
@@ -108,6 +109,17 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Nanaimo Tennis",
+              url: "https://www.nanaimotennis.ca/",
+            }),
+          }}
+        />
       </head>
       <body>
         {children}
