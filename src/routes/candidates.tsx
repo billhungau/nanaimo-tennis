@@ -48,7 +48,7 @@ const currentOfficeHolders: Record<string, string> = {
 const codeMeta: Record<PositionCode, { label: string; className: string }> = {
   support: { label: "Support", className: "border-blue-200 bg-blue-50 text-blue-800" },
   conditional: { label: "Conditional", className: "border-amber-200 bg-amber-50 text-amber-800" },
-  unclear: { label: "Unclear", className: "border-orange-200 bg-orange-50 text-orange-800" },
+  unclear: { label: "Unclear", className: "border-slate-300 bg-slate-100 text-slate-700" },
   oppose: { label: "Does not support", className: "border-purple-200 bg-purple-50 text-purple-800" },
 };
 
