@@ -364,7 +364,7 @@ function CandidatesPage() {
             <p><strong className="text-foreground">Support:</strong> the response clearly supports the proposition. <strong className="text-foreground">Conditional:</strong> support depends on feasibility, cost, safety, consultation or another stated condition.</p>
             <p><strong className="text-foreground">Unclear:</strong> the response does not establish a sufficiently clear position. <strong className="text-foreground">Does not support:</strong> the response clearly opposes the proposition.</p>
             <p>Each question was coded separately, so a candidate can receive different codes for Q1, Q2 and Q3. Candidates who did not respond are excluded from the response distributions and are reported separately; non-response is never interpreted as a position.</p>
-            <p><strong className="text-foreground">Coding reliability:</strong> A separate coding pass showed 86.7% agreement with the primary coding (Cohen's κ = 0.75). Differences were manually reviewed against the candidates' verbatim responses before final categories were assigned.</p>
+            <p><strong className="text-foreground">Coding reliability:</strong> A separate coding pass showed 87.2% agreement with the primary coding (Cohen's κ = 0.76). Differences were manually reviewed against the candidates' verbatim responses before final categories were assigned.</p>
           </div>
         </details>
       </div>
