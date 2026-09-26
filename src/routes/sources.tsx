@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { ArrowUpRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PageIntro, SourceLink } from "@/components/page-elements";
@@ -44,6 +44,25 @@ function SourcesPage() {
     <PageIntro eyebrow="Source library" title="Read the record for yourself.">
       <p>Primary sources are preferred. News coverage is summarized briefly and links to the original publisher; full articles are not reproduced.</p>
     </PageIntro>
+    <section className="section-space pb-0">
+      <div className="page-wrap">
+        <div className="civic-card overflow-hidden p-5 sm:p-7">
+          <p className="eyebrow">City planning record · September 2025</p>
+          <h2 className="mt-3 font-serif text-2xl sm:text-3xl">When could Beban Park provide indoor tennis?</h2>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">A City staff report includes a possible indoor activity pavilion at Beban Park that could serve tennis and other sports. The chart below shows a <strong className="text-foreground">potential 2027–2032 borrowing window for the broader Beban Park plan</strong>. It gives no construction date or opening date for indoor tennis. Council later deferred consideration of Beban Park improvements pending design and costing of higher-priority projects.</p>
+          <figure className="mt-6">
+            <div className="overflow-x-auto rounded-md border border-border bg-white">
+              <img src="/beban-borrowing-timeline.png" alt="City staff report table: Beban Park Master Plan implementation is a tier-two project with low cost confidence and a potential borrowing window from 2027 through 2032." width="1240" height="705" className="block min-w-[760px] w-full" loading="lazy" />
+            </div>
+            <figcaption className="mt-3 text-sm leading-6 text-muted-foreground">Extract from the City's “Nanaimo Builds for the Future” staff report, page 11. The timeline is for borrowing associated with the entire Beban Park Master Plan, not a tennis facility completion date. Swipe sideways on a small screen to read the original table.</figcaption>
+          </figure>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+            <a href="https://www.nanaimo.ca/docs/your-government/projects/rpt_fa250917nanaimobuildsforthefutureplanupdatewithattachments.pdf#page=11" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Read the staff report <ArrowUpRight className="size-4" /></a>
+            <a href="https://www.nanaimo.ca/your-government/city-council/council-meetings/summaries/lists/summaries/october-6-2025-regular-council-summary" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Read Council's October 6 decision <ArrowUpRight className="size-4" /></a>
+          </div>
+        </div>
+      </div>
+    </section>
     <section className="section-space">
       <div className="page-wrap">
         <div className="relative max-w-xl">

@@ -29,6 +29,18 @@ function EvidencePage() {
     <PageIntro eyebrow="Evidence" title="What do we actually know?">
       <p>Claims are kept short, sources are shown directly, and information that has not been published is identified rather than inferred.</p>
     </PageIntro>
+    <section className="section-space pb-0">
+      <div className="page-wrap">
+        <div className="civic-card p-5 sm:p-7">
+          <h2 className="font-serif text-2xl sm:text-3xl">What the Beban Park plan says</h2>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">A 2025 City staff report identifies a possible indoor activity pavilion at Beban Park that could accommodate tennis, badminton, pickleball and basketball. The report places potential borrowing for the broader Beban Park Master Plan across 2027–2032, with low confidence in its cost estimate. It does not set a date for an indoor tennis facility to open. Council subsequently deferred consideration of Beban Park improvements while priority projects undergo further design and costing.</p>
+          <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
+            <SourceLink href="https://www.nanaimo.ca/docs/your-government/projects/rpt_fa250917nanaimobuildsforthefutureplanupdatewithattachments.pdf#page=11" label="City staff report, pp. 8–11" />
+            <SourceLink href="https://www.nanaimo.ca/your-government/city-council/council-meetings/summaries/lists/summaries/october-6-2025-regular-council-summary" label="Council decision, October 6" />
+          </div>
+        </div>
+      </div>
+    </section>
     <section className="section-space">
       <div className="page-wrap grid gap-12 lg:grid-cols-[1.2fr_.8fr]">
         <div>
