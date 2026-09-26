@@ -215,7 +215,7 @@ function CandidatesPage() {
             {codes.map((code, index) => code
               ? <span key={index}>{renderCodePill(`Q${index + 1}` as "Q1" | "Q2" | "Q3", code)}</span>
               : <span key={index} className="inline-flex shrink-0 items-center rounded-full border border-border bg-secondary/50 px-2 py-1 text-[10px] font-semibold text-muted-foreground sm:text-[11px] md:px-1.5 md:py-0.5 md:text-[10px]">Q{index + 1} Not coded</span>)}
-          </> : <span className="rounded-sm border border-border bg-secondary/50 px-2 py-1 text-[11px] font-medium text-muted-foreground sm:text-xs">No response yet</span>}
+          </> : <span className="rounded-sm border border-border bg-secondary/50 px-2 py-1 text-[11px] font-medium text-muted-foreground sm:text-xs">No response received</span>}
         </div>
 
         <Button
@@ -251,7 +251,7 @@ function CandidatesPage() {
             {candidate.response_source && <p><a href={candidate.response_source} target="_blank" rel="noreferrer" className="font-semibold text-foreground underline underline-offset-4">View response source</a></p>}
           </div>
         </div> : <div className="mx-auto max-w-3xl rounded-sm border border-border bg-background p-5 sm:p-6">
-          <p className="text-sm leading-6 text-muted-foreground">No response has been recorded yet. This page will be updated if a response is provided.</p>
+          <p className="text-sm leading-6 text-muted-foreground">No response was received by the questionnaire deadline.</p>
         </div>}
       </div>
     </article>;
@@ -282,7 +282,7 @@ function CandidatesPage() {
 
   return <>
     <PageIntro eyebrow="2026 municipal election" title="Where do Nanaimo's candidates stand?">
-      <p>Every mayoral and council candidate is being asked the same three questions about the future of year-round indoor tennis. Responses are published without endorsement, ranking or editorial scoring so residents can read candidates' positions directly.</p>
+      <p>Every mayoral and council candidate was asked the same three questions about the future of year-round indoor tennis. The questionnaire was distributed from September 19 to September 25, 2026. Responses are published without endorsement, ranking or editorial scoring so residents can read candidates' positions directly.</p>
     </PageIntro>
 
     <section className="border-b border-border bg-card py-6 sm:py-8">
@@ -345,7 +345,7 @@ function CandidatesPage() {
           })}
         </div>
 
-        <p className="mt-4 max-w-4xl text-xs leading-5 text-muted-foreground">Results summarize the {receivedCount} candidates who responded. {awaitingCount} candidates have not responded and are shown separately below. Categories summarize the position expressed in each response. They are descriptive codes, not ratings or endorsements.</p>
+        <p className="mt-4 max-w-4xl text-xs leading-5 text-muted-foreground">Results summarize the {receivedCount} candidates who responded during the September 19–25, 2026 questionnaire period. {awaitingCount} candidates did not respond by the deadline and are shown separately below. Categories summarize the position expressed in each response. They are descriptive codes, not ratings or endorsements.</p>
 
         <details className="mt-3 text-sm">
           <summary className="cursor-pointer font-semibold text-foreground">How responses were categorized</summary>
@@ -366,7 +366,7 @@ function CandidatesPage() {
           <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Explore candidate responses</h2>
           {!unavailable && <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
             <span><strong className="font-semibold text-foreground">{receivedCount}</strong> responses received</span>
-            <span><strong className="font-semibold text-foreground">{awaitingCount}</strong> awaiting response</span>
+            <span><strong className="font-semibold text-foreground">{awaitingCount}</strong> no response received</span>
             <span><strong className="font-semibold text-foreground">{uniqueCandidates.length}</strong> candidates listed</span>
           </div>}
         </div>
@@ -379,7 +379,7 @@ function CandidatesPage() {
             <div className="flex flex-wrap gap-2" role="group" aria-label="Filter candidates by response status">
               <Button size="sm" variant={responseFilter === "all" ? "secondary" : "ghost"} onClick={() => setResponseFilter("all")}>All responses</Button>
               <Button size="sm" variant={responseFilter === "received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("received")}>Responses received</Button>
-              <Button size="sm" variant={responseFilter === "not_received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("not_received")}>No response yet</Button>
+              <Button size="sm" variant={responseFilter === "not_received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("not_received")}>No response received</Button>
             </div>
           </div>
 
@@ -398,7 +398,7 @@ function CandidatesPage() {
 
         {!unavailable && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match these filters.</p>}
 
-        <p className="mt-4 text-xs leading-5 text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Responding candidates are shown first, followed by candidates who have not responded; each group is alphabetical within each office. Incumbency labels identify current City office-holders as of September 2026 and are provided as factual context only.</p>
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Responding candidates are shown first, followed by candidates for whom no response was received by the September 25, 2026 deadline; each group is alphabetical within each office. Incumbency labels identify current City office-holders as of September 2026 and are provided as factual context only.</p>
       </div>
     </section>
   </>;
