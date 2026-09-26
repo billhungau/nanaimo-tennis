@@ -345,11 +345,10 @@ function CandidatesPage() {
           })}
         </div>
 
-        <p className="mt-4 max-w-4xl text-xs leading-5 text-muted-foreground">Results summarize the {receivedCount} candidates who responded during the September 19–25, 2026 questionnaire period. {awaitingCount} candidates did not respond by the deadline and are shown separately below. Categories summarize the position expressed in each response. They are descriptive codes, not ratings or endorsements.</p>
-
         <details className="mt-3 text-sm">
           <summary className="cursor-pointer font-semibold text-foreground">How responses were categorized</summary>
           <div className="mt-3 max-w-4xl space-y-2 border-l-2 border-border pl-4 text-sm leading-6 text-muted-foreground">
+            <p>Results summarize the {receivedCount} candidates who responded during the September 19–25, 2026 questionnaire period. {awaitingCount} candidates did not respond by the deadline and are shown separately below. Categories summarize the position expressed in each response. They are descriptive codes, not ratings or endorsements.</p>
             <p><strong className="text-foreground">Support:</strong> the response clearly supports the proposition. <strong className="text-foreground">Conditional:</strong> support depends on feasibility, cost, safety, consultation or another stated condition.</p>
             <p><strong className="text-foreground">Unclear:</strong> the response does not establish a sufficiently clear position. <strong className="text-foreground">Does not support:</strong> the response clearly opposes the proposition.</p>
             <p>Each question was coded separately, so a candidate can receive different codes for Q1, Q2 and Q3. Candidates who did not respond are excluded from the response distributions and are reported separately; non-response is never interpreted as a position.</p>
