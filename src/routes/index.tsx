@@ -125,7 +125,7 @@ function Index() {
 
     <section className="border-y border-border bg-secondary/50 py-10 sm:py-12">
       <div className="page-wrap flex flex-col justify-between gap-5 md:flex-row md:items-center">
-        <div><p className="eyebrow">2026 municipal election · Questionnaire results</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Candidate questionnaire results are now available.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">25 of 44 mayoral and council candidates responded during the September 19–25 questionnaire period. Each response has been coded question-by-question for easier comparison, with the candidates' full verbatim responses available for review.</p><p className="mt-2 max-w-2xl text-xs leading-5 text-muted-foreground">The coding uses descriptive categories such as Support, Conditional, Unclear and Does not support. It is not a rating, ranking or endorsement.</p></div>
+        <div><p className="eyebrow">2026 municipal election · Questionnaire results</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Candidate questionnaire results are now available.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">25 of 44 mayoral and council candidates responded during the September 19–25 questionnaire period. Each response has been coded question-by-question for easier comparison, with the candidates' full verbatim responses available for review.</p></div>
         <Button asChild variant="outline" className="w-fit shrink-0"><Link to="/candidates">View questionnaire results<ArrowRight /></Link></Button>
       </div>
     </section>
