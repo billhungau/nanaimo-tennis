@@ -29,9 +29,18 @@ type CandidateRecord = {
 };
 
 const questionSummaries = [
-  "Pause removal until public consultation and a feasibility review are completed?",
-  "Evaluate nonprofit, lease, partnership or other operating models before removal?",
-  "What role should year-round indoor racquet-sport facilities play in long-term recreation planning?",
+  {
+    short: "Pause removal",
+    full: "Pause removal until public consultation and a feasibility review are completed?",
+  },
+  {
+    short: "Evaluate alternatives",
+    full: "Evaluate nonprofit, lease, partnership or other operating models before removal?",
+  },
+  {
+    short: "Long-term planning",
+    full: "What role should year-round indoor racquet-sport facilities play in long-term recreation planning?",
+  },
 ];
 
 const currentOfficeHolders: Record<string, string> = {
@@ -45,11 +54,27 @@ const currentOfficeHolders: Record<string, string> = {
   "Ian Thorpe": "Current Councillor",
 };
 
-const codeMeta: Record<PositionCode, { label: string; className: string }> = {
-  support: { label: "Support", className: "border-blue-200 bg-blue-50 text-blue-800" },
-  conditional: { label: "Conditional", className: "border-amber-200 bg-amber-50 text-amber-800" },
-  unclear: { label: "Unclear", className: "border-orange-200 bg-orange-50 text-orange-800" },
-  oppose: { label: "Does not support", className: "border-purple-200 bg-purple-50 text-purple-800" },
+const codeMeta: Record<PositionCode, { label: string; className: string; barClassName: string }> = {
+  support: {
+    label: "Support",
+    className: "border-blue-200/80 bg-blue-50/70 text-blue-800",
+    barClassName: "bg-blue-700",
+  },
+  conditional: {
+    label: "Conditional",
+    className: "border-amber-200/80 bg-amber-50/70 text-amber-800",
+    barClassName: "bg-amber-600",
+  },
+  unclear: {
+    label: "Unclear",
+    className: "border-slate-200 bg-slate-50/80 text-slate-700",
+    barClassName: "bg-slate-500",
+  },
+  oppose: {
+    label: "Does not support",
+    className: "border-purple-200/80 bg-purple-50/70 text-purple-800",
+    barClassName: "bg-purple-700",
+  },
 };
 
 function normalizeCandidateName(name: string) {
@@ -181,8 +206,8 @@ function CandidatesPage() {
 
   function renderCodePill(question: "Q1" | "Q2" | "Q3", code: PositionCode) {
     const meta = codeMeta[code];
-    return <span className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2 py-1 text-[10px] font-semibold sm:text-[11px] md:px-1.5 md:py-0.5 md:text-[10px] ${meta.className}`}>
-      <span className="size-2.5 shrink-0 rounded-full bg-current ring-2 ring-current/15" aria-hidden="true" />
+    return <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-1.5 py-0.5 text-[9px] font-semibold leading-4 whitespace-nowrap sm:gap-1.5 sm:px-2 sm:py-1 sm:text-[10px] md:px-1.5 md:py-0.5 md:text-[10px] ${meta.className}`}>
+      <span className="size-2 shrink-0 rounded-full bg-current ring-2 ring-current/10 sm:size-2.5" aria-hidden="true" />
       {question} {meta.label}
     </span>;
   }
@@ -198,44 +223,47 @@ function CandidatesPage() {
     const isOpen = open === candidateKey;
 
     return <article key={candidateKey} className="border-b border-border bg-card last:border-0">
-      <div className="grid grid-cols-1 gap-2 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,2.2fr)_minmax(22rem,2.2fr)_7.5rem] md:items-center md:gap-3 md:py-4">
+      <div className="grid grid-cols-1 gap-1.5 px-4 py-2.5 sm:px-5 sm:py-3 md:grid-cols-[minmax(0,2.2fr)_minmax(22rem,2.2fr)_7.5rem] md:items-center md:gap-3 md:py-3.5">
         <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="font-serif text-base leading-snug sm:text-lg">{candidate.name}</h3>
-            {currentRole && <span className="shrink-0 rounded-sm border border-border bg-secondary/70 px-2 py-0.5 text-[10px] font-medium text-muted-foreground sm:text-[11px]">{currentRole}</span>}
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <h3 className="font-serif text-[17px] leading-snug sm:text-lg md:text-[19px]">{candidate.name}</h3>
+            {currentRole && <span className="shrink-0 rounded-sm border border-border bg-secondary/60 px-2 py-0.5 text-[10px] font-medium text-muted-foreground sm:text-[11px]">{currentRole}</span>}
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 md:flex-nowrap md:justify-start md:gap-1 md:whitespace-nowrap">
+        <div className="flex min-w-0 flex-nowrap gap-1 overflow-x-auto whitespace-nowrap pb-0.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:justify-start md:overflow-visible md:pb-0">
           {received ? <>
             {codes.map((code, index) => code
-              ? <span key={index}>{renderCodePill(`Q${index + 1}` as "Q1" | "Q2" | "Q3", code)}</span>
-              : <span key={index} className="inline-flex shrink-0 items-center rounded-full border border-border bg-secondary/50 px-2 py-1 text-[10px] font-semibold text-muted-foreground sm:text-[11px] md:px-1.5 md:py-0.5 md:text-[10px]">Q{index + 1} Not coded</span>)}
-          </> : <span className="rounded-sm border border-border bg-secondary/50 px-2 py-1 text-[11px] font-medium text-muted-foreground sm:text-xs">No response yet</span>}
+              ? <span key={index} className="shrink-0">{renderCodePill(`Q${index + 1}` as "Q1" | "Q2" | "Q3", code)}</span>
+              : <span key={index} className="inline-flex shrink-0 items-center rounded-full border border-border bg-secondary/40 px-1.5 py-0.5 text-[9px] font-semibold leading-4 text-muted-foreground whitespace-nowrap sm:px-2 sm:py-1 sm:text-[10px] md:px-1.5 md:py-0.5 md:text-[10px]">Q{index + 1} Not coded</span>)}
+          </> : <span className="rounded-sm border border-border bg-secondary/45 px-2 py-1 text-[11px] font-medium text-muted-foreground sm:text-xs">No response received</span>}
         </div>
 
         <Button
           variant="ghost"
           size="sm"
-          className="h-auto w-fit justify-start px-0 py-1 text-xs md:ml-auto md:h-9 md:justify-end md:py-2 md:text-sm"
+          className="h-auto w-fit justify-start px-0 py-0.5 text-xs md:ml-auto md:h-9 md:justify-end md:py-2 md:text-[15px]"
           onClick={() => setOpen(isOpen ? null : candidateKey)}
           aria-expanded={isOpen}
         >
           {received ? (isOpen ? "Hide response" : "Read response") : (isOpen ? "Hide details" : "Details")}
-          <ChevronDown className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
+          <ChevronDown className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
         </Button>
       </div>
 
-      <div hidden={!isOpen} className="border-t border-border bg-secondary/25 px-4 py-6 sm:px-6 sm:py-8">
+      <div hidden={!isOpen} className="border-t border-border bg-secondary/20 px-4 py-5 sm:px-6 sm:py-7">
         {received && hasResponses ? <div className="mx-auto max-w-4xl">
           <div className="rounded-sm border border-border bg-background px-4 py-1 sm:px-7 sm:py-2">
-            {candidateQuestions.map((question, index) => <section key={question} className="border-b border-border py-6 last:border-0 sm:py-7">
+            {candidateQuestions.map((question, index) => <section key={question} className="border-b border-border py-5 last:border-0 sm:py-7">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="text-[11px] font-bold uppercase tracking-[.14em] text-muted-foreground">Question {index + 1}</p>
                 {codes[index] && renderCodePill(`Q${index + 1}` as "Q1" | "Q2" | "Q3", codes[index] as PositionCode)}
               </div>
               <h4 className="mt-2 max-w-3xl text-sm font-semibold leading-6 text-foreground sm:text-[15px]">{question}</h4>
-              <div className="mt-4 max-w-3xl">{renderResponseText(responses[index])}</div>
+              <div className="mt-4 max-w-3xl border-l-2 border-border pl-4 sm:pl-5">
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground">Candidate response</p>
+                {renderResponseText(responses[index])}
+              </div>
             </section>)}
           </div>
 
@@ -253,7 +281,7 @@ function CandidatesPage() {
   function renderCandidateSection(title: string, description: string, items: CandidateRecord[]) {
     if (items.length === 0) return null;
 
-    return <section className="mt-9 first:mt-8">
+    return <section className="mt-8 first:mt-8 sm:mt-9">
       <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <h2 className="font-serif text-xl sm:text-2xl">{title}</h2>
@@ -285,10 +313,13 @@ function CandidatesPage() {
           <h2 className="mt-2 font-serif text-2xl sm:text-3xl">The 3 questions we asked</h2>
         </div>
 
-        <div className="mt-5 grid gap-3 md:grid-cols-3">
-          {questionSummaries.map((summary, index) => <div key={summary} className="flex gap-3 border border-border bg-secondary/35 p-4">
+        <div className="mt-5 grid gap-2.5 md:grid-cols-3 md:gap-3">
+          {questionSummaries.map((summary, index) => <div key={summary.short} className="flex items-center gap-3 border border-border bg-secondary/30 p-3.5 sm:items-start sm:p-4">
             <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-border bg-background text-xs font-bold">{index + 1}</span>
-            <p className="text-sm leading-6">{summary}</p>
+            <div className="min-w-0">
+              <p className="font-semibold leading-5 sm:hidden">{summary.short}</p>
+              <p className="hidden text-sm leading-6 sm:block">{summary.full}</p>
+            </div>
           </div>)}
         </div>
 
@@ -321,15 +352,25 @@ function CandidatesPage() {
             ["Q3", "Long-term planning"],
           ].map(([question, title], index) => {
             const counts = resultCounts[index];
+            const codedTotal = Object.values(counts).reduce((sum, count) => sum + count, 0);
             return <article key={question} className="border border-border bg-card p-4 sm:p-5">
               <p className="text-[11px] font-bold uppercase tracking-[.12em] text-muted-foreground">{question}</p>
               <h3 className="mt-1 font-serif text-lg">{title}</h3>
+
+              <div className="mt-4 flex h-2.5 w-full overflow-hidden rounded-full bg-secondary" aria-hidden="true">
+                {(["support", "conditional", "unclear", "oppose"] as PositionCode[]).map((code) => {
+                  const width = codedTotal ? (counts[code] / codedTotal) * 100 : 0;
+                  if (!width) return null;
+                  return <span key={code} className={codeMeta[code].barClassName} style={{ width: `${width}%` }} />;
+                })}
+              </div>
+
               <div className="mt-4 space-y-2 text-sm">
                 {(["support", "conditional", "unclear", "oppose"] as PositionCode[]).map((code) => {
                   const percentage = receivedCount ? Math.round((counts[code] / receivedCount) * 100) : 0;
                   const textClass = codeMeta[code].className.split(" ").find((item) => item.startsWith("text-")) ?? "";
                   return <div key={code} className="flex items-center justify-between gap-3">
-                    <span className={`inline-flex items-center gap-2 ${textClass}`}><span className="size-2.5 rounded-full bg-current ring-2 ring-current/15" />{codeMeta[code].label}</span>
+                    <span className={`inline-flex items-center gap-2 ${textClass}`}><span className="size-2.5 rounded-full bg-current ring-2 ring-current/10" />{codeMeta[code].label}</span>
                     <strong>{counts[code]} <span className="font-normal text-muted-foreground">({percentage}%)</span></strong>
                   </div>;
                 })}
@@ -364,21 +405,21 @@ function CandidatesPage() {
           </div>}
         </div>
 
-        <div className="grid gap-4 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div className="space-y-3">
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter candidates by office">
-              {(["All", "Mayor", "Council"] as Filter[]).map((item) => <Button key={item} size="sm" variant={filter === item ? "default" : "outline"} onClick={() => setFilter(item)}>{item}</Button>)}
+        <div className="sticky top-16 z-20 -mx-3 border-y border-border bg-background/95 px-3 py-3 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-background/90 lg:static lg:mx-0 lg:grid lg:grid-cols-[1fr_auto] lg:items-end lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none lg:backdrop-blur-none">
+          <div className="space-y-2.5 lg:space-y-3">
+            <div className="flex flex-nowrap gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label="Filter candidates by office">
+              {(["All", "Mayor", "Council"] as Filter[]).map((item) => <Button key={item} size="sm" className="shrink-0" variant={filter === item ? "default" : "outline"} onClick={() => setFilter(item)}>{item}</Button>)}
             </div>
-            <div className="flex flex-wrap gap-2" role="group" aria-label="Filter candidates by response status">
-              <Button size="sm" variant={responseFilter === "all" ? "secondary" : "ghost"} onClick={() => setResponseFilter("all")}>All responses</Button>
-              <Button size="sm" variant={responseFilter === "received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("received")}>Responses received</Button>
-              <Button size="sm" variant={responseFilter === "not_received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("not_received")}>No response yet</Button>
+            <div className="flex flex-nowrap gap-1.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="group" aria-label="Filter candidates by response status">
+              <Button size="sm" className="shrink-0" variant={responseFilter === "all" ? "secondary" : "ghost"} onClick={() => setResponseFilter("all")}>All responses</Button>
+              <Button size="sm" className="shrink-0" variant={responseFilter === "received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("received")}>Responses received</Button>
+              <Button size="sm" className="shrink-0" variant={responseFilter === "not_received" ? "secondary" : "ghost"} onClick={() => setResponseFilter("not_received")}>No response yet</Button>
             </div>
           </div>
 
-          <div className="relative w-full lg:w-72">
+          <div className="relative mt-2.5 w-full lg:mt-0 lg:w-72">
             <Search className="absolute left-3 top-3 size-4 text-muted-foreground" />
-            <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search candidate" className="pl-10" aria-label="Search candidate" />
+            <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search candidate" className="h-9 pl-10 lg:h-10" aria-label="Search candidate" />
           </div>
         </div>
 
