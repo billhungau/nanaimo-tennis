@@ -196,9 +196,13 @@ function CandidatesPage() {
     const currentRole = officeHoldersByKey.get(nameKey);
     const candidateKey = `${nameKey}::${candidate.office.toLowerCase()}`;
     const isOpen = open === candidateKey;
+    const toggleOpen = () => setOpen(isOpen ? null : candidateKey);
 
     return <article key={candidateKey} className="border-b border-border bg-card last:border-0">
-      <div className="grid grid-cols-1 gap-2 px-4 py-3.5 sm:px-5 md:grid-cols-[minmax(0,2.2fr)_minmax(22rem,2.2fr)_7.5rem] md:items-center md:gap-3 md:py-4">
+      <div
+        className="grid cursor-pointer grid-cols-1 gap-2 px-4 py-3.5 transition-colors hover:bg-secondary/30 sm:px-5 md:grid-cols-[minmax(0,2.2fr)_minmax(22rem,2.2fr)_7.5rem] md:items-center md:gap-3 md:py-4"
+        onClick={toggleOpen}
+      >
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-serif text-base leading-snug sm:text-lg">{candidate.name}</h3>
@@ -218,7 +222,10 @@ function CandidatesPage() {
           variant="ghost"
           size="sm"
           className="h-auto w-fit justify-start px-0 py-1 text-xs md:ml-auto md:h-9 md:justify-end md:py-2 md:text-sm"
-          onClick={() => setOpen(isOpen ? null : candidateKey)}
+          onClick={(event) => {
+            event.stopPropagation();
+            toggleOpen();
+          }}
           aria-expanded={isOpen}
         >
           {received ? (isOpen ? "Hide response" : "Read response") : (isOpen ? "Hide details" : "Details")}
