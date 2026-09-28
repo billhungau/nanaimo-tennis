@@ -73,7 +73,7 @@ function SourcesPage() {
           </figure>
           <div className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
             <a href="https://www.nanaimo.ca/docs/your-government/projects/rpt_fa250917nanaimobuildsforthefutureplanupdatewithattachments.pdf#page=11" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Read the staff report <ArrowUpRight className="size-4" /></a>
-            <a href="https://www.nanaimo.ca/your-government/city-council/council-meetings/summaries/lists/summaries/october-6-2025-regular-council-summary" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Read Council's October 6 decision <ArrowUpRight className="size-4" /></a>
+            <a href="https://www.nanaimo.ca/your-government/city-council/council-meetings/summaries/lists/summaries/october-6-2025-regular-council-summary" target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Read Council's October 6, 2025 decision <ArrowUpRight className="size-4" /></a>
           </div>
         </article>}
         <div className="mt-7 grid gap-3 sm:mt-8 sm:gap-4 lg:grid-cols-2">
