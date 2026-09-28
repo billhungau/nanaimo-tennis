@@ -6,7 +6,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { PageIntro } from "@/components/page-elements";
 
 export const Route = createFileRoute("/get-involved")({
   head: () => ({ meta: [
@@ -63,9 +62,15 @@ function GetInvolvedPage() {
   ];
 
   return <>
-    <PageIntro eyebrow="Get involved" title="Participate in the conversation.">
-      <p>Learn from the public record, join community updates, share your experience and take part respectfully in Nanaimo's civic process.</p>
-    </PageIntro>
+    <section className="relative overflow-hidden border-b border-border bg-primary text-primary-foreground">
+      <img src="/20260927_132724.jpg" alt="Exterior of the Westwood Lake indoor tennis facility" className="absolute inset-0 size-full object-cover object-center" />
+      <div className="absolute inset-0 bg-primary/78" />
+      <div className="page-wrap relative py-16 sm:py-20">
+        <p className="text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70">Get involved</p>
+        <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">Participate in the conversation.</h1>
+        <p className="mt-6 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:text-lg">Learn from the public record, join community updates, share your experience and take part respectfully in Nanaimo's civic process.</p>
+      </div>
+    </section>
     <section className="section-space">
       <div className="page-wrap grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <div>
