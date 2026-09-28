@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageIntro, SourceLink } from "@/components/page-elements";
+import { SourceLink } from "@/components/page-elements";
 import { timeline } from "@/lib/civic-data";
 
 export const Route = createFileRoute("/timeline")({
@@ -17,9 +17,21 @@ export const Route = createFileRoute("/timeline")({
 
 function TimelinePage() {
   return <>
-    <PageIntro eyebrow="Timeline" title="A clear chronology of what has happened—and what comes next.">
-      <p>Dates below distinguish events that have occurred from scheduled, expected and future steps.</p>
-    </PageIntro>
+    <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      <img
+        src="/20260927_132624.jpg"
+        alt="Exterior of the Westwood Lake indoor tennis facility"
+        className="absolute inset-0 size-full object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-primary/78" />
+      <div className="page-wrap relative py-16 sm:py-20">
+        <p className="text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70">Timeline</p>
+        <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">A clear chronology of what has happened—and what comes next.</h1>
+        <div className="mt-6 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:text-lg">
+          <p>Dates below distinguish events that have occurred from scheduled, expected and future steps.</p>
+        </div>
+      </div>
+    </section>
     <section className="section-space">
       <div className="page-wrap max-w-4xl">
         {timeline.map((item, index) => <article key={`${item.date}-${item.title}`} className="grid grid-cols-[4.25rem_1fr] gap-4 border-b border-border py-8 sm:grid-cols-[8rem_1fr] sm:gap-5">
