@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PageIntro, SectionHeading } from "@/components/page-elements";
+import { SectionHeading } from "@/components/page-elements";
 
 const cityAnnouncementUrl = "https://www.nanaimo.ca/NewsReleases/NR260916CityOfNanaimoExpandsWestwoodLakeParkWithNewLandAcquisition.html";
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
@@ -35,9 +35,21 @@ function IssuePage() {
   ];
 
   return <>
-    <PageIntro eyebrow="The issue" title="Two decisions, considered separately.">
-      <p>The acquisition of land beside Westwood Lake Park and the future of the existing indoor recreation facility are separate policy questions. Acquiring the property does not, by itself, determine whether the indoor courts should be removed.</p>
-    </PageIntro>
+    <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      <img
+        src="/20260927_132803.jpg"
+        alt="Indoor tennis courts inside the Westwood Lake facility"
+        className="absolute inset-0 size-full object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-primary/78" />
+      <div className="page-wrap relative py-16 sm:py-20">
+        <p className="eyebrow text-primary-foreground/75">The issue</p>
+        <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">Two decisions, considered separately.</h1>
+        <div className="mt-6 max-w-3xl text-base leading-7 text-primary-foreground/88 sm:text-lg">
+          <p>The acquisition of land beside Westwood Lake Park and the future of the existing indoor recreation facility are separate policy questions. Acquiring the property does not, by itself, determine whether the indoor courts should be removed.</p>
+        </div>
+      </div>
+    </section>
 
     <section className="section-space">
       <div className="page-wrap grid gap-12 lg:grid-cols-2">
@@ -61,10 +73,18 @@ function IssuePage() {
       </div>
     </section>
 
-    <section className="section-space">
-      <div className="page-wrap grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
-        <SectionHeading eyebrow="A limited, practical step" title="What a pause would allow"/>
-        <div className="space-y-3">{asks.map((ask) => <div className="flex gap-4 border-b border-border py-4" key={ask}><span className="grid size-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="size-3.5"/></span><p className="text-sm font-medium">{ask}</p></div>)}</div>
+    <section className="relative overflow-hidden text-primary-foreground">
+      <img
+        src="/20260927_132624.jpg"
+        alt="Exterior of the Westwood Lake indoor tennis facility"
+        className="absolute inset-0 size-full object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-primary/82" />
+      <div className="page-wrap relative section-space grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
+        <div className="[&_.eyebrow]:text-primary-foreground/70 [&_h2]:text-primary-foreground">
+          <SectionHeading eyebrow="A limited, practical step" title="What a pause would allow"/>
+        </div>
+        <div className="space-y-3">{asks.map((ask) => <div className="flex gap-4 border-b border-primary-foreground/20 bg-primary-foreground/[0.06] px-4 py-4 backdrop-blur-[2px]" key={ask}><span className="grid size-6 shrink-0 place-items-center rounded-full bg-accent text-accent-foreground"><Check className="size-3.5"/></span><p className="text-sm font-medium text-primary-foreground">{ask}</p></div>)}</div>
       </div>
     </section>
 
