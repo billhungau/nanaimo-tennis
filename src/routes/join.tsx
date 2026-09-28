@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PageIntro } from "@/components/page-elements";
 
 const groupUrl = "https://groups.google.com/g/fitin2";
 
@@ -23,9 +22,15 @@ export const Route = createFileRoute("/join")({
 
 function JoinPage() {
   return <>
-    <PageIntro eyebrow="Stay connected" title="Join the community updates.">
-      <p>The Friends of Indoor Tennis in Nanaimo Google Group is the central community channel for updates, discussion and coordination about year-round indoor tennis in Nanaimo.</p>
-    </PageIntro>
+    <section className="relative overflow-hidden border-b border-border bg-primary text-primary-foreground">
+      <img src="/20260927_132624.jpg" alt="Exterior of the Westwood Lake indoor tennis facility" className="absolute inset-0 size-full object-cover object-center" />
+      <div className="absolute inset-0 bg-primary/80" />
+      <div className="page-wrap relative py-16 sm:py-20">
+        <p className="text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70">Stay connected</p>
+        <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">Join the community updates.</h1>
+        <p className="mt-6 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:text-lg">The Friends of Indoor Tennis in Nanaimo Google Group is the central community channel for updates, discussion and coordination about year-round indoor tennis in Nanaimo.</p>
+      </div>
+    </section>
     <section className="section-space">
       <div className="page-wrap grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-12">
         <div>
