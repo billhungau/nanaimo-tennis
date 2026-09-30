@@ -66,7 +66,7 @@ function EvidencePage() {
           </div>
 
           <div className="border-t border-border bg-secondary/55 p-4 sm:p-6">
-            <p className="max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Context:</strong> Across 2023–2025, the records show 1,643 registrations against 2,597 programmed spaces, a 63.3% aggregate fill rate. These figures document participation in City tennis programming, but they do not by themselves measure demand specifically for year-round indoor courts.</p>
+            <p className="max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Context:</strong> Across 2023–2025, the records show 1,643 registrations against 2,597 programmed spaces, a 63.3% aggregate fill rate.</p>
           </div>
         </div>
       </div>
