@@ -8,6 +8,15 @@ export const candidateQuestions = [
 
 export const sources = [
   {
+    title: "City tennis-program registration records, 2021–2025",
+    publisher: "City of Nanaimo recreation data",
+    date: "September 28, 2026",
+    category: "Recreation records" as SourceCategory,
+    url: "/evidence#city-registration-data",
+    summary: "Program-level records supplied by the City of Nanaimo tennis coordinator include listed course capacity, registrations and recorded waitlists. The Evidence page summarizes the 2023–2025 totals and explains the limits of what the records establish.",
+    primary: true,
+  },
+  {
     title: "Candidate nomination documents",
     publisher: "City of Nanaimo",
     date: "September 11, 2026",
@@ -154,10 +163,10 @@ export const unknowns = [
 ];
 
 export const timeline = [
-  { date: "Sep 16", year: "2026", title: "Acquisition announced", text: "The City announces its purchase of the Westwood Lake Tennis Club property.", status: "Occurred", source: sources[2] },
-  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A community-organized public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[9] },
-  { date: "Oct 17", year: "2026", title: "Municipal election", text: "Nanaimo holds its general local election.", status: "Scheduled", source: sources[1] },
-  { date: "Nov 1", year: "2026", title: "Expected club closure", text: "Westwood Lake Tennis Club is expected to cease operations.", status: "Expected", source: sources[2] },
-  { date: "Dec 18", year: "2026", title: "Expected possession", text: "The City is expected to take possession of the property.", status: "Expected", source: sources[4] },
-  { date: "Future", year: "", title: "Planning and engagement", text: "The City has indicated that broader planning and community engagement will shape future uses.", status: "Future", source: sources[2] },
+  { date: "Sep 16", year: "2026", title: "Acquisition announced", text: "The City announces its purchase of the Westwood Lake Tennis Club property.", status: "Occurred", source: sources[3] },
+  { date: "Sep 17", year: "2026", title: "Community response begins", text: "A community-organized public petition asks the City to preserve the indoor facility while alternatives are assessed.", status: "Occurred", source: sources[10] },
+  { date: "Oct 17", year: "2026", title: "Municipal election", text: "Nanaimo holds its general local election.", status: "Scheduled", source: sources[2] },
+  { date: "Nov 1", year: "2026", title: "Expected club closure", text: "Westwood Lake Tennis Club is expected to cease operations.", status: "Expected", source: sources[3] },
+  { date: "Dec 18", year: "2026", title: "Expected possession", text: "The City is expected to take possession of the property.", status: "Expected", source: sources[5] },
+  { date: "Future", year: "", title: "Planning and engagement", text: "The City has indicated that broader planning and community engagement will shape future uses.", status: "Future", source: sources[3] },
 ];
