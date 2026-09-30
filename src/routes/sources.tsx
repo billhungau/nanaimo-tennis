@@ -85,7 +85,7 @@ function SourcesPage() {
             <h2 className="mt-3 font-serif text-xl leading-6 sm:mt-5 sm:leading-7">{source.title}</h2>
             <p className="mt-1.5 text-[11px] leading-5 text-muted-foreground sm:mt-2 sm:text-xs">{source.publisher} · {source.date}</p>
             <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground sm:mt-4">{source.summary}</p>
-            <div className="mt-3 sm:mt-5"><SourceLink href={source.url} label="Original source"/></div>
+            <div className="mt-3 sm:mt-5"><SourceLink href={source.url} label={source.url.startsWith("/") ? "View evidence summary" : "Original source"}/></div>
           </article>)}
         </div>
         {shown.length === 0 && <p className="py-14 text-center text-sm text-muted-foreground">No sources match this search.</p>}
