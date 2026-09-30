@@ -26,11 +26,10 @@ function EvidencePage() {
   ];
 
   const registrationData = [
-    { year: "2023", registrations: 410, courses: 56, spaces: 628 },
-    { year: "2024", registrations: 564, courses: 75, spaces: 864 },
-    { year: "2025", registrations: 669, courses: 100, spaces: 1105 },
+    { year: "2023", registrations: 410 },
+    { year: "2024", registrations: 564 },
+    { year: "2025", registrations: 669 },
   ];
-  const maxRegistrations = Math.max(...registrationData.map((item) => item.registrations));
 
   return <>
     <PageIntro eyebrow="Evidence" title="What do we actually know?">
@@ -46,27 +45,19 @@ function EvidencePage() {
             <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">City records show registrations rising 63% from 2023 to 2025.</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-px bg-border md:hidden">
-            {registrationData.map((item) => <article key={item.year} className="bg-card px-3 py-4 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground">{item.year}</p>
-              <p className="mt-1 font-serif text-3xl font-bold tabular-nums">{item.registrations}</p>
-              <p className="mt-1 text-[11px] text-muted-foreground">registrations</p>
-            </article>)}
-          </div>
-
-          <div className="hidden gap-px bg-border md:grid md:grid-cols-3">
-            {registrationData.map((item) => <article key={item.year} className="bg-card p-6">
-              <p className="text-xs font-bold uppercase tracking-[.12em] text-muted-foreground">{item.year}</p>
-              <p className="mt-2 font-serif text-4xl font-bold tabular-nums">{item.registrations}</p>
-              <p className="mt-1 text-sm font-semibold">registrations</p>
-              <div className="mt-5 h-2 overflow-hidden rounded-full bg-secondary" aria-hidden="true"><div className="h-full bg-primary" style={{ width: `${(item.registrations / maxRegistrations) * 100}%` }} /></div>
-              <p className="mt-4 text-xs leading-5 text-muted-foreground">{item.courses} listed offerings · {item.spaces.toLocaleString()} programmed spaces</p>
+          <div className="grid grid-cols-3 gap-px bg-border">
+            {registrationData.map((item) => <article key={item.year} className="bg-card px-3 py-4 text-center sm:p-6">
+              <p className="text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground sm:text-xs">{item.year}</p>
+              <p className="mt-1 font-serif text-3xl font-bold tabular-nums sm:mt-2 sm:text-4xl">{item.registrations}</p>
             </article>)}
           </div>
 
           <div className="border-t border-border bg-secondary/55 p-4 sm:p-6">
-            <p className="text-sm leading-6 text-muted-foreground md:hidden">Listed offerings increased from 56 to 100, while programmed spaces increased from 628 to 1,105.</p>
-            <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground md:mt-0"><strong className="text-foreground">Context:</strong> Across 2023–2025, the records show 1,643 registrations against 2,597 programmed spaces, a 63.3% aggregate fill rate. These figures document participation in City tennis programming, but they do not by themselves measure demand specifically for year-round indoor courts.</p>
+            <div className="grid gap-1 text-sm leading-6 text-muted-foreground sm:grid-cols-2 sm:gap-6">
+              <p><strong className="text-foreground">Listed offerings:</strong> 56 → 100</p>
+              <p><strong className="text-foreground">Programmed spaces:</strong> 628 → 1,105</p>
+            </div>
+            <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Context:</strong> Across 2023–2025, the records show 1,643 registrations against 2,597 programmed spaces, a 63.3% aggregate fill rate. These figures document participation in City tennis programming, but they do not by themselves measure demand specifically for year-round indoor courts.</p>
             <div className="mt-3 sm:mt-4"><SourceLink href="/Registration%20Summary%202021-2025.pdf" label="View original registration records" /></div>
           </div>
         </div>
