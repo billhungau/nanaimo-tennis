@@ -127,6 +127,18 @@ function Index() {
       </div>
     </section>
 
+    <section className="border-y border-border bg-card py-10 sm:py-12">
+      <div className="page-wrap">
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+          <div className="max-w-3xl"><p className="eyebrow">City recreation records · 2023–2025</p><h2 className="mt-2 font-serif text-3xl sm:text-4xl">Tennis-program registrations increased from 410 to 669.</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">The number of registrations increased 63% from 2023 to 2025 while the City expanded listed tennis offerings from 56 to 100. The figures document participation in City tennis programming; they do not by themselves measure demand specifically for indoor courts.</p></div>
+          <Button asChild variant="outline" className="w-fit shrink-0"><Link to="/evidence" hash="city-registration-data">See the participation data<ArrowRight /></Link></Button>
+        </div>
+        <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
+          {[["2023","410"],["2024","564"],["2025","669"]].map(([year,value]) => <div key={year} className="bg-secondary/45 p-5 text-center sm:p-6"><p className="text-xs font-bold uppercase tracking-[.12em] text-muted-foreground">{year}</p><p className="mt-2 font-serif text-4xl font-bold tabular-nums">{value}</p><p className="mt-1 text-xs text-muted-foreground">registrations</p></div>)}
+        </div>
+      </div>
+    </section>
+
     <section className="relative overflow-hidden py-12 text-primary-foreground sm:section-space">
       <img src="/20260927_132724.jpg" alt="Exterior view of the Westwood Lake indoor tennis bubble" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-primary/84" />
