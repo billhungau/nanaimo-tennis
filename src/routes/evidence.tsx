@@ -56,16 +56,9 @@ function EvidencePage() {
             </article>)}
           </div>
 
-          <div className="grid gap-6 border-t border-border p-5 sm:p-7 lg:grid-cols-[1fr_1fr]">
-            <div>
-              <h3 className="font-serif text-2xl">Some individual programs reached capacity</h3>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">The underlying records also show programs where registrations reached the listed maximum and a waitlist was recorded. Examples in late 2023 include junior programs at 14/14 with 3 waitlisted and 20/20 with 3 waitlisted, an adult beginner program at 12/12 with 1 waitlisted, and an adult intermediate program at 14/14 with 3 waitlisted.</p>
-            </div>
-            <div className="rounded-md bg-secondary p-4 sm:p-5">
-              <h3 className="font-semibold">How to read these figures</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Across 2023–2025, the records show 1,643 registrations against 2,597 programmed spaces, an aggregate fill rate of 63.3%. Capacity expanded faster than registrations in 2025, so the fill rate declined even though the number of registrations increased.</p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">These records document participation in City tennis programming. They do not, by themselves, measure demand specifically for year-round indoor courts; some offerings were seasonal or outdoor. Court utilization, membership or user counts, waitlists and community consultation would provide additional evidence about indoor demand.</p>
-            </div>
+          <div className="border-t border-border bg-secondary/55 p-5 sm:p-6">
+            <p className="max-w-4xl text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Context:</strong> Across 2023–2025, the records show 1,643 registrations against 2,597 programmed spaces, a 63.3% aggregate fill rate. These figures document participation in City tennis programming, but they do not by themselves measure demand specifically for year-round indoor courts.</p>
+            <div className="mt-4"><SourceLink href="/Registration%20Summary%202021-2025.pdf" label="View original registration records" /></div>
           </div>
         </div>
       </div>
