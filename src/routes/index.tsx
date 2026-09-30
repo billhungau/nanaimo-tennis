@@ -2,10 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight, Compass, MessageSquareText, Scale, Search, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SectionHeading, SourceLink } from "@/components/page-elements";
+import { SectionHeading } from "@/components/page-elements";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImage from "@/assets/indoor-tennis-community.jpg";
-import { timeline } from "@/lib/civic-data";
 
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
 const cbcVideoUrl = "https://www.youtube.com/watch?v=oCYB8IJWwFI";
@@ -30,9 +29,9 @@ function Index() {
     [Scale, "Decide", "Make an informed public decision once the evidence is available."],
   ];
   const reasons: Array<[string, string]> = [
-    ["Year-round access", "Indoor courts provide dependable recreational access during Nanaimo's wet fall and winter months."],
-    ["Junior and community programming", "The facility has supported children's instruction, adult recreation and programming beyond club membership."],
-    ["Replacement would take time", "If the facility is removed, comparable indoor capacity would require future planning, funding and construction."],
+    ["Year-round access", "Reliable recreation through Nanaimo's wet fall and winter months."],
+    ["Junior and community programming", "Children's instruction, adult recreation and broader community use."],
+    ["Replacement would take time", "Comparable indoor capacity would require future planning, funding and construction."],
   ];
   const faqs: Array<[string, string]> = [
     ["Are you asking the City to reverse the property purchase?", "No. The land purchase and the future of the existing indoor tennis facility are separate questions. This site focuses on whether the indoor facility should be assessed before it is removed."],
@@ -83,22 +82,12 @@ function Index() {
         </div>
         <div className="overflow-hidden border border-border bg-secondary shadow-sm lg:col-start-2 lg:row-span-2 lg:row-start-1">
           <div className="aspect-video">
-            <iframe
-              className="size-full"
-              src={cbcEmbedUrl}
-              title="CBC News coverage of Westwood Lake indoor tennis"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            />
+            <iframe className="size-full" src={cbcEmbedUrl} title="CBC News coverage of Westwood Lake indoor tennis" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
           </div>
           <div className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CBC News · September 20, 2026</div>
         </div>
         <div className="lg:col-start-1 lg:row-start-2">
-          <div className="border-l-4 border-accent bg-secondary/70 p-4 text-sm leading-6 sm:p-5">
-            <span className="font-semibold">The immediate issue is the gap:</span> the existing indoor facility is planned to be removed before any future replacement facility is available.
-          </div>
+          <div className="border-l-4 border-accent bg-secondary/70 p-4 text-sm leading-6 sm:p-5"><span className="font-semibold">The immediate issue is the gap:</span> the existing indoor facility is planned to be removed before any future replacement facility is available.</div>
           <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-3">
             <Button asChild variant="outline"><a href={cbcVideoUrl} target="_blank" rel="noreferrer">Watch on YouTube<ArrowUpRight /></a></Button>
             <Button asChild variant="ghost" className="px-2 sm:px-4"><Link to="/sources">See source library<ArrowRight /></Link></Button>
@@ -116,52 +105,51 @@ function Index() {
       </div>
     </section>
 
-    <section className="bg-secondary py-12 sm:section-space"><div className="page-wrap"><SectionHeading eyebrow="The community request" title="A pause, not a permanent commitment." copy="We are not asking the City to commit to operating a municipal tennis club. We are asking that removal be deferred while the facility, community demand and alternative operating models are properly assessed."/><div className="mt-8 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border sm:mt-10 lg:grid-cols-4">{principles.map(([Icon, title, text]) => <article key={title as string} className="bg-card p-4 sm:p-6"><Icon className="size-5 text-ring"/><h3 className="mt-5 font-semibold sm:mt-8">{title as string}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground sm:text-sm sm:leading-6">{text as string}</p></article>)}</div></div></section>
+    <section className="bg-secondary py-12 sm:py-14"><div className="page-wrap"><SectionHeading eyebrow="The community request" title="A pause, not a permanent commitment." copy="We are not asking the City to commit to operating a municipal tennis club. We are asking that removal be deferred while the facility, community demand and alternative operating models are properly assessed."/><div className="mt-7 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border lg:grid-cols-4">{principles.map(([Icon, title, text]) => <article key={title as string} className="bg-card p-4 sm:p-5"><Icon className="size-5 text-ring"/><h3 className="mt-4 font-semibold">{title as string}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground sm:text-sm">{text as string}</p></article>)}</div></div></section>
 
-    <section className="relative overflow-hidden py-12 sm:section-space">
+    <section className="relative overflow-hidden py-10 sm:py-12">
       <img src="/20260927_132624.jpg" alt="Exterior of the Westwood Lake indoor tennis facility" className="absolute inset-0 size-full object-cover object-center" />
-      <div className="absolute inset-0 bg-background/88" />
-      <div className="page-wrap relative grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
+      <div className="absolute inset-0 bg-background/90" />
+      <div className="page-wrap relative">
         <SectionHeading eyebrow="Why this matters" title="What year-round indoor tennis contributes"/>
-        <div className="border-t border-foreground/20">{reasons.map(([title,text]) => <article className="grid gap-2 border-b border-foreground/20 py-5 md:grid-cols-[.7fr_1.3fr] md:gap-3 md:py-7" key={title}><h3 className="font-serif text-xl">{title}</h3><p className="text-sm leading-6 text-foreground/70">{text}</p></article>)}</div>
+        <div className="mt-7 grid gap-px overflow-hidden border border-foreground/15 bg-foreground/15 md:grid-cols-3">{reasons.map(([title,text]) => <article className="bg-background/95 p-5 sm:p-6" key={title}><h3 className="font-serif text-xl">{title}</h3><p className="mt-2 text-sm leading-6 text-foreground/70">{text}</p></article>)}</div>
       </div>
     </section>
 
-    <section className="border-y border-border bg-card py-10 sm:py-12">
+    <section className="border-y border-border bg-card py-8 sm:py-10">
       <div className="page-wrap">
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="max-w-3xl"><p className="eyebrow">City recreation records · 2023–2025</p><h2 className="mt-2 font-serif text-3xl sm:text-4xl">Tennis-program registrations increased from 410 to 669.</h2><p className="mt-3 text-sm leading-6 text-muted-foreground">The number of registrations increased 63% from 2023 to 2025 while the City expanded listed tennis offerings from 56 to 100. The figures document participation in City tennis programming; they do not by themselves measure demand specifically for indoor courts.</p></div>
-          <Button asChild variant="outline" className="w-fit shrink-0"><Link to="/evidence" hash="city-registration-data">See the participation data<ArrowRight /></Link></Button>
+        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div><p className="eyebrow">City recreation records · 2023–2025</p><h2 className="mt-2 font-serif text-3xl sm:text-4xl">City tennis registrations rose 63%.</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">City records show participation increasing as the number of tennis programs offered also expanded.</p></div>
+          <Button asChild variant="outline" className="w-fit"><Link to="/evidence" hash="city-registration-data">View participation data<ArrowRight /></Link></Button>
         </div>
-        <div className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-3">
-          {[["2023","410"],["2024","564"],["2025","669"]].map(([year,value]) => <div key={year} className="bg-secondary/45 p-5 text-center sm:p-6"><p className="text-xs font-bold uppercase tracking-[.12em] text-muted-foreground">{year}</p><p className="mt-2 font-serif text-4xl font-bold tabular-nums">{value}</p><p className="mt-1 text-xs text-muted-foreground">registrations</p></div>)}
+        <div className="mt-6 grid grid-cols-3 overflow-hidden border border-border bg-border">
+          {[["2023","410"],["2024","564"],["2025","669"]].map(([year,value]) => <div key={year} className="bg-background p-4 text-center sm:p-5"><p className="text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground sm:text-xs">{year}</p><p className="mt-1 font-serif text-3xl font-bold tabular-nums sm:text-4xl">{value}</p></div>)}
         </div>
       </div>
     </section>
 
-    <section className="relative overflow-hidden py-12 text-primary-foreground sm:section-space">
+    <section className="relative overflow-hidden py-12 text-primary-foreground sm:py-14">
       <img src="/20260927_132724.jpg" alt="Exterior view of the Westwood Lake indoor tennis bubble" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-primary/84" />
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <div className="[&_.eyebrow]:text-primary-foreground/70"><SectionHeading eyebrow="Latest developments" title="What has happened most recently"/></div>
         <div className="border-t border-primary-foreground/25">
-          <article className="grid gap-2 border-b-2 border-primary-foreground/30 py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 25, 2026</p><div><h3 className="font-serif text-xl">Candidate questionnaire results published</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">25 of 44 candidates responded to the Nanaimo Tennis questionnaire. Responses have been coded by question for easier review, alongside each candidate's original response.</p><Link to="/candidates" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View results<ArrowRight className="size-4"/></Link></div></article>
-          <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 17, 2026</p><div><h3 className="font-serif text-xl">Public petition launched</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">A community-organized petition asks City Council to preserve the indoor courts while alternatives are considered.</p><a href={petitionUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View petition<ArrowUpRight className="size-4"/></a></div></article>
-          <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3 md:py-6"><p className="text-sm font-semibold">Sep 16, 2026</p><div><h3 className="font-serif text-xl">City announces acquisition</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">The City announces the purchase of the Westwood Lake Tennis Club property and says the bubble will be removed.</p></div></article>
+          <article className="grid gap-2 border-b-2 border-primary-foreground/30 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 25, 2026</p><div><h3 className="font-serif text-xl">Candidate questionnaire results published</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">25 of 44 candidates responded to the Nanaimo Tennis questionnaire. Responses have been coded by question for easier review, alongside each candidate's original response.</p><Link to="/candidates" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View results<ArrowRight className="size-4"/></Link></div></article>
+          <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 17, 2026</p><div><h3 className="font-serif text-xl">Public petition launched</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">A community-organized petition asks City Council to preserve the indoor courts while alternatives are considered.</p><a href={petitionUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View petition<ArrowUpRight className="size-4"/></a></div></article>
+          <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 16, 2026</p><div><h3 className="font-serif text-xl">City announces acquisition</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">The City announces the purchase of the Westwood Lake Tennis Club property and says the bubble will be removed.</p></div></article>
         </div>
         <div className="lg:col-start-2"><Button asChild variant="outline" className="border-primary-foreground/40 bg-background/10 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/timeline">View full timeline<ArrowRight /></Link></Button></div>
       </div>
     </section>
 
-    <section className="border-y border-border bg-secondary/50 py-10 sm:py-12">
+    <section className="border-y border-border bg-secondary/50 py-8 sm:py-10">
       <div className="page-wrap flex flex-col justify-between gap-5 md:flex-row md:items-center">
-        <div><p className="eyebrow">2026 municipal election · Questionnaire results</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Candidate questionnaire results are now available.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">25 of 44 mayoral and council candidates responded during the September 19–25 questionnaire period. Each response has been coded question-by-question for easier comparison, with the candidates' full verbatim responses available for review.</p></div>
+        <div><p className="eyebrow">2026 municipal election · Questionnaire results</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Candidate questionnaire results are now available.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">25 of 44 mayoral and council candidates responded during the September 19–25 questionnaire period. Full verbatim responses are available for review.</p></div>
         <Button asChild variant="outline" className="w-fit shrink-0"><Link to="/candidates">View questionnaire results<ArrowRight /></Link></Button>
       </div>
     </section>
 
-    <section className="hidden section-space overflow-hidden bg-primary text-primary-foreground md:block"><div className="page-wrap"><SectionHeading eyebrow="Key dates" title="How the situation is unfolding"/><div className="mt-12 grid gap-px bg-primary-foreground/20 lg:grid-cols-6">{timeline.map((item) => <article key={`${item.date}-${item.title}`} className="bg-primary p-5"><p className="text-[10px] font-bold uppercase tracking-[.12em] text-primary-foreground/45">{item.status}</p><p className="mt-2 text-xs font-semibold text-primary-foreground/55">{item.date} {item.year}</p><h3 className="mt-4 font-serif text-lg">{item.title}</h3><p className="mt-3 text-xs leading-5 text-primary-foreground/70">{item.text}</p>{item.source && <div className="mt-4 [&_a]:text-primary-foreground"><SourceLink href={item.source.url}/></div>}</article>)}</div><Button asChild variant="outline" className="mt-8 border-primary-foreground/40 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/timeline">View full timeline</Link></Button></div></section>
-    <section className="bg-secondary py-12 sm:section-space"><div className="page-wrap grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12"><SectionHeading eyebrow="Frequently asked" title="Clear answers to common questions"/><Accordion type="single" collapsible>{faqs.map(([q,a]) => <AccordionItem key={q} value={q}><AccordionTrigger className="py-4 text-base sm:py-5">{q}</AccordionTrigger><AccordionContent className="max-w-3xl pb-5 leading-7 text-muted-foreground sm:pb-6">{a}</AccordionContent></AccordionItem>)}</Accordion></div></section>
-    <section className="bg-accent"><div className="page-wrap flex flex-col items-start justify-between gap-5 py-9 md:flex-row md:items-center md:py-12"><div><p className="eyebrow text-accent-foreground/65">Stay informed</p><h2 className="mt-2 font-serif text-3xl text-accent-foreground">Participate in the conversation.</h2></div><div className="flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/get-involved">Ways to take part<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline"><a href={petitionUrl} target="_blank" rel="noreferrer">Public petition<ArrowUpRight /></a></Button></div></div></section>
+    <section className="bg-secondary py-10 sm:py-12"><div className="page-wrap grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12"><SectionHeading eyebrow="Frequently asked" title="Clear answers to common questions"/><Accordion type="single" collapsible>{faqs.map(([q,a]) => <AccordionItem key={q} value={q}><AccordionTrigger className="py-4 text-base">{q}</AccordionTrigger><AccordionContent className="max-w-3xl pb-5 leading-7 text-muted-foreground">{a}</AccordionContent></AccordionItem>)}</Accordion></div></section>
+    <section className="bg-accent"><div className="page-wrap flex flex-col items-start justify-between gap-5 py-9 md:flex-row md:items-center"><div><p className="eyebrow text-accent-foreground/65">Stay informed</p><h2 className="mt-2 font-serif text-3xl text-accent-foreground">Participate in the conversation.</h2></div><div className="flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/get-involved">Ways to take part<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline"><a href={petitionUrl} target="_blank" rel="noreferrer">Public petition<ArrowUpRight /></a></Button></div></div></section>
   </>;
 }
