@@ -25,10 +25,52 @@ function EvidencePage() {
     ["The City has said long-term uses will involve planning and community engagement.", sources[2]],
   ];
 
+  const registrationData = [
+    { year: "2023", registrations: 410, courses: 56, spaces: 628 },
+    { year: "2024", registrations: 564, courses: 75, spaces: 864 },
+    { year: "2025", registrations: 669, courses: 100, spaces: 1105 },
+  ];
+  const maxRegistrations = Math.max(...registrationData.map((item) => item.registrations));
+
   return <>
     <PageIntro eyebrow="Evidence" title="What do we actually know?">
       <p>Claims are kept short, sources are shown directly, and information that has not been published is identified rather than inferred.</p>
     </PageIntro>
+
+    <section id="city-registration-data" className="section-space pb-0">
+      <div className="page-wrap">
+        <div className="civic-card overflow-hidden">
+          <div className="border-b border-border p-5 sm:p-7">
+            <p className="eyebrow">City recreation records · 2023–2025</p>
+            <h2 className="mt-3 max-w-3xl font-serif text-3xl sm:text-4xl">Tennis-program registrations increased as the City expanded programming.</h2>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Records supplied by the City of Nanaimo tennis coordinator show 410 registrations in 2023, 564 in 2024 and 669 in 2025. That is a 63% increase in registrations from 2023 to 2025. Over the same period, listed offerings increased from 56 to 100 and programmed spaces increased from 628 to 1,105.</p>
+          </div>
+
+          <div className="grid gap-px bg-border md:grid-cols-3">
+            {registrationData.map((item) => <article key={item.year} className="bg-card p-5 sm:p-6">
+              <p className="text-xs font-bold uppercase tracking-[.12em] text-muted-foreground">{item.year}</p>
+              <p className="mt-2 font-serif text-4xl font-bold tabular-nums">{item.registrations}</p>
+              <p className="mt-1 text-sm font-semibold">registrations</p>
+              <div className="mt-5 h-2 overflow-hidden rounded-full bg-secondary" aria-hidden="true"><div className="h-full bg-primary" style={{ width: `${(item.registrations / maxRegistrations) * 100}%` }} /></div>
+              <p className="mt-4 text-xs leading-5 text-muted-foreground">{item.courses} listed offerings · {item.spaces.toLocaleString()} programmed spaces</p>
+            </article>)}
+          </div>
+
+          <div className="grid gap-6 border-t border-border p-5 sm:p-7 lg:grid-cols-[1fr_1fr]">
+            <div>
+              <h3 className="font-serif text-2xl">Some individual programs reached capacity</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">The underlying records also show programs where registrations reached the listed maximum and a waitlist was recorded. Examples in late 2023 include junior programs at 14/14 with 3 waitlisted and 20/20 with 3 waitlisted, an adult beginner program at 12/12 with 1 waitlisted, and an adult intermediate program at 14/14 with 3 waitlisted.</p>
+            </div>
+            <div className="rounded-md bg-secondary p-4 sm:p-5">
+              <h3 className="font-semibold">How to read these figures</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">Across 2023–2025, the records show 1,643 registrations against 2,597 programmed spaces, an aggregate fill rate of 63.3%. Capacity expanded faster than registrations in 2025, so the fill rate declined even though the number of registrations increased.</p>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">These records document participation in City tennis programming. They do not, by themselves, measure demand specifically for year-round indoor courts; some offerings were seasonal or outdoor. Court utilization, membership or user counts, waitlists and community consultation would provide additional evidence about indoor demand.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section className="section-space pb-0">
       <div className="page-wrap">
         <div className="civic-card p-5 sm:p-7">
