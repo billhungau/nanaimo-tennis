@@ -18,11 +18,11 @@ export const Route = createFileRoute("/evidence")({
 
 function EvidencePage() {
   const facts = [
-    ["The City announced a $2.88-million purchase of the 2.85-acre property.", sources[2]],
-    ["The club is expected to cease operations November 1, 2026.", sources[2]],
-    ["The indoor tennis bubble is expected to be removed after closure.", sources[2]],
-    ["The City is expected to take possession December 18, 2026.", sources[2]],
-    ["The City has said long-term uses will involve planning and community engagement.", sources[2]],
+    ["The City announced a $2.88-million purchase of the 2.85-acre property.", sources[3]],
+    ["The club is expected to cease operations November 1, 2026.", sources[3]],
+    ["The indoor tennis bubble is expected to be removed after closure.", sources[3]],
+    ["The City is expected to take possession December 18, 2026.", sources[5]],
+    ["The City has said long-term uses will involve planning and community engagement.", sources[3]],
   ];
 
   const registrationData = [
