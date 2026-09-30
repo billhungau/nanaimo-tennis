@@ -13,7 +13,7 @@ export const sources = [
     date: "September 28, 2026",
     category: "Recreation records" as SourceCategory,
     url: "/Registration%20Summary%202021-2025.pdf",
-    summary: "Program-level registration, capacity and waitlist records supplied by the City of Nanaimo tennis coordinator.",
+    summary: "Program-level tennis registration, capacity and waitlist records supplied by the City of Nanaimo tennis coordinator.",
     primary: true,
   },
   {
