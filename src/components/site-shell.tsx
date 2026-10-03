@@ -33,9 +33,9 @@ export function SiteHeader() {
 
   return <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur">
     <div className="page-wrap flex h-18 items-center justify-between gap-5">
-      <Link to="/" className="flex items-center gap-3" aria-label="Nanaimo Tennis home">
-        <img src="/nanaimo-tennis-logo.png" alt="Nanaimo Tennis" className="size-11 shrink-0 object-contain" />
-        <span className="text-sm font-semibold text-foreground sm:text-base">Nanaimo Tennis</span>
+      <Link to="/" className="flex items-center gap-3" aria-label="Friends of Indoor Tennis in Nanaimo home">
+        <img src="/nanaimo-tennis-logo.png" alt="Friends of Indoor Tennis in Nanaimo" className="size-11 shrink-0 object-contain" />
+        <span className="text-sm font-semibold text-foreground sm:text-base">FITIN <span className="hidden sm:inline">· Friends of Indoor Tennis in Nanaimo</span></span>
       </Link>
       <nav className="hidden items-center gap-5 xl:flex" aria-label="Main navigation">
         {nav.map(([label, to]) => <Link key={to} to={to} className={pathname === to ? "nav-link text-foreground" : "nav-link"}>{label}</Link>)}
@@ -52,7 +52,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return <footer className="border-t border-border bg-primary text-primary-foreground">
     <div className="page-wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr]">
-      <div><p className="font-serif text-2xl">Nanaimo Tennis</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75">An independent community information initiative about the future of year-round tennis in Nanaimo.</p></div>
+      <div><p className="font-serif text-2xl">Friends of Indoor Tennis in Nanaimo (FITIN)</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75">Community information and resources about the future of year-round indoor tennis in Nanaimo.</p></div>
       <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/join">Community Updates</Link><Link to="/sources">Sources</Link><Link to="/candidates">Candidate Positions</Link><Link to="/contact">Contact</Link></nav>
     </div>
     <div className="border-t border-primary-foreground/15"><div className="page-wrap py-5 text-xs leading-5 text-primary-foreground/65">This website is not affiliated with the City of Nanaimo, Westwood Lake Tennis Club, Tennis Canada, or any political candidate or party.</div></div>
