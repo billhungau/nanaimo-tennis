@@ -11,11 +11,23 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CandidatesRouteImport } from './routes/candidates'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
+import { Route as JoinRouteImport } from './routes/join'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as TheIssueRouteImport } from './routes/the-issue'
 import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminCandidatesRouteImport } from './routes/admin/candidates'
+import { Route as AdminEmailRouteImport } from './routes/admin/email'
+import { Route as ApiCandidateEmailRouteImport } from './routes/api/candidate-email'
+import { Route as ApiCommunityStoryRouteImport } from './routes/api/community-story'
+import { Route as ApiContactRouteImport } from './routes/api/contact'
+import { Route as ApiMailingListRouteImport } from './routes/api/mailing-list'
+import { Route as ApiMailingListUnsubscribeRouteImport } from './routes/api/mailing-list-unsubscribe'
+import { Route as ApiResendWebhookRouteImport } from './routes/api/resend-webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -27,6 +39,11 @@ const CandidatesRoute = CandidatesRouteImport.update({
   path: '/candidates',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EvidenceRoute = EvidenceRouteImport.update({
   id: '/evidence',
   path: '/evidence',
@@ -35,6 +52,11 @@ const EvidenceRoute = EvidenceRouteImport.update({
 const GetInvolvedRoute = GetInvolvedRouteImport.update({
   id: '/get-involved',
   path: '/get-involved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JoinRoute = JoinRouteImport.update({
+  id: '/join',
+  path: '/join',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SourcesRoute = SourcesRouteImport.update({
@@ -52,73 +74,208 @@ const TimelineRoute = TimelineRouteImport.update({
   path: '/timeline',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminCandidatesRoute = AdminCandidatesRouteImport.update({
+  id: '/admin/candidates',
+  path: '/admin/candidates',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEmailRoute = AdminEmailRouteImport.update({
+  id: '/admin/email',
+  path: '/admin/email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCandidateEmailRoute = ApiCandidateEmailRouteImport.update({
+  id: '/api/candidate-email',
+  path: '/api/candidate-email',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiCommunityStoryRoute = ApiCommunityStoryRouteImport.update({
+  id: '/api/community-story',
+  path: '/api/community-story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiContactRoute = ApiContactRouteImport.update({
+  id: '/api/contact',
+  path: '/api/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMailingListRoute = ApiMailingListRouteImport.update({
+  id: '/api/mailing-list',
+  path: '/api/mailing-list',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiMailingListUnsubscribeRoute =
+  ApiMailingListUnsubscribeRouteImport.update({
+    id: '/api/mailing-list-unsubscribe',
+    path: '/api/mailing-list-unsubscribe',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiResendWebhookRoute = ApiResendWebhookRouteImport.update({
+  id: '/api/resend-webhook',
+  path: '/api/resend-webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/candidates': typeof CandidatesRoute
+  '/contact': typeof ContactRoute
   '/evidence': typeof EvidenceRoute
   '/get-involved': typeof GetInvolvedRoute
+  '/join': typeof JoinRoute
   '/sources': typeof SourcesRoute
   '/the-issue': typeof TheIssueRoute
   '/timeline': typeof TimelineRoute
+  '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/candidates': typeof AdminCandidatesRoute
+  '/admin/email': typeof AdminEmailRoute
+  '/api/candidate-email': typeof ApiCandidateEmailRoute
+  '/api/community-story': typeof ApiCommunityStoryRoute
+  '/api/contact': typeof ApiContactRoute
+  '/api/mailing-list': typeof ApiMailingListRoute
+  '/api/mailing-list-unsubscribe': typeof ApiMailingListUnsubscribeRoute
+  '/api/resend-webhook': typeof ApiResendWebhookRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/candidates': typeof CandidatesRoute
+  '/contact': typeof ContactRoute
   '/evidence': typeof EvidenceRoute
   '/get-involved': typeof GetInvolvedRoute
+  '/join': typeof JoinRoute
   '/sources': typeof SourcesRoute
   '/the-issue': typeof TheIssueRoute
   '/timeline': typeof TimelineRoute
+  '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/candidates': typeof AdminCandidatesRoute
+  '/admin/email': typeof AdminEmailRoute
+  '/api/candidate-email': typeof ApiCandidateEmailRoute
+  '/api/community-story': typeof ApiCommunityStoryRoute
+  '/api/contact': typeof ApiContactRoute
+  '/api/mailing-list': typeof ApiMailingListRoute
+  '/api/mailing-list-unsubscribe': typeof ApiMailingListUnsubscribeRoute
+  '/api/resend-webhook': typeof ApiResendWebhookRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/candidates': typeof CandidatesRoute
+  '/contact': typeof ContactRoute
   '/evidence': typeof EvidenceRoute
   '/get-involved': typeof GetInvolvedRoute
+  '/join': typeof JoinRoute
   '/sources': typeof SourcesRoute
   '/the-issue': typeof TheIssueRoute
   '/timeline': typeof TimelineRoute
+  '/unsubscribe': typeof UnsubscribeRoute
+  '/admin/candidates': typeof AdminCandidatesRoute
+  '/admin/email': typeof AdminEmailRoute
+  '/api/candidate-email': typeof ApiCandidateEmailRoute
+  '/api/community-story': typeof ApiCommunityStoryRoute
+  '/api/contact': typeof ApiContactRoute
+  '/api/mailing-list': typeof ApiMailingListRoute
+  '/api/mailing-list-unsubscribe': typeof ApiMailingListUnsubscribeRoute
+  '/api/resend-webhook': typeof ApiResendWebhookRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/candidates'
+    | '/contact'
     | '/evidence'
     | '/get-involved'
+    | '/join'
     | '/sources'
     | '/the-issue'
     | '/timeline'
+    | '/unsubscribe'
+    | '/admin/candidates'
+    | '/admin/email'
+    | '/api/candidate-email'
+    | '/api/community-story'
+    | '/api/contact'
+    | '/api/mailing-list'
+    | '/api/mailing-list-unsubscribe'
+    | '/api/resend-webhook'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/candidates'
+    | '/contact'
     | '/evidence'
     | '/get-involved'
+    | '/join'
     | '/sources'
     | '/the-issue'
     | '/timeline'
+    | '/unsubscribe'
+    | '/admin/candidates'
+    | '/admin/email'
+    | '/api/candidate-email'
+    | '/api/community-story'
+    | '/api/contact'
+    | '/api/mailing-list'
+    | '/api/mailing-list-unsubscribe'
+    | '/api/resend-webhook'
+    | '/admin'
   id:
     | '__root__'
     | '/'
     | '/candidates'
+    | '/contact'
     | '/evidence'
     | '/get-involved'
+    | '/join'
     | '/sources'
     | '/the-issue'
     | '/timeline'
+    | '/unsubscribe'
+    | '/admin/candidates'
+    | '/admin/email'
+    | '/api/candidate-email'
+    | '/api/community-story'
+    | '/api/contact'
+    | '/api/mailing-list'
+    | '/api/mailing-list-unsubscribe'
+    | '/api/resend-webhook'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CandidatesRoute: typeof CandidatesRoute
+  ContactRoute: typeof ContactRoute
   EvidenceRoute: typeof EvidenceRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
+  JoinRoute: typeof JoinRoute
   SourcesRoute: typeof SourcesRoute
   TheIssueRoute: typeof TheIssueRoute
   TimelineRoute: typeof TimelineRoute
+  UnsubscribeRoute: typeof UnsubscribeRoute
+  AdminCandidatesRoute: typeof AdminCandidatesRoute
+  AdminEmailRoute: typeof AdminEmailRoute
+  ApiCandidateEmailRoute: typeof ApiCandidateEmailRoute
+  ApiCommunityStoryRoute: typeof ApiCommunityStoryRoute
+  ApiContactRoute: typeof ApiContactRoute
+  ApiMailingListRoute: typeof ApiMailingListRoute
+  ApiMailingListUnsubscribeRoute: typeof ApiMailingListUnsubscribeRoute
+  ApiResendWebhookRoute: typeof ApiResendWebhookRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -137,6 +294,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CandidatesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/evidence': {
       id: '/evidence'
       path: '/evidence'
@@ -149,6 +313,13 @@ declare module '@tanstack/react-router' {
       path: '/get-involved'
       fullPath: '/get-involved'
       preLoaderRoute: typeof GetInvolvedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/join': {
+      id: '/join'
+      path: '/join'
+      fullPath: '/join'
+      preLoaderRoute: typeof JoinRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sources': {
@@ -172,17 +343,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TimelineRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/candidates': {
+      id: '/admin/candidates'
+      path: '/admin/candidates'
+      fullPath: '/admin/candidates'
+      preLoaderRoute: typeof AdminCandidatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/email': {
+      id: '/admin/email'
+      path: '/admin/email'
+      fullPath: '/admin/email'
+      preLoaderRoute: typeof AdminEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/candidate-email': {
+      id: '/api/candidate-email'
+      path: '/api/candidate-email'
+      fullPath: '/api/candidate-email'
+      preLoaderRoute: typeof ApiCandidateEmailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/community-story': {
+      id: '/api/community-story'
+      path: '/api/community-story'
+      fullPath: '/api/community-story'
+      preLoaderRoute: typeof ApiCommunityStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/contact': {
+      id: '/api/contact'
+      path: '/api/contact'
+      fullPath: '/api/contact'
+      preLoaderRoute: typeof ApiContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/mailing-list': {
+      id: '/api/mailing-list'
+      path: '/api/mailing-list'
+      fullPath: '/api/mailing-list'
+      preLoaderRoute: typeof ApiMailingListRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/mailing-list-unsubscribe': {
+      id: '/api/mailing-list-unsubscribe'
+      path: '/api/mailing-list-unsubscribe'
+      fullPath: '/api/mailing-list-unsubscribe'
+      preLoaderRoute: typeof ApiMailingListUnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/resend-webhook': {
+      id: '/api/resend-webhook'
+      path: '/api/resend-webhook'
+      fullPath: '/api/resend-webhook'
+      preLoaderRoute: typeof ApiResendWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CandidatesRoute: CandidatesRoute,
+  ContactRoute: ContactRoute,
   EvidenceRoute: EvidenceRoute,
   GetInvolvedRoute: GetInvolvedRoute,
+  JoinRoute: JoinRoute,
   SourcesRoute: SourcesRoute,
   TheIssueRoute: TheIssueRoute,
   TimelineRoute: TimelineRoute,
+  UnsubscribeRoute: UnsubscribeRoute,
+  AdminCandidatesRoute: AdminCandidatesRoute,
+  AdminEmailRoute: AdminEmailRoute,
+  ApiCandidateEmailRoute: ApiCandidateEmailRoute,
+  ApiCommunityStoryRoute: ApiCommunityStoryRoute,
+  ApiContactRoute: ApiContactRoute,
+  ApiMailingListRoute: ApiMailingListRoute,
+  ApiMailingListUnsubscribeRoute: ApiMailingListUnsubscribeRoute,
+  ApiResendWebhookRoute: ApiResendWebhookRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
