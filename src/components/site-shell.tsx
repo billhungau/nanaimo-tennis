@@ -35,7 +35,7 @@ export function SiteHeader() {
     <div className="page-wrap flex h-18 items-center justify-between gap-5">
       <Link to="/" className="flex items-center gap-3" aria-label="Friends of Indoor Tennis in Nanaimo home">
         <img src="/nanaimo-tennis-logo.png" alt="Friends of Indoor Tennis in Nanaimo" className="size-11 shrink-0 object-contain" />
-        <span className="text-sm font-semibold text-foreground sm:text-base">FITIN <span className="hidden sm:inline">· Friends of Indoor Tennis in Nanaimo</span></span>
+        <span className="text-sm font-semibold text-foreground sm:text-base">Friends of Indoor Tennis in Nanaimo</span>
       </Link>
       <nav className="hidden items-center gap-5 xl:flex" aria-label="Main navigation">
         {nav.map(([label, to]) => <Link key={to} to={to} className={pathname === to ? "nav-link text-foreground" : "nav-link"}>{label}</Link>)}
