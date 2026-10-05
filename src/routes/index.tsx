@@ -51,7 +51,7 @@ function Index() {
     >
       <div className="page-wrap flex flex-col gap-1 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-3">
         <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
-          <span className="rounded-sm bg-[#102A3D] px-2 py-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#F7F0D7]">Tomorrow · Oct 5</span>
+          <span className="rounded-sm bg-[#102A3D] px-2 py-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#F7F0D7]">Oct 5</span>
           <span className="font-semibold">City Council meeting — help show support for year-round indoor tennis.</span>
         </div>
         <div className="flex shrink-0 items-center gap-2 text-xs font-semibold sm:text-sm">
