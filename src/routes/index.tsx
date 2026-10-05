@@ -9,7 +9,7 @@ import heroImage from "@/assets/indoor-tennis-community.jpg";
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
 const cbcVideoUrl = "https://www.youtube.com/watch?v=oCYB8IJWwFI";
 const cbcEmbedUrl = "https://www.youtube.com/embed/oCYB8IJWwFI";
-const communityEventUrl = "https://www.signupgenius.com/go/70A0544A5AA2EA7FA7-66347109-protest";
+const councilEventUrl = "https://www.signupgenius.com/go/70A0544A5AA2EA7FA7-66433861-dont";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -67,25 +67,26 @@ function Index() {
       </div>
     </section>
 
-    <section className="border-b border-border bg-secondary/70">
-      <div className="page-wrap flex flex-col justify-between gap-5 py-7 md:flex-row md:items-center md:py-8">
-        <div className="max-w-3xl"><p className="eyebrow">Community response</p><h2 className="mt-2 font-serif text-2xl">A public petition is asking the City to preserve the indoor courts while alternatives are assessed.</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">The petition was launched September 17 and is hosted independently on Change.org.</p></div>
-        <Button asChild variant="outline" className="w-fit shrink-0"><a href={petitionUrl} target="_blank" rel="noreferrer">Read the public petition<ArrowUpRight /></a></Button>
-      </div>
-    </section>
-
     <section className="border-b border-border bg-[#F7F0D7]">
       <div className="page-wrap grid gap-5 py-7 md:grid-cols-[1fr_auto] md:items-center md:py-8">
         <div className="max-w-3xl">
           <div className="flex flex-wrap items-center gap-3">
-            <p className="eyebrow">Community event</p>
-            <span className="bg-[#F2D36B] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[.12em] text-[#102A3D]">Sun · Oct 4</span>
+            <p className="eyebrow">Next step · City Council</p>
+            <span className="bg-[#F2D36B] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[.12em] text-[#102A3D]">Mon · Oct 5</span>
           </div>
-          <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Don’t Rubble the Bubble</h2>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">Members of the local tennis community are organizing a gathering at the all-candidates meeting to draw attention to the planned removal of Nanaimo’s existing indoor tennis facility.</p>
-          <p className="mt-3 text-sm font-semibold">Sunday, October 4 · 4:30–6:30 PM · Oliver Woods Community Centre</p>
+          <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Community members plan to attend the next Council meeting.</h2>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">Following the October 4 gathering at Oliver Woods, supporters of year-round indoor tennis are planning to attend the October 5 Council meeting as the City considers next steps for the Westwood Lake facility.</p>
+          <p className="mt-3 text-sm font-semibold">Monday, October 5 · Council meeting 7:00 PM · Community arrival around 6:15 PM</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">Shaw Auditorium, Vancouver Island Conference Centre · 80 Commercial Street, Nanaimo</p>
         </div>
-        <Button asChild variant="outline" className="w-fit shrink-0 bg-background"><a href={communityEventUrl} target="_blank" rel="noreferrer">Event details &amp; sign up<ArrowUpRight /></a></Button>
+        <Button asChild variant="outline" className="w-fit shrink-0 bg-background"><a href={councilEventUrl} target="_blank" rel="noreferrer">Attendance details &amp; sign up<ArrowUpRight /></a></Button>
+      </div>
+    </section>
+
+    <section className="border-b border-border bg-secondary/70">
+      <div className="page-wrap flex flex-col justify-between gap-5 py-7 md:flex-row md:items-center md:py-8">
+        <div className="max-w-3xl"><p className="eyebrow">Community response</p><h2 className="mt-2 font-serif text-2xl">A public petition is asking the City to preserve the indoor courts while alternatives are assessed.</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">The petition was launched September 17 and is hosted independently on Change.org.</p></div>
+        <Button asChild variant="outline" className="w-fit shrink-0"><a href={petitionUrl} target="_blank" rel="noreferrer">Read the public petition<ArrowUpRight /></a></Button>
       </div>
     </section>
 
@@ -150,7 +151,8 @@ function Index() {
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <div className="[&_.eyebrow]:text-primary-foreground/70"><SectionHeading eyebrow="Latest developments" title="What has happened most recently"/></div>
         <div className="border-t border-primary-foreground/25">
-          <article className="grid gap-2 border-b-2 border-primary-foreground/30 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 25, 2026</p><div><h3 className="font-serif text-xl">Candidate questionnaire results published</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">25 of 44 candidates responded to the Nanaimo Tennis questionnaire. Responses have been coded by question for easier review, alongside each candidate's original response.</p><Link to="/candidates" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View results<ArrowRight className="size-4"/></Link></div></article>
+          <article className="grid gap-2 border-b-2 border-primary-foreground/30 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Oct 4, 2026</p><div><h3 className="font-serif text-xl">Community gathers at Oliver Woods</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">Indoor tennis supporters gathered at Oliver Woods and spoke with members of Council and municipal candidates ahead of the October 5 Council meeting.</p></div></article>
+          <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 25, 2026</p><div><h3 className="font-serif text-xl">Candidate questionnaire results published</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">25 of 44 candidates responded to the Nanaimo Tennis questionnaire. Responses have been coded by question for easier review, alongside each candidate's original response.</p><Link to="/candidates" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View results<ArrowRight className="size-4"/></Link></div></article>
           <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 17, 2026</p><div><h3 className="font-serif text-xl">Public petition launched</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">A community-organized petition asks City Council to preserve the indoor courts while alternatives are considered.</p><a href={petitionUrl} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View petition<ArrowUpRight className="size-4"/></a></div></article>
           <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 16, 2026</p><div><h3 className="font-serif text-xl">City announces acquisition</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">The City announces the purchase of the Westwood Lake Tennis Club property and says the bubble will be removed.</p></div></article>
         </div>
@@ -166,6 +168,6 @@ function Index() {
     </section>
 
     <section className="bg-secondary py-10 sm:py-12"><div className="page-wrap grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12"><SectionHeading eyebrow="Frequently asked" title="Clear answers to common questions"/><Accordion type="single" collapsible>{faqs.map(([q,a]) => <AccordionItem key={q} value={q}><AccordionTrigger className="py-4 text-base">{q}</AccordionTrigger><AccordionContent className="max-w-3xl pb-5 leading-7 text-muted-foreground">{a}</AccordionContent></AccordionItem>)}</Accordion></div></section>
-    <section className="bg-accent"><div className="page-wrap flex flex-col items-start justify-between gap-5 py-9 md:flex-row md:items-center"><div><p className="eyebrow text-accent-foreground/65">Stay informed</p><h2 className="mt-2 font-serif text-3xl text-accent-foreground">Participate in the conversation.</h2></div><div className="flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/get-involved">Ways to take part<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline"><a href={communityEventUrl} target="_blank" rel="noreferrer">Oct. 4 community event<ArrowUpRight /></a></Button><Button asChild size="lg" variant="outline"><a href={petitionUrl} target="_blank" rel="noreferrer">Public petition<ArrowUpRight /></a></Button></div></div></section>
+    <section className="bg-accent"><div className="page-wrap flex flex-col items-start justify-between gap-5 py-9 md:flex-row md:items-center"><div><p className="eyebrow text-accent-foreground/65">Stay informed</p><h2 className="mt-2 font-serif text-3xl text-accent-foreground">Participate in the conversation.</h2></div><div className="flex flex-wrap gap-3"><Button asChild size="lg"><Link to="/get-involved">Ways to take part<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline"><a href={councilEventUrl} target="_blank" rel="noreferrer">Oct. 5 Council meeting<ArrowUpRight /></a></Button><Button asChild size="lg" variant="outline"><a href={petitionUrl} target="_blank" rel="noreferrer">Public petition<ArrowUpRight /></a></Button></div></div></section>
   </>;
 }
