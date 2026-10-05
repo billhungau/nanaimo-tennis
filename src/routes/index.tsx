@@ -42,6 +42,25 @@ function Index() {
   const facts = ["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming"];
 
   return <>
+    <a
+      href={councilEventUrl}
+      target="_blank"
+      rel="noreferrer"
+      className="sticky top-18 z-40 block border-b border-[#D1AE35] bg-[#F2D36B] text-[#102A3D] shadow-sm transition-colors hover:bg-[#EBCB5A]"
+      aria-label="October 5 City Council meeting attendance details and sign up"
+    >
+      <div className="page-wrap flex flex-col gap-1 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-3">
+        <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="rounded-sm bg-[#102A3D] px-2 py-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#F7F0D7]">Tomorrow · Oct 5</span>
+          <span className="font-semibold">City Council meeting — help show support for year-round indoor tennis.</span>
+        </div>
+        <div className="flex shrink-0 items-center gap-2 text-xs font-semibold sm:text-sm">
+          <span>Arrive ~6:15 PM · Meeting 7:00 PM · Shaw Auditorium</span>
+          <ArrowUpRight className="size-4" />
+        </div>
+      </div>
+    </a>
+
     <section className="relative min-h-[560px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
       <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-primary/75" />
@@ -67,19 +86,25 @@ function Index() {
       </div>
     </section>
 
-    <section className="border-b border-border bg-[#F7F0D7]">
-      <div className="page-wrap grid gap-5 py-7 md:grid-cols-[1fr_auto] md:items-center md:py-8">
-        <div className="max-w-3xl">
+    <section className="border-b border-border bg-[#F7F0D7] py-8 sm:py-10">
+      <div className="page-wrap grid gap-6 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-10">
+        <figure className="overflow-hidden border border-border bg-background shadow-sm">
+          <img src="/1000045918.jpg" alt="Community members holding tennis racquets and signs in support of indoor tennis outside Oliver Woods Community Centre" className="aspect-[4/3] size-full object-cover" />
+          <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">Community members gather at Oliver Woods Community Centre on October 4, 2026, in support of retaining year-round indoor tennis in Nanaimo.</figcaption>
+        </figure>
+        <div>
           <div className="flex flex-wrap items-center gap-3">
             <p className="eyebrow">Next step · City Council</p>
             <span className="bg-[#F2D36B] px-2.5 py-1 text-[11px] font-bold uppercase tracking-[.12em] text-[#102A3D]">Mon · Oct 5</span>
           </div>
-          <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Community members plan to attend the next Council meeting.</h2>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">Following the October 4 gathering at Oliver Woods, supporters of year-round indoor tennis are planning to attend the October 5 Council meeting as the City considers next steps for the Westwood Lake facility.</p>
-          <p className="mt-3 text-sm font-semibold">Monday, October 5 · Council meeting 7:00 PM · Community arrival around 6:15 PM</p>
-          <p className="mt-1 text-sm leading-6 text-muted-foreground">Shaw Auditorium, Vancouver Island Conference Centre · 80 Commercial Street, Nanaimo</p>
+          <h2 className="mt-2 font-serif text-3xl sm:text-4xl">One more opportunity to show support in person.</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">Following the October 4 gathering at Oliver Woods, community members are planning to attend the October 5 Council meeting as the City considers next steps for the Westwood Lake facility.</p>
+          <div className="mt-5 border-l-4 border-accent bg-background/80 p-4 text-sm leading-6">
+            <p className="font-semibold">Monday, October 5 · Community arrival around 6:15 PM · Council meeting 7:00 PM</p>
+            <p className="mt-1 text-muted-foreground">Shaw Auditorium, Vancouver Island Conference Centre · 80 Commercial Street, Nanaimo</p>
+          </div>
+          <Button asChild className="mt-5"><a href={councilEventUrl} target="_blank" rel="noreferrer">Attendance details &amp; sign up<ArrowUpRight /></a></Button>
         </div>
-        <Button asChild variant="outline" className="w-fit shrink-0 bg-background"><a href={councilEventUrl} target="_blank" rel="noreferrer">Attendance details &amp; sign up<ArrowUpRight /></a></Button>
       </div>
     </section>
 
