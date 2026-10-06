@@ -97,9 +97,10 @@ function Index() {
           <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Council met in camera before the October 5 regular meeting.</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">City Council held an in-camera session before the October 5 regular Council meeting. The Westwood indoor tennis facility was not subsequently addressed through a public motion during the regular meeting. Details of any Westwood-related discussion or decision made in camera have not been made public.</p>
           <div className="mt-5 border-l-4 border-accent bg-background/80 p-4 text-sm leading-6">
-            <p className="text-muted-foreground">The question of year-round indoor tennis in Nanaimo remains important as the City considers the future of the Westwood Lake property.</p>
+            <p className="font-semibold text-foreground">What happens next</p>
+            <p className="mt-1 text-muted-foreground">With the October 5 Council meeting concluded, the October 17 municipal election is the next opportunity for residents to consider the future of year-round indoor tennis in Nanaimo. Candidates have stated their positions on preserving the existing facility and planning for indoor racquet sports.</p>
           </div>
-          <Button asChild variant="outline" className="mt-5"><Link to="/candidates">Compare candidate positions<ArrowRight /></Link></Button>
+          <Button asChild variant="outline" className="mt-5"><Link to="/candidates">See where candidates stand<ArrowRight /></Link></Button>
         </div>
       </div>
     </section>
