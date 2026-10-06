@@ -41,6 +41,23 @@ function Index() {
   const facts = ["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming"];
 
   return <>
+    <Link
+      to="/candidates"
+      className="sticky top-18 z-40 block border-b border-[#D1AE35] bg-[#F2D36B] text-[#102A3D] shadow-sm transition-colors hover:bg-[#EBCB5A]"
+      aria-label="Compare candidate positions on year-round indoor tennis before the October 17 Nanaimo election"
+    >
+      <div className="page-wrap flex flex-col gap-1 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-3">
+        <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
+          <span className="rounded-sm bg-[#102A3D] px-2 py-1 text-[10px] font-bold uppercase tracking-[.12em] text-[#F7F0D7]">Oct 17 · Nanaimo election</span>
+          <span className="font-semibold">See where candidates stand on year-round indoor tennis.</span>
+        </div>
+        <div className="flex shrink-0 items-center gap-2 text-xs font-semibold sm:text-sm">
+          <span>Compare candidate positions</span>
+          <ArrowRight className="size-4" />
+        </div>
+      </div>
+    </Link>
+
     <section className="relative min-h-[560px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
       <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-primary/75" />
@@ -80,10 +97,9 @@ function Index() {
           <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Council met in camera before the October 5 regular meeting.</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">City Council held an in-camera session before the October 5 regular Council meeting. The Westwood indoor tennis facility was not subsequently addressed through a public motion during the regular meeting. Details of any Westwood-related discussion or decision made in camera have not been made public.</p>
           <div className="mt-5 border-l-4 border-accent bg-background/80 p-4 text-sm leading-6">
-            <p className="font-semibold">This site will continue to rely on publicly available records and attributed public statements.</p>
-            <p className="mt-1 text-muted-foreground">The question of year-round indoor tennis in Nanaimo remains important as the City considers the future of the Westwood Lake property.</p>
+            <p className="text-muted-foreground">The question of year-round indoor tennis in Nanaimo remains important as the City considers the future of the Westwood Lake property.</p>
           </div>
-          <Button asChild variant="outline" className="mt-5"><Link to="/timeline">View the public timeline<ArrowRight /></Link></Button>
+          <Button asChild variant="outline" className="mt-5"><Link to="/candidates">Compare candidate positions<ArrowRight /></Link></Button>
         </div>
       </div>
     </section>
@@ -168,7 +184,7 @@ function Index() {
 
     <section className="border-y border-border bg-secondary/50 py-8 sm:py-10">
       <div className="page-wrap flex flex-col justify-between gap-5 md:flex-row md:items-center">
-        <div><p className="eyebrow">2026 municipal election · Questionnaire results</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Candidate questionnaire results are now available.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">25 of 44 mayoral and council candidates responded during the September 19–25 questionnaire period. Full verbatim responses are available for review.</p></div>
+        <div><p className="eyebrow">October 17, 2026 · Nanaimo municipal election</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Before you vote, compare the candidates' positions on indoor tennis.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Candidates were asked about pausing removal of the Westwood indoor facility, evaluating alternative operating models, and the role of year-round racquet-sport facilities in Nanaimo's long-term recreation planning. Original responses are available to read alongside the question-by-question results.</p></div>
         <Button asChild variant="outline" className="w-fit shrink-0"><Link to="/candidates">View questionnaire results<ArrowRight /></Link></Button>
       </div>
     </section>
