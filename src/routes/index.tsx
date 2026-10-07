@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/page-elements";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImage from "@/assets/indoor-tennis-community.jpg";
+import { OptimizedImage } from "@/components/optimized-image";
 
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
 const cbcVideoUrl = "https://www.youtube.com/watch?v=oCYB8IJWwFI";
@@ -86,7 +87,7 @@ function Index() {
     <section className="border-b border-border bg-[#F7F0D7] py-8 sm:py-10">
       <div className="page-wrap grid gap-6 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-10">
         <figure className="overflow-hidden border border-border bg-background shadow-sm">
-          <img src="/1000045918.jpg" loading="lazy" decoding="async" alt="Community members holding tennis racquets and signs in support of indoor tennis outside Oliver Woods Community Centre" className="aspect-[4/3] size-full object-cover" />
+          <OptimizedImage src="/1000045918.jpg" widths={[480, 750, 1080, 1440]} sizes="(min-width: 1024px) 50vw, 100vw" loading="lazy" decoding="async" alt="Community members holding tennis racquets and signs in support of indoor tennis outside Oliver Woods Community Centre" className="aspect-[4/3] size-full object-cover" />
           <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">Community members gather at Oliver Woods Community Centre on October 4, 2026, in support of retaining year-round indoor tennis in Nanaimo.</figcaption>
         </figure>
         <div>
@@ -136,7 +137,7 @@ function Index() {
     </section>
 
     <section className="relative overflow-hidden py-12 text-primary-foreground sm:section-space">
-      <img src="/20260927_132803.jpg" loading="lazy" decoding="async" alt="Indoor tennis courts at the Westwood Lake facility" className="absolute inset-0 size-full object-cover object-center" />
+      <OptimizedImage src="/20260927_132803.jpg" widths={[640, 960, 1440, 1920]} sizes="100vw" loading="lazy" decoding="async" alt="Indoor tennis courts at the Westwood Lake facility" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-primary/80" />
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-12">
         <div className="[&_h2]:!text-3xl [&_.eyebrow]:text-primary-foreground/70 sm:[&_h2]:!text-4xl"><SectionHeading eyebrow="The central question" title="The question is not whether the City should own the land."/></div>
@@ -147,7 +148,7 @@ function Index() {
     <section className="bg-secondary py-12 sm:py-14"><div className="page-wrap"><SectionHeading eyebrow="The community request" title="A pause, not a permanent commitment." copy="We are not asking the City to commit to operating a municipal tennis club. We are asking that removal be deferred while the facility, community demand and alternative operating models are properly assessed."/><div className="mt-7 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border lg:grid-cols-4">{principles.map(([Icon, title, text]) => <article key={title as string} className="bg-card p-4 sm:p-5"><Icon className="size-5 text-ring"/><h3 className="mt-4 font-semibold">{title as string}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground sm:text-sm">{text as string}</p></article>)}</div></div></section>
 
     <section className="relative overflow-hidden py-10 sm:py-12">
-      <img src="/20260927_132624.jpg" loading="lazy" decoding="async" alt="Exterior of the Westwood Lake indoor tennis facility" className="absolute inset-0 size-full object-cover object-center" />
+      <OptimizedImage src="/20260927_132624.jpg" widths={[640, 960, 1440, 1920]} sizes="100vw" loading="lazy" decoding="async" alt="Exterior of the Westwood Lake indoor tennis facility" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-background/90" />
       <div className="page-wrap relative">
         <SectionHeading eyebrow="Why this matters" title="What year-round indoor tennis contributes"/>
@@ -168,7 +169,7 @@ function Index() {
     </section>
 
     <section className="relative overflow-hidden py-12 text-primary-foreground sm:py-14">
-      <img src="/20260927_132724.jpg" loading="lazy" decoding="async" alt="Exterior view of the Westwood Lake indoor tennis bubble" className="absolute inset-0 size-full object-cover object-center" />
+      <OptimizedImage src="/20260927_132724.jpg" widths={[640, 960, 1440, 1920]} sizes="100vw" loading="lazy" decoding="async" alt="Exterior view of the Westwood Lake indoor tennis bubble" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-primary/84" />
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <div className="[&_.eyebrow]:text-primary-foreground/70"><SectionHeading eyebrow="Latest developments" title="What has happened most recently"/></div>
