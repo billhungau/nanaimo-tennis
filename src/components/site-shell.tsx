@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { OptimizedImage } from "@/components/optimized-image";
 
 const nav = [
   ["The Issue", "/the-issue"], ["Timeline", "/timeline"], ["Evidence", "/evidence"],
@@ -34,7 +35,7 @@ export function SiteHeader() {
   return <header ref={headerRef} className="sticky top-0 z-50 border-b border-border/80 bg-background/95 backdrop-blur">
     <div className="page-wrap flex h-18 items-center justify-between gap-5">
       <Link to="/" className="flex items-center gap-3" aria-label="Friends of Indoor Tennis in Nanaimo home">
-        <img src="/nanaimo-tennis-logo.png" alt="Friends of Indoor Tennis in Nanaimo" className="size-11 shrink-0 object-contain" />
+        <OptimizedImage src="/nanaimo-tennis-logo.png" widths={[48, 96, 128]} sizes="44px" alt="Friends of Indoor Tennis in Nanaimo" className="size-11 shrink-0 object-contain" />
         <span className="text-sm font-semibold text-foreground sm:text-base">Friends of Indoor Tennis in Nanaimo</span>
       </Link>
       <nav className="hidden items-center gap-5 xl:flex" aria-label="Main navigation">
