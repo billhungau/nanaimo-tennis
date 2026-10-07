@@ -59,7 +59,7 @@ function Index() {
     </Link>
 
     <section className="relative min-h-[560px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
-      <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} className="absolute inset-0 size-full object-cover" />
+      <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} fetchPriority="high" loading="eager" decoding="async" className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-primary/75" />
       <div className="page-wrap relative flex min-h-[560px] items-end py-10 sm:min-h-[680px] sm:py-20">
         <div className="max-w-4xl reveal"><p className="mb-4 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70 sm:mb-5">A community information initiative · Nanaimo, BC</p><h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">Before an existing indoor tennis facility is removed, let's examine the alternatives.</h1><p className="mt-5 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:mt-7 sm:text-lg">The City of Nanaimo has purchased the Westwood Lake Tennis Club property. Before the existing indoor courts are removed, this site asks that the facility, community demand and practical operating alternatives be assessed through the public process.</p><div className="mt-6 flex flex-wrap gap-3 sm:mt-8"><Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/the-issue">Understand the issue<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/candidates">View candidate results</Link></Button></div></div>
@@ -86,7 +86,7 @@ function Index() {
     <section className="border-b border-border bg-[#F7F0D7] py-8 sm:py-10">
       <div className="page-wrap grid gap-6 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-10">
         <figure className="overflow-hidden border border-border bg-background shadow-sm">
-          <img src="/1000045918.jpg" alt="Community members holding tennis racquets and signs in support of indoor tennis outside Oliver Woods Community Centre" className="aspect-[4/3] size-full object-cover" />
+          <img src="/1000045918.jpg" loading="lazy" decoding="async" alt="Community members holding tennis racquets and signs in support of indoor tennis outside Oliver Woods Community Centre" className="aspect-[4/3] size-full object-cover" />
           <figcaption className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">Community members gather at Oliver Woods Community Centre on October 4, 2026, in support of retaining year-round indoor tennis in Nanaimo.</figcaption>
         </figure>
         <div>
@@ -136,7 +136,7 @@ function Index() {
     </section>
 
     <section className="relative overflow-hidden py-12 text-primary-foreground sm:section-space">
-      <img src="/20260927_132803.jpg" alt="Indoor tennis courts at the Westwood Lake facility" className="absolute inset-0 size-full object-cover object-center" />
+      <img src="/20260927_132803.jpg" loading="lazy" decoding="async" alt="Indoor tennis courts at the Westwood Lake facility" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-primary/80" />
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-12">
         <div className="[&_h2]:!text-3xl [&_.eyebrow]:text-primary-foreground/70 sm:[&_h2]:!text-4xl"><SectionHeading eyebrow="The central question" title="The question is not whether the City should own the land."/></div>
@@ -147,7 +147,7 @@ function Index() {
     <section className="bg-secondary py-12 sm:py-14"><div className="page-wrap"><SectionHeading eyebrow="The community request" title="A pause, not a permanent commitment." copy="We are not asking the City to commit to operating a municipal tennis club. We are asking that removal be deferred while the facility, community demand and alternative operating models are properly assessed."/><div className="mt-7 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border lg:grid-cols-4">{principles.map(([Icon, title, text]) => <article key={title as string} className="bg-card p-4 sm:p-5"><Icon className="size-5 text-ring"/><h3 className="mt-4 font-semibold">{title as string}</h3><p className="mt-2 text-xs leading-5 text-muted-foreground sm:text-sm">{text as string}</p></article>)}</div></div></section>
 
     <section className="relative overflow-hidden py-10 sm:py-12">
-      <img src="/20260927_132624.jpg" alt="Exterior of the Westwood Lake indoor tennis facility" className="absolute inset-0 size-full object-cover object-center" />
+      <img src="/20260927_132624.jpg" loading="lazy" decoding="async" alt="Exterior of the Westwood Lake indoor tennis facility" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-background/90" />
       <div className="page-wrap relative">
         <SectionHeading eyebrow="Why this matters" title="What year-round indoor tennis contributes"/>
@@ -168,7 +168,7 @@ function Index() {
     </section>
 
     <section className="relative overflow-hidden py-12 text-primary-foreground sm:py-14">
-      <img src="/20260927_132724.jpg" alt="Exterior view of the Westwood Lake indoor tennis bubble" className="absolute inset-0 size-full object-cover object-center" />
+      <img src="/20260927_132724.jpg" loading="lazy" decoding="async" alt="Exterior view of the Westwood Lake indoor tennis bubble" className="absolute inset-0 size-full object-cover object-center" />
       <div className="absolute inset-0 bg-primary/84" />
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <div className="[&_.eyebrow]:text-primary-foreground/70"><SectionHeading eyebrow="Latest developments" title="What has happened most recently"/></div>
