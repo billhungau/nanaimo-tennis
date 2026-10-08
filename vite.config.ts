@@ -8,36 +8,38 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 import type { Plugin } from "vite";
 
 /**
- * The homepage historically embeds CBC's YouTube player directly. Even with
- * loading="lazy", Lighthouse still downloads roughly 850 KB of YouTube
- * JavaScript/CSS. Transform that one embed into our local click-to-play
- * component so no YouTube resources are requested until a visitor presses Play.
+ * Prevent the homepage's CBC YouTube player from loading third-party scripts
+ * until a visitor explicitly presses Play.
  *
- * This is intentionally narrow and fails loudly if the expected source markup
- * changes, rather than silently reintroducing the third-party payload.
+ * TanStack Start may transform route modules in multiple passes, so this plugin
+ * only rewrites variants that still contain the original iframe markup.
  */
 function deferHomepageYouTube(): Plugin {
   return {
     name: "defer-homepage-youtube",
     enforce: "pre",
     transform(code, id) {
-      if (!id.replace(/\\/g, "/").endsWith("/src/routes/index.tsx")) return null;
+      const normalizedId = id.replace(/\\/g, "/").split("?")[0];
+      if (!normalizedId.endsWith("/src/routes/index.tsx")) return null;
+      if (!code.includes("cbcEmbedUrl") || !code.includes("<iframe")) return null;
 
       const importNeedle = 'import { OptimizedImage } from "@/components/optimized-image";';
-      const embedConst = 'const cbcEmbedUrl = "https://www.youtube.com/embed/oCYB8IJWwFI";\n';
-      const iframeNeedle = '<iframe className="size-full" src={cbcEmbedUrl} title="CBC News coverage of Westwood Lake indoor tennis" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />';
+      const importReplacement = `${importNeedle}\nimport { ClickToPlayYouTube } from "@/components/click-to-play-youtube";`;
+      const iframePattern = /<iframe\b[^>]*\bsrc=\{cbcEmbedUrl\}[^>]*\/>/;
 
-      if (!code.includes(importNeedle) || !code.includes(iframeNeedle)) {
-        throw new Error("Homepage YouTube embed markup changed; update deferHomepageYouTube transform.");
-      }
-
-      return code
-        .replace(importNeedle, `${importNeedle}\nimport { ClickToPlayYouTube } from "@/components/click-to-play-youtube";`)
-        .replace(embedConst, "")
+      const transformed = code
+        .replace(importNeedle, importReplacement)
+        .replace(/const cbcEmbedUrl = [^;]+;\s*/, "")
         .replace(
-          iframeNeedle,
+          iframePattern,
           '<ClickToPlayYouTube videoId="oCYB8IJWwFI" title="CBC News coverage of Westwood Lake indoor tennis" />',
         );
+
+      if (transformed === code || transformed.includes("src={cbcEmbedUrl}")) {
+        throw new Error("Could not defer the homepage YouTube embed safely.");
+      }
+
+      return transformed;
     },
   };
 }
