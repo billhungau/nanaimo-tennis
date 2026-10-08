@@ -96,7 +96,7 @@ function Index() {
         </div>
         <div className="overflow-hidden border border-border bg-background shadow-sm">
           <div className="aspect-video bg-black">
-            <iframe className="size-full" src={chekEmbedUrl} title="CHEK News report on the future of indoor tennis in Nanaimo" loading="lazy" allow="autoplay; fullscreen; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+            <iframe className="size-full" src={chekEmbedUrl} title="CHEK News report on the future of indoor tennis in Nanaimo" loading="lazy" allow="fullscreen; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
           </div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">
             <span>CHEK News · Skye Ryan · October 7, 2026</span>
