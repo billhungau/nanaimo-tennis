@@ -95,8 +95,29 @@ function Index() {
           <p className="mt-3 text-sm leading-7 text-foreground/80">Head coach Whitman Tomusiak warned that a gap of this length could interrupt tennis development for a generation of young players. Community members have proposed an interim nonprofit lease; the City told CHEK that keeping the bubble open is not currently an option.</p>
         </div>
         <div className="overflow-hidden border border-border bg-background shadow-sm">
-          <div className="aspect-video bg-black">
-            <iframe className="size-full" src={chekEmbedUrl} title="CHEK News report on the future of indoor tennis in Nanaimo" loading="lazy" allow="fullscreen; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+          <div className="relative aspect-video overflow-hidden bg-black">
+            <button
+              type="button"
+              className="group absolute inset-0 z-10 size-full overflow-hidden text-white"
+              aria-label="Play the CHEK News report"
+              onClick={(event) => {
+                const container = event.currentTarget.parentElement;
+                const iframe = container?.querySelector("iframe");
+                if (iframe) {
+                  iframe.src = chekEmbedUrl;
+                  iframe.classList.remove("hidden");
+                  event.currentTarget.classList.add("hidden");
+                }
+              }}
+            >
+              <OptimizedImage src="/20260927_132803.jpg" widths={[480, 750, 1080]} sizes="(min-width: 1024px) 45vw, 100vw" loading="lazy" decoding="async" alt="Indoor tennis courts at the Westwood Lake facility" className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <span className="absolute inset-0 bg-primary/35 transition-colors group-hover:bg-primary/45" />
+              <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4 text-center">
+                <span className="flex size-16 items-center justify-center rounded-full border-2 border-white bg-black/35 text-3xl shadow-md" aria-hidden="true">▶</span>
+                <span className="font-semibold drop-shadow-md">Play CHEK News report</span>
+              </span>
+            </button>
+            <iframe className="hidden size-full" title="CHEK News report on the future of indoor tennis in Nanaimo" allow="fullscreen; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
           </div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">
             <span>CHEK News · Skye Ryan · October 7, 2026</span>
