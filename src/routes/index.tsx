@@ -84,6 +84,31 @@ function Index() {
       </div>
     </section>
 
+    <section className="border-b border-border bg-[#F7F0D7] py-10 sm:py-14">
+      <div className="page-wrap grid gap-7 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:gap-12">
+        <div>
+          <div className="flex flex-wrap items-center gap-3"><p className="eyebrow">Featured on CHEK News</p><span className="text-xs font-semibold text-muted-foreground">October 7, 2026</span></div>
+          <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">What happens to young tennis players during a three-year gap without indoor courts?</h2>
+          <p className="mt-4 text-sm leading-7 text-foreground/80">CHEK News spoke with young players, their coach and the City about the planned Westwood Lake indoor tennis closure. The City expects a replacement facility at Beban Park in approximately three years, but has not identified a plan to keep the existing bubble operating in the meantime.</p>
+          <p className="mt-3 text-sm leading-7 text-foreground/80">Head coach Whitman Tomusiak warned that a gap of this length could interrupt tennis development for a generation of young players. Community members have proposed an interim nonprofit lease; the City told CHEK that keeping the bubble open is not currently an option.</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Button asChild><a href="https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/" target="_blank" rel="noopener noreferrer">Watch CHEK News report<ArrowUpRight /></a></Button>
+          </div>
+        </div>
+        <div className="overflow-hidden border border-border bg-background shadow-sm">
+          <a href="https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/" target="_blank" rel="noopener noreferrer" className="group relative block aspect-video overflow-hidden bg-primary" aria-label="Watch the October 7 CHEK News report on the CHEK website">
+            <OptimizedImage src="/20260927_132803.jpg" widths={[480, 750, 1080]} sizes="(min-width: 1024px) 45vw, 100vw" loading="lazy" decoding="async" alt="Indoor tennis courts at Westwood Lake, Nanaimo; illustrative image for CHEK News report" className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+            <span className="absolute inset-0 bg-primary/35 transition-colors group-hover:bg-primary/45" />
+            <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4 text-center text-white">
+              <span className="flex size-16 items-center justify-center rounded-full border-2 border-white bg-black/35 text-3xl shadow-md" aria-hidden="true">▶</span>
+              <span className="font-semibold drop-shadow-md">Watch CHEK News report</span>
+            </span>
+          </a>
+          <p className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CHEK News · Skye Ryan · October 7, 2026 · Image: Westwood Lake indoor courts (illustrative).</p>
+        </div>
+      </div>
+    </section>
+
     <section className="border-b border-border bg-[#F7F0D7] py-8 sm:py-10">
       <div className="page-wrap grid gap-6 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:gap-10">
         <figure className="overflow-hidden border border-border bg-background shadow-sm">
@@ -174,6 +199,7 @@ function Index() {
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
         <div className="[&_.eyebrow]:text-primary-foreground/70"><SectionHeading eyebrow="Latest developments" title="What has happened most recently"/></div>
         <div className="border-t border-primary-foreground/25">
+          <article className="grid gap-2 border-b-2 border-primary-foreground/30 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Oct 7, 2026</p><div><h3 className="font-serif text-xl">CHEK News reports on junior players and the indoor tennis gap</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">Young players and coaches describe the consequences of the planned closure. CHEK reports that the City anticipates a replacement at Beban Park in approximately three years and does not currently plan to keep the existing bubble operating.</p><a href="https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/" target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">Watch report<ArrowUpRight className="size-4"/></a></div></article>
           <article className="grid gap-2 border-b-2 border-primary-foreground/30 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Oct 5, 2026</p><div><h3 className="font-serif text-xl">Council meets in camera before regular meeting</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">City Council held an in-camera session before the October 5 regular meeting. The Westwood indoor tennis facility was not subsequently addressed through a public motion during the regular meeting. Details of any Westwood-related discussion or decision made in camera have not been made public.</p></div></article>
           <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Oct 4, 2026</p><div><h3 className="font-serif text-xl">Community gathers at Oliver Woods</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">Indoor tennis supporters gathered at Oliver Woods and spoke with members of Council and municipal candidates ahead of the October 5 Council meeting.</p></div></article>
           <article className="grid gap-2 border-b border-primary-foreground/25 py-5 md:grid-cols-[8rem_1fr] md:gap-3"><p className="text-sm font-semibold">Sep 25, 2026</p><div><h3 className="font-serif text-xl">Candidate questionnaire results published</h3><p className="mt-2 text-sm leading-6 text-primary-foreground/75">32 of 44 candidates responded to the Nanaimo Tennis questionnaire. Responses have been coded by question for easier review, alongside each candidate's original response.</p><Link to="/candidates" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-accent">View results<ArrowRight className="size-4"/></Link></div></article>
