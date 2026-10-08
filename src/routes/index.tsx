@@ -6,10 +6,10 @@ import { SectionHeading } from "@/components/page-elements";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import heroImage from "@/assets/indoor-tennis-community.jpg";
 import { OptimizedImage } from "@/components/optimized-image";
+import { ClickToPlayYouTube } from "@/components/click-to-play-youtube";
 
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
 const cbcVideoUrl = "https://www.youtube.com/watch?v=oCYB8IJWwFI";
-const cbcEmbedUrl = "https://www.youtube.com/embed/oCYB8IJWwFI";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -147,7 +147,7 @@ function Index() {
         </div>
         <div className="overflow-hidden border border-border bg-secondary shadow-sm lg:col-start-2 lg:row-span-2 lg:row-start-1">
           <div className="aspect-video">
-            <iframe className="size-full" src={cbcEmbedUrl} title="CBC News coverage of Westwood Lake indoor tennis" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+            <ClickToPlayYouTube videoId="oCYB8IJWwFI" title="CBC News coverage of Westwood Lake indoor tennis" />
           </div>
           <div className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CBC News · September 20, 2026</div>
         </div>
