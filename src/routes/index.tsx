@@ -93,16 +93,18 @@ function Index() {
           <p className="mt-3 text-sm leading-7 text-foreground/80">Head coach Whitman Tomusiak warned that a gap of this length could interrupt tennis development for a generation of young players. Community members have proposed an interim nonprofit lease; the City told CHEK that keeping the bubble open is not currently an option.</p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Button asChild><a href="https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/" target="_blank" rel="noopener noreferrer">Watch CHEK News report<ArrowUpRight /></a></Button>
-            <Button asChild variant="outline"><Link to="/candidates">Read candidate positions<ArrowRight /></Link></Button>
           </div>
         </div>
         <div className="overflow-hidden border border-border bg-background shadow-sm">
-          <a href="https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/" target="_blank" rel="noopener noreferrer" className="group flex aspect-video flex-col items-center justify-center gap-3 bg-primary px-6 text-center text-primary-foreground transition-colors hover:bg-primary/90" aria-label="Watch the October 7 CHEK News video report on the CHEK website">
-            <span className="flex size-16 items-center justify-center rounded-full border-2 border-current text-3xl" aria-hidden="true">▶</span>
-            <span className="font-serif text-xl">Watch the CHEK News video report</span>
-            <span className="text-xs text-primary-foreground/75">Opens the official CHEK News report</span>
+          <a href="https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/" target="_blank" rel="noopener noreferrer" className="group relative block aspect-video overflow-hidden bg-primary" aria-label="Watch the October 7 CHEK News report on the CHEK website">
+            <OptimizedImage src="/20260927_132803.jpg" widths={[480, 750, 1080]} sizes="(min-width: 1024px) 45vw, 100vw" loading="lazy" decoding="async" alt="Indoor tennis courts at Westwood Lake, Nanaimo; illustrative image for CHEK News report" className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+            <span className="absolute inset-0 bg-primary/35 transition-colors group-hover:bg-primary/45" />
+            <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4 text-center text-white">
+              <span className="flex size-16 items-center justify-center rounded-full border-2 border-white bg-black/35 text-3xl shadow-md" aria-hidden="true">▶</span>
+              <span className="font-semibold drop-shadow-md">Watch CHEK News report</span>
+            </span>
           </a>
-          <p className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CHEK News · Skye Ryan · October 7, 2026. An official embedded player can replace this link once CHEK's embed URL is verified.</p>
+          <p className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CHEK News · Skye Ryan · October 7, 2026 · Image: Westwood Lake indoor courts (illustrative).</p>
         </div>
       </div>
     </section>
