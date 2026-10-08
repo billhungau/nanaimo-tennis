@@ -11,7 +11,7 @@ const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-
 const cbcVideoUrl = "https://www.youtube.com/watch?v=oCYB8IJWwFI";
 const cbcEmbedUrl = "https://www.youtube.com/embed/oCYB8IJWwFI";
 const chekArticleUrl = "https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/";
-const chekEmbedUrl = "https://cdn.jwplayer.com/players/uOcT0IcT.html";
+const chekVideoUrl = "https://cdn.jwplayer.com/videos/uOcT0IcT-1svo8HSH.mp4";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
@@ -102,11 +102,12 @@ function Index() {
               aria-label="Play the CHEK News report"
               onClick={(event) => {
                 const container = event.currentTarget.parentElement;
-                const iframe = container?.querySelector("iframe");
-                if (iframe) {
-                  iframe.src = chekEmbedUrl;
-                  iframe.classList.remove("hidden");
+                const video = container?.querySelector("video");
+                if (video) {
+                  video.src = chekVideoUrl;
+                  video.classList.remove("hidden");
                   event.currentTarget.classList.add("hidden");
+                  video.play().catch(() => { /* Native controls remain available if autoplay is blocked. */ });
                 }
               }}
             >
@@ -117,7 +118,7 @@ function Index() {
                 <span className="font-semibold drop-shadow-md">Play CHEK News report</span>
               </span>
             </button>
-            <iframe className="hidden size-full" title="CHEK News report on the future of indoor tennis in Nanaimo" allow="fullscreen; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen />
+            <video className="hidden size-full bg-black" controls playsInline preload="none" aria-label="CHEK News report on the future of indoor tennis in Nanaimo" />
           </div>
           <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">
             <span>CHEK News · Skye Ryan · October 7, 2026</span>
