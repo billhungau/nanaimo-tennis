@@ -11,7 +11,7 @@ const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-
 const cbcVideoUrl = "https://www.youtube.com/watch?v=oCYB8IJWwFI";
 const cbcEmbedUrl = "https://www.youtube.com/embed/oCYB8IJWwFI";
 const chekArticleUrl = "https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/";
-const chekEmbedUrl = "https://cdn.jwplayer.com/previews/uOcT0IcT";
+const chekEmbedUrl = "https://cdn.jwplayer.com/players/uOcT0IcT.html";
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
