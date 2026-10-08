@@ -111,7 +111,7 @@ function Index() {
                 }
               }}
             >
-              <OptimizedImage src="/cbc%20news%20cover%20photo%202.webp" widths={[480, 750, 1080]} sizes="(min-width: 1024px) 45vw, 100vw" loading="lazy" decoding="async" alt="CHEK News reporter at the Westwood Lake Tennis Club" className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105" />
+              <img src="/cbc%20news%20cover%20photo%202.webp" width={1280} height={720} loading="lazy" decoding="async" alt="CHEK News reporter at the Westwood Lake Tennis Club" className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-105" />
               <span className="absolute inset-0 bg-primary/35 transition-colors group-hover:bg-primary/45" />
               <span className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-4 text-center">
                 <span className="flex size-16 items-center justify-center rounded-full border-2 border-white bg-black/35 text-3xl shadow-md" aria-hidden="true">▶</span>
