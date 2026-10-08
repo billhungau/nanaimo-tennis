@@ -151,6 +151,15 @@ export const sources = [
     summary: "Reports Council's 7–2 vote against first reading of an earlier townhouse rezoning proposal for the property. This predates and is separate from the City's acquisition.",
     primary: false,
   },
+  {
+    title: "‘I was very sad’: Players fight to save indoor tennis in Nanaimo",
+    publisher: "CHEK News · Skye Ryan",
+    date: "October 7, 2026",
+    category: "News" as SourceCategory,
+    url: "https://cheknews.ca/i-was-very-sad-players-fight-to-save-indoor-tennis-in-nanaimo-1352143/",
+    summary: "Video report featuring junior tennis players, their coach, club members and the City. It examines the potential interruption to junior development during an approximately three-year wait for a proposed Beban Park facility, the community's suggested interim nonprofit lease, and the City's statement that keeping the existing bubble open is not currently an option.",
+    primary: false,
+  },
 ];
 
 export const unknowns = [
@@ -169,6 +178,7 @@ export const timeline = [
   { date: "Sep 25", year: "2026", title: "Candidate responses published", text: "Candidate responses were published verbatim alongside question-by-question classifications.", status: "Occurred" },
   { date: "Oct 4", year: "2026", title: "Community gathering at Oliver Woods", text: "Indoor tennis supporters gathered at Oliver Woods Community Centre to demonstrate support for retaining year-round indoor tennis in Nanaimo ahead of the October 5 Council meeting.", status: "Occurred" },
   { date: "Oct 5", year: "2026", title: "Council meets in camera before regular meeting", text: "City Council held an in-camera session before the October 5 regular Council meeting. Community members subsequently attended the regular meeting regarding the future of the Westwood indoor tennis facility, but no public motion concerning the facility was brought forward. Details of any Westwood-related discussion or decision made in camera have not been made public.", status: "Occurred" },
+  { date: "Oct 7", year: "2026", title: "CHEK News reports on the indoor tennis gap", text: "CHEK News interviews young players, coaches, club members and the City about the planned closure, the anticipated approximately three-year replacement timeline and proposed interim operation.", status: "Occurred", source: sources[16] },
   { date: "Oct 17", year: "2026", title: "Municipal election", text: "Nanaimo holds its general local election.", status: "Scheduled", source: sources[2] },
   { date: "Nov 1", year: "2026", title: "Expected club closure", text: "Westwood Lake Tennis Club is expected to cease operations.", status: "Expected", source: sources[3] },
   { date: "Dec 18", year: "2026", title: "Expected possession", text: "The City is expected to take possession of the property.", status: "Expected", source: sources[5] },
