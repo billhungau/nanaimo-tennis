@@ -11,6 +11,8 @@ import { useEffect, type ReactNode } from "react";
 import { Analytics } from "@vercel/analytics/react";
 
 import appCss from "../styles.css?url";
+import manrope400 from "@fontsource/manrope/files/manrope-latin-400-normal.woff2?url";
+import libreBaskerville400 from "@fontsource/libre-baskerville/files/libre-baskerville-latin-400-normal.woff2?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteFooter, SiteHeader } from "@/components/site-shell";
 
@@ -95,6 +97,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         rel: "stylesheet",
         href: appCss,
+      },
+      {
+        rel: "preload",
+        href: manrope400,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        href: libreBaskerville400,
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
