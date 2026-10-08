@@ -12,7 +12,7 @@ export function OptimizedImage({ src, widths, quality: _quality, sizes, ...props
   const candidates = [...new Set(widths)].sort((a, b) => a - b);
   const srcSet = candidates.map((w) => `/optimized/${basename}-${w}.webp ${w}w`).join(", ");
   return (
-    <picture>
+    <picture className="contents">
       <source type="image/webp" srcSet={srcSet} sizes={sizes} />
       <img {...props} src={src} sizes={sizes} />
     </picture>
