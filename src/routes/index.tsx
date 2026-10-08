@@ -104,7 +104,7 @@ function Index() {
               <span className="font-semibold drop-shadow-md">Watch CHEK News report</span>
             </span>
           </a>
-          <p className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CHEK News · Skye Ryan · October 7, 2026 · Image: Westwood Lake indoor courts (illustrative).</p>
+          <p className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CHEK News · Skye Ryan · October 7, 2026.</p>
         </div>
       </div>
     </section>
