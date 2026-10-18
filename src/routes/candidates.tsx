@@ -37,14 +37,14 @@ const questionSummaries = [
 const questionShortLabels = ["Pause removal", "Evaluate alternatives", "Long-term planning"];
 
 const currentOfficeHolders: Record<string, string> = {
-  "Leonard Eugene Krog": "Incumbent Mayor",
-  "Sheryl Armstrong": "Current Councillor",
-  "Hilary Eastmure": "Current Councillor",
-  "Ben Geselbracht": "Current Councillor",
-  "Erin Colleen Hemmens": "Current Councillor",
-  "Paul Manly": "Current Councillor",
-  "Janice Perrino": "Current Councillor",
-  "Ian Thorpe": "Current Councillor",
+  "Leonard Eugene Krog": "Incumbent mayor at time of questionnaire",
+  "Sheryl Armstrong": "Incumbent councillor at time of questionnaire",
+  "Hilary Eastmure": "Incumbent councillor at time of questionnaire",
+  "Ben Geselbracht": "Incumbent councillor at time of questionnaire",
+  "Erin Colleen Hemmens": "Incumbent councillor at time of questionnaire",
+  "Paul Manly": "Incumbent councillor at time of questionnaire",
+  "Janice Perrino": "Incumbent councillor at time of questionnaire",
+  "Ian Thorpe": "Incumbent councillor at time of questionnaire",
 };
 
 const codeMeta: Record<PositionCode, { label: string; className: string; barClass: string }> = {
@@ -84,10 +84,10 @@ export const Route = createFileRoute("/candidates")({
   },
   head: () => ({
     meta: [
-      { title: "2026 Candidate Positions | Nanaimo Tennis" },
-      { name: "description", content: "Read Nanaimo mayoral and council candidate responses to the same three questions about year-round indoor tennis." },
-      { property: "og:title", content: "Where do Nanaimo's 2026 candidates stand?" },
-      { property: "og:description", content: "Candidate responses presented verbatim, without endorsement or ranking." },
+      { title: "2026 Election Questionnaire Archive | Nanaimo Tennis" },
+      { name: "description", content: "Archive of Nanaimo mayoral and council candidate responses to three questions about year-round indoor tennis during the 2026 municipal election." },
+      { property: "og:title", content: "2026 Nanaimo election questionnaire archive" },
+      { property: "og:description", content: "Archived candidate responses presented verbatim, without endorsement or ranking." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.nanaimotennis.ca/candidates" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -283,8 +283,9 @@ function CandidatesPage() {
   }
 
   return <>
-    <PageIntro eyebrow="2026 municipal election" title="Where do Nanaimo's candidates stand?">
-      <p>Every mayoral and council candidate was asked the same three questions about the future of year-round indoor tennis. The questionnaire was distributed from September 19 to September 25, 2026. Responses are published without endorsement, ranking or editorial scoring so residents can read candidates' positions directly.</p>
+    <PageIntro eyebrow="2026 municipal election archive" title="What did Nanaimo's 2026 candidates say about indoor tennis?">
+      <p>This questionnaire was conducted from September 19 to September 25, 2026, before the October 17 municipal election. Every mayoral and council candidate was asked the same three questions about the future of year-round indoor tennis. The responses are preserved here as part of the public record, without endorsement, ranking or editorial scoring.</p>
+      <div className="mt-5 border-l-4 border-accent bg-secondary/60 p-4 text-sm leading-6 text-muted-foreground"><strong className="text-foreground">Election archive:</strong> These responses were collected before the October 17, 2026 municipal election and are preserved here for reference. They should not be interpreted as current commitments or City policy.</div>
     </PageIntro>
 
     <section className="border-b border-border bg-card py-6 sm:py-8">
@@ -320,7 +321,7 @@ function CandidatesPage() {
 
     <section className="border-b border-border bg-secondary/20 py-7 sm:py-10">
       <div className="page-wrap">
-        <p className="eyebrow">Questionnaire results</p>
+        <p className="eyebrow">2026 questionnaire results</p>
         <div className="mt-2 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <h2 className="font-serif text-2xl sm:text-3xl">Results among candidates who responded</h2>
           <p className="text-sm text-muted-foreground"><strong className="text-foreground">{receivedCount} of {uniqueCandidates.length}</strong> candidates responded · {uniqueCandidates.length ? Math.round((receivedCount / uniqueCandidates.length) * 1000) / 10 : 0}%</p>
@@ -373,8 +374,8 @@ function CandidatesPage() {
     <section className="section-space">
       <div className="page-wrap">
         <div className="mb-6">
-          <p className="eyebrow">Candidate responses</p>
-          <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Explore candidate responses</h2>
+          <p className="eyebrow">Archived candidate responses</p>
+          <h2 className="mt-2 font-serif text-2xl sm:text-3xl">Read the original responses</h2>
           {!unavailable && <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 border-b border-border pb-5 text-sm text-muted-foreground">
             <span><strong className="font-semibold text-foreground">{receivedCount}</strong> responses received</span>
             <span><strong className="font-semibold text-foreground">{awaitingCount}</strong> no response received</span>
@@ -409,7 +410,7 @@ function CandidatesPage() {
 
         {!unavailable && shown.length === 0 && <p className="py-12 text-center text-sm text-muted-foreground">No candidates match these filters.</p>}
 
-        <p className="mt-4 text-xs leading-5 text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Responding candidates are shown first, followed by candidates for whom no response was received by the September 25, 2026 deadline; each group is alphabetical within each office. Incumbency labels identify current City office-holders as of September 2026 and are provided as factual context only.</p>
+        <p className="mt-4 text-xs leading-5 text-muted-foreground">Candidate names are drawn from the City of Nanaimo's official nomination documents. Responding candidates are shown first, followed by candidates for whom no response was received by the September 25, 2026 deadline; each group is alphabetical within each office. Incumbency labels identify City office-holders as of the September 2026 questionnaire period and are provided as historical context only.</p>
       </div>
     </section>
   </>;
