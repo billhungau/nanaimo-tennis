@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 const nav = [
   ["The Issue", "/the-issue"], ["Timeline", "/timeline"], ["Evidence", "/evidence"],
-  ["Candidate Positions", "/candidates"], ["Sources", "/sources"], ["Get Involved", "/get-involved"],
+  ["2026 Election Archive", "/candidates"], ["Sources", "/sources"], ["Get Involved", "/get-involved"],
 ] as const;
 const mobileNav = [...nav, ["Community Updates", "/join"]] as const;
 
@@ -53,7 +53,7 @@ export function SiteFooter() {
   return <footer className="border-t border-border bg-primary text-primary-foreground">
     <div className="page-wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr]">
       <div><p className="font-serif text-2xl">Friends of Indoor Tennis in Nanaimo (FITIN)</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75">Community information and resources about the future of year-round indoor tennis in Nanaimo.</p></div>
-      <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/join">Community Updates</Link><Link to="/sources">Sources</Link><Link to="/candidates">Candidate Positions</Link><Link to="/contact">Contact</Link></nav>
+      <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/join">Community Updates</Link><Link to="/sources">Sources</Link><Link to="/candidates">2026 Election Archive</Link><Link to="/contact">Contact</Link></nav>
     </div>
     <div className="border-t border-primary-foreground/15"><div className="page-wrap py-5 text-xs leading-5 text-primary-foreground/65">This website is not affiliated with the City of Nanaimo, Westwood Lake Tennis Club, Tennis Canada, or any political candidate or party.</div></div>
   </footer>;
