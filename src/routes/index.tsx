@@ -16,7 +16,7 @@ const chekVideoUrl = "https://cdn.jwplayer.com/videos/uOcT0IcT-1svo8HSH.mp4";
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
     { title: "Future of Indoor Tennis in Nanaimo | Westwood Lake Tennis Courts" },
-    { name: "description", content: "Independent information about the future of indoor tennis at Westwood Lake in Nanaimo, including City documents, news coverage, community proposals and 2026 municipal candidate positions." },
+    { name: "description", content: "Independent information about the future of indoor tennis at Westwood Lake in Nanaimo, including City documents, news coverage, community proposals and the public record." },
     { property: "og:title", content: "Future of Indoor Tennis in Nanaimo" },
     { property: "og:description", content: "An independent, evidence-led guide to the Westwood Lake tennis facility and the choices ahead." },
     { property: "og:type", content: "website" }, { property: "og:url", content: "https://www.nanaimotennis.ca/" }, { name: "twitter:card", content: "summary_large_image" },
@@ -39,7 +39,7 @@ function Index() {
   const faqs: Array<[string, string]> = [
     ["Are you asking the City to reverse the property purchase?", "No. The land purchase and the future of the existing indoor tennis facility are separate questions. This site focuses on whether the indoor facility should be assessed before it is removed."],
     ["Are you asking taxpayers to subsidize a private tennis club?", "No specific operating model is being proposed. Options such as nonprofit, lease and partnership models can be evaluated before a decision is made."],
-    ["Why act now?", "Once the indoor structure is removed, retaining the existing facility is no longer an option. A temporary pause would allow additional information to be gathered first."],
+    ["Why keep examining the options?", "Once an indoor structure is removed, retaining that existing facility is no longer an option. Reviewing evidence, community needs and practical alternatives before an irreversible decision remains important."],
   ];
   const facts = ["4 indoor courts", "Year-round access", "Junior & adult programs", "City recreation programming"];
 
@@ -65,7 +65,7 @@ function Index() {
       <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} fetchPriority="high" loading="eager" decoding="async" className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-primary/75" />
       <div className="page-wrap relative flex min-h-[560px] items-end py-10 sm:min-h-[680px] sm:py-20">
-        <div className="max-w-4xl reveal"><p className="mb-4 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70 sm:mb-5">A community information initiative · Nanaimo, BC</p><h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">Before an existing indoor tennis facility is removed, let's examine the alternatives.</h1><p className="mt-5 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:mt-7 sm:text-lg">The City of Nanaimo has purchased the Westwood Lake Tennis Club property. Before the existing indoor courts are removed, this site asks that the facility, community demand and practical operating alternatives be assessed through the public process.</p><div className="mt-6 flex flex-wrap gap-3 sm:mt-8"><Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/the-issue">Understand the issue<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/candidates">View candidate results</Link></Button></div></div>
+        <div className="max-w-4xl reveal"><p className="mb-4 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70 sm:mb-5">A community information initiative · Nanaimo, BC</p><h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">The future of indoor tennis at Westwood matters.</h1><p className="mt-5 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:mt-7 sm:text-lg">Follow the public record, the evidence and developments affecting year-round tennis at Westwood Lake and across Nanaimo.</p><div className="mt-6 flex flex-wrap gap-3 sm:mt-8"><Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/the-issue">Understand the issue<ArrowRight /></Link></Button><Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/evidence">View the evidence</Link></Button></div></div>
       </div>
     </section>
 
@@ -91,8 +91,8 @@ function Index() {
         <div>
           <div className="flex flex-wrap items-center gap-3"><p className="eyebrow">Featured on CHEK News</p><span className="text-xs font-semibold text-muted-foreground">October 7, 2026</span></div>
           <h2 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">What happens to young tennis players during a three-year gap without indoor courts?</h2>
-          <p className="mt-4 text-sm leading-7 text-foreground/80">CHEK News spoke with young players, their coach and the City about the planned Westwood Lake indoor tennis closure. The City expects a replacement facility at Beban Park in approximately three years, but has not identified a plan to keep the existing bubble operating in the meantime.</p>
-          <p className="mt-3 text-sm leading-7 text-foreground/80">Head coach Whitman Tomusiak warned that a gap of this length could interrupt tennis development for a generation of young players. Community members have proposed an interim nonprofit lease; the City told CHEK that keeping the bubble open is not currently an option.</p>
+          <p className="mt-4 text-sm leading-7 text-foreground/80">CHEK News spoke with young players, their coach and the City about the planned Westwood Lake indoor tennis closure. At the time of the report, the City expected a replacement facility at Beban Park in approximately three years and had not identified a plan to keep the existing bubble operating in the meantime.</p>
+          <p className="mt-3 text-sm leading-7 text-foreground/80">Head coach Whitman Tomusiak warned that a gap of this length could interrupt tennis development for a generation of young players. Community members had proposed an interim nonprofit lease; the City told CHEK at that time that keeping the bubble open was not currently an option.</p>
         </div>
         <div className="overflow-hidden border border-border bg-background shadow-sm">
           <div className="relative aspect-video overflow-hidden bg-black">
@@ -143,9 +143,9 @@ function Index() {
           <p className="mt-3 text-sm leading-6 text-muted-foreground">City Council held an in-camera session before the October 5 regular Council meeting. The Westwood indoor tennis facility was not subsequently addressed through a public motion during the regular meeting. Details of any Westwood-related discussion or decision made in camera have not been made public.</p>
           <div className="mt-5 border-l-4 border-accent bg-background/80 p-4 text-sm leading-6">
             <p className="font-semibold text-foreground">What happens next</p>
-            <p className="mt-1 text-muted-foreground">With the October 5 Council meeting concluded, the October 17 municipal election is the next opportunity for residents to consider the future of year-round indoor tennis in Nanaimo. Candidates have stated their positions on preserving the existing facility and planning for indoor racquet sports.</p>
+            <p className="mt-1 text-muted-foreground">The October 17 municipal election has now concluded. This site will continue to document the public record, source material and developments affecting year-round indoor tennis in Nanaimo.</p>
           </div>
-          <Button asChild variant="outline" className="mt-5"><Link to="/candidates">See where candidates stand<ArrowRight /></Link></Button>
+          <Button asChild variant="outline" className="mt-5"><Link to="/candidates">View 2026 election archive<ArrowRight /></Link></Button>
         </div>
       </div>
     </section>
@@ -171,7 +171,7 @@ function Index() {
           <div className="border-t border-border px-4 py-3 text-xs leading-5 text-muted-foreground">CBC News · September 20, 2026</div>
         </div>
         <div className="lg:col-start-1 lg:row-start-2">
-          <div className="border-l-4 border-accent bg-secondary/70 p-4 text-sm leading-6 sm:p-5"><span className="font-semibold">The immediate issue is the gap:</span> the existing indoor facility is planned to be removed before any future replacement facility is available.</div>
+          <div className="border-l-4 border-accent bg-secondary/70 p-4 text-sm leading-6 sm:p-5"><span className="font-semibold">Why this coverage matters:</span> it documents the concern raised in September about a potential gap in year-round indoor tennis while longer-term facilities are considered.</div>
           <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-3">
             <Button asChild variant="outline"><a href={cbcVideoUrl} target="_blank" rel="noreferrer">Watch on YouTube<ArrowUpRight /></a></Button>
             <Button asChild variant="ghost" className="px-2 sm:px-4"><Link to="/sources">See source library<ArrowRight /></Link></Button>
@@ -231,7 +231,7 @@ function Index() {
 
     <section className="border-y border-border bg-secondary/50 py-8 sm:py-10">
       <div className="page-wrap flex flex-col justify-between gap-5 md:flex-row md:items-center">
-        <div><p className="eyebrow">October 17, 2026 · Nanaimo municipal election</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Before you vote, compare the candidates' positions on indoor tennis.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground"><span className="font-semibold text-foreground">33 of 44 candidates responded · 75.0%.</span> Candidates were asked about pausing removal of the Westwood indoor facility, evaluating alternative operating models, and the role of year-round racquet-sport facilities in Nanaimo's long-term recreation planning. Original responses are available to read alongside the question-by-question results.</p></div>
+        <div><p className="eyebrow">2026 municipal election archive</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Candidate positions remain available as part of the public record.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground"><span className="font-semibold text-foreground">33 of 44 candidates responded · 75.0%.</span> The pre-election questionnaire asked about the Westwood indoor facility, alternative operating models, and the role of year-round racquet-sport facilities in Nanaimo's long-term recreation planning. Original responses remain available for reference.</p></div>
         <Button asChild variant="outline" className="w-fit shrink-0"><Link to="/candidates">View questionnaire results<ArrowRight /></Link></Button>
       </div>
     </section>
