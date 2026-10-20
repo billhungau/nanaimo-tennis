@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
-import { Mail, Users } from "lucide-react";
+import { Mail, Users, UserRoundPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/lib/supabase";
@@ -57,7 +57,7 @@ function AdminPortalPage() {
       <Button variant="outline" onClick={() => supabase.auth.signOut()}>Sign out</Button>
     </div>
 
-    <div className="mt-8 grid gap-5 md:grid-cols-2">
+    <div className="mt-8 grid gap-5 md:grid-cols-3">
       <Link to="/admin/candidates" className="group border border-border bg-card p-6 transition hover:border-foreground/25 hover:bg-secondary/40 sm:p-8">
         <div className="flex size-10 items-center justify-center rounded-full bg-secondary"><Users className="size-5" /></div>
         <h2 className="mt-5 font-serif text-2xl">Candidate records</h2>
@@ -70,6 +70,12 @@ function AdminPortalPage() {
         <h2 className="mt-5 font-serif text-2xl">Candidate email outreach</h2>
         <p className="mt-2 text-sm leading-6 text-muted-foreground">Review and edit the email draft, send questionnaires and check whether replies have arrived.</p>
         <p className="mt-5 text-sm font-semibold group-hover:underline">Open email outreach →</p>
+      </Link>
+      <Link to="/admin/members" className="group border border-border bg-card p-6 transition hover:border-foreground/25 hover:bg-secondary/40 sm:p-8">
+        <div className="flex size-10 items-center justify-center rounded-full bg-secondary"><UserRoundPlus className="size-5" /></div>
+        <h2 className="mt-5 font-serif text-2xl">Google Group outreach</h2>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">Import invitations, send approved reminders, track replies and reconcile confirmed membership.</p>
+        <p className="mt-5 text-sm font-semibold group-hover:underline">Open member outreach →</p>
       </Link>
     </div>
   </div></section>;
