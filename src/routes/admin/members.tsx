@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
@@ -74,7 +74,7 @@ let col=header.findIndex(x=>x.includes("email"));if(col<0)col=0;const dateCol=he
    await load();
  }
 
- async function addContact(e:React.FormEvent<HTMLFormElement>){
+ async function addContact(e:FormEvent<HTMLFormElement>){
    e.preventDefault();
    const normalized=newEmail.trim().toLowerCase();
    if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(normalized)){setMessage("Enter a valid email address.");return}
