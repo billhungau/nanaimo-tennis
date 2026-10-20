@@ -52,6 +52,19 @@ export const Route = createFileRoute("/api/resend-webhook")({
           return new Response("Invalid JSON", { status: 400 });
         }
 
+        // Group outreach delivery events are correlated by Resend message ID.
+        if (["email.delivered", "email.bounced", "email.failed"].includes(String(event?.type))) {
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+          const db = supabaseAdmin as any;
+          const providerId = String(event?.data?.email_id || "");
+          const { data: sent } = await db.from("group_outreach_events").select("contact_id").eq("provider_id", providerId).eq("event_type","sent").maybeSingle();
+          if (sent) {
+            const eventType = event.type === "email.delivered" ? "delivered" : event.type === "email.bounced" ? "bounced" : "failed";
+            await db.from("group_outreach_events").upsert({contact_id:sent.contact_id,event_type:eventType,provider_id:providerId,note:event.type},{onConflict:"provider_id,event_type",ignoreDuplicates:true});
+            if(eventType==="bounced") await db.from("group_contacts").update({suppressed:true}).eq("id",sent.contact_id);
+          }
+          return Response.json({ok:true,matched:!!sent});
+        }
         if (event?.type !== "email.received") return Response.json({ ok: true });
 
         const emailId = String(event?.data?.email_id || "");
@@ -100,6 +113,21 @@ export const Route = createFileRoute("/api/resend-webhook")({
           return Response.json({ ok: true, matched: true, test: true });
         }
 
+        const groupId = recipients.map((address: string) => address.match(/group-([0-9a-f-]{36})@/i)?.[1]).find(Boolean);
+        if (groupId) {
+          const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+          const db = supabaseAdmin as any;
+          const { data: contact } = await db.from("group_contacts").select("id").eq("id",groupId).maybeSingle();
+          if (!contact) return Response.json({ok:true,matched:false});
+          const receivedAt = String(event?.created_at || new Date().toISOString());
+          const {error: eventError} = await db.from("group_outreach_events").upsert({contact_id:groupId,event_type:"replied",provider_id:emailId || null,note:`Reply from ${from}: ${excerpt.slice(0,900)}`},{onConflict:"provider_id,event_type",ignoreDuplicates:true});
+          if(!eventError) await db.from("group_contacts").update({reply_status:"replied",replied_at:receivedAt}).eq("id",groupId);
+          try {
+            const {adminEmail}=getEmailConfig();
+            if(adminEmail) await sendResendEmail({to:adminEmail,subject:`[Google Group reply] ${subject}`,replyTo:from.includes("<")?from.match(/<([^>]+)>/)?.[1]||undefined:from,text:`From: ${from}\nSubject: ${subject}\n\n${fullEmail}`,html:`<h2>Google Group invitation reply</h2><p>From: ${escapeHtml(from)}</p><p>Subject: ${escapeHtml(subject)}</p><pre style="white-space:pre-wrap">${escapeHtml(fullEmail)}</pre>`});
+          } catch(mailError){console.error("Group reply notification failed",mailError)}
+          return Response.json({ok:true,matched:true,trackingUpdated:!eventError});
+        }
         if (!candidateId) return Response.json({ ok: true, matched: false });
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
