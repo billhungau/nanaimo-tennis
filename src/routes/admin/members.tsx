@@ -42,7 +42,7 @@ function MembersPage(){
    }
    return entries;
  }
-let col=header.findIndex(x=>x.includes("email"));if(col<0)col=0;const dateCol=header.findIndex(x=>x.includes("invitation")&&x.includes("date"));const nameCol=header.findIndex(x=>x==="name"||x==="username");const emailPattern=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;return rows.slice(header.some(x=>x.includes("email"))?1:0).map(r=>({email:(r[col]||"").toLowerCase().trim(),name:nameCol>=0?(r[nameCol]||null):null,invitation_date:dateCol>=0&&r[dateCol]&&!Number.isNaN(Date.parse(r[dateCol]))?new Date(r[dateCol]).toISOString():null})).filter(r=>emailPattern.test(r.email))}
+let col=header.findIndex(x=>x.includes("email"));if(col<0)col=0;const dateCol=header.findIndex(x=>x.includes("invitation")&&x.includes("date"));const nameCol=header.findIndex(x=>x==="name"||x==="username");return rows.slice(header.some(x=>x.includes("email"))?1:0).map(r=>({email:(r[col]||"").toLowerCase().trim(),name:nameCol>=0?(r[nameCol]||null):null,invitation_date:dateCol>=0&&r[dateCol]&&!Number.isNaN(Date.parse(r[dateCol]))?new Date(r[dateCol]).toISOString():null})).filter(r=>emailPattern.test(r.email))}
 
  async function previewFile(file:File){
    try {
