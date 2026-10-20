@@ -98,12 +98,12 @@ let col=header.findIndex(x=>x.includes("email"));if(col<0)col=0;const dateCol=he
  async function addContact(e:FormEvent<HTMLFormElement>){
    e.preventDefault();
    const normalized=newEmail.trim().toLowerCase();
-   if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(normalized)){setMessage("Enter a valid email address.");return}
+   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalized)){setMessage("Enter a valid email address.");return}
    if(contacts.some(c=>c.email===normalized)){setMessage("This email address already exists.");return}
    setAdding(true);
-   const {error}=await supabase.from("group_contacts").insert({email:normalized,name:newName.trim()||null,invitation_status:"pending",membership_status:"unverified"});
+   const {data:saved,error}=await supabase.from("group_contacts").insert({email:normalized,name:newName.trim()||null,invitation_status:"pending",membership_status:"unverified"}).select("id,email").single();
    setAdding(false);
-   if(error){setMessage(error.code==="23505"?"This email address already exists.":"Unable to add contact: "+error.message);return}
+   if(error||!saved){setMessage(error?.code==="23505"?"This email address already exists.":"Unable to add contact: "+(error?.message||"No saved record was returned."));return}
    setNewEmail("");setNewName("");setAddOpen(false);setMessage("Contact added successfully.");await load();
  }
  const lastSent=useMemo(()=>{const m=new Map<string,string>();for(const e of events)if(e.event_type==="sent"&&!m.has(e.contact_id))m.set(e.contact_id,e.occurred_at);return m},[events]);
