@@ -15,10 +15,12 @@ export const Route=createFileRoute("/api/group-outreach")({server:{handlers:{POS
  if(error||!contact)return Response.json({error:"Contact not found"},{status:404});
  if(contact.suppressed||contact.membership_status==="joined"||contact.reply_status==="replied")return Response.json({error:"Contact excluded from reminders"},{status:409});
  const {replyDomain}=getEmailConfig();
+ const groupSender=process.env["RESEND_FROM_EMAIL_TO_PENDING_INVITATION"];
+ if(!groupSender)return Response.json({error:"Pending invitation sender is not configured"},{status:503});
  const subject=parsed.data.subject;
  const formatted=parsed.data.body.replaceAll("{{group_link}}",parsed.data.groupLink).replaceAll("{{name}}",contact.name||"");
  // Mark only after provider accepts the message; never record delivery/read without delivery webhook evidence.
- const messageId=await sendResendEmail({to:contact.email,subject,replyTo:`group-${contact.id}@${replyDomain}`,text:stripEmailMarkdown(formatted),html:renderEmailMarkdown(formatted),idempotencyKey:`group-reminder/${contact.id}/${new Date().toISOString()}`});
+ const messageId=await sendResendEmail({to:contact.email,subject,from:groupSender,replyTo:`group-${contact.id}@${replyDomain}`,text:stripEmailMarkdown(formatted),html:renderEmailMarkdown(formatted),idempotencyKey:`group-reminder/${contact.id}/${new Date().toISOString()}`});
  const {error:logError}=await db.from("group_outreach_events").insert({contact_id:contact.id,event_type:"sent",provider_id:messageId,note:"Resend accepted reminder"});
  if(logError){console.error("Reminder accepted but event insert failed",logError);return Response.json({messageId,error:"Email accepted, but tracking failed; check Resend before attempting again"},{status:207})}
  return Response.json({messageId,accepted:true});
