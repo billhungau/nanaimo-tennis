@@ -6,6 +6,7 @@ type SendEmailInput = {
   html: string;
   text?: string;
   replyTo?: string;
+  from?: string;
   idempotencyKey?: string;
 };
 
@@ -42,7 +43,7 @@ export async function sendResendEmail(input: SendEmailInput) {
       ...(input.idempotencyKey ? { "Idempotency-Key": input.idempotencyKey } : {}),
     },
     body: JSON.stringify({
-      from,
+      from: input.from ?? from,
       to: Array.isArray(input.to) ? input.to : [input.to],
       subject: input.subject,
       html: input.html,
