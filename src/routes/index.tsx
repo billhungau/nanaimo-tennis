@@ -48,7 +48,7 @@ function Index() {
   return <>
     <section className="relative min-h-[560px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
       <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} fetchPriority="high" loading="eager" decoding="async" className="absolute inset-0 size-full object-cover" />
-      <div className="absolute inset-0 bg-primary/75" />
+      <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/82 to-primary/65" />
       <div className="page-wrap relative flex min-h-[560px] items-end py-10 sm:min-h-[680px] sm:py-20">
         <div className="max-w-4xl reveal">
           <p className="mb-4 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70 sm:mb-5">Current status · Nanaimo, BC</p>
