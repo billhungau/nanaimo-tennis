@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 
 const nav = [
   ["Current Status", "/the-issue"], ["Timeline", "/timeline"], ["Evidence", "/evidence"],
-  ["Sources", "/sources"], ["2026 Election Archive", "/candidates"], ["Get Updates", "/join"],
+  ["Sources", "/sources"], ["2026 Election Archive", "/candidates"],
 ] as const;
-const mobileNav = nav;
+const mobileNav = [...nav, ["Get Updates", "/join"]] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
