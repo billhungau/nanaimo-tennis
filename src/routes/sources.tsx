@@ -20,9 +20,9 @@ export const Route = createFileRoute("/sources")({
   head: () => ({
     meta: [
       { title: "Source Library | Nanaimo Tennis" },
-      { name: "description", content: "Search City documents, local reporting, historical records and candidate statements about indoor tennis in Nanaimo." },
+      { name: "description", content: "Search current City decisions, local reporting, historical records and community sources about indoor tennis in Nanaimo." },
       { property: "og:title", content: "Nanaimo Tennis source library" },
-      { property: "og:description", content: "A searchable, transparent record of primary sources and responsible reporting." },
+      { property: "og:description", content: "A searchable record of the current City decision, primary documents, reporting and historical context." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://www.nanaimotennis.ca/sources" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -42,7 +42,7 @@ function SourcesPage() {
 
   return <>
     <PageIntro eyebrow="Source library" title="Read the record for yourself.">
-      <p>Primary sources are preferred. News coverage is summarized briefly and links to the original publisher; full articles are not reproduced.</p>
+      <p>Primary City sources are shown alongside independent reporting and historical records. The October 20 retention decision supersedes earlier City statements that contemplated removal of the bubble.</p>
     </PageIntro>
     <section className="section-space">
       <div className="page-wrap">
