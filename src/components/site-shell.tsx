@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const nav = [
-  ["The Issue", "/the-issue"], ["Timeline", "/timeline"], ["Evidence", "/evidence"],
-  ["2026 Election Archive", "/candidates"], ["Sources", "/sources"], ["Get Involved", "/get-involved"],
+  ["Current Status", "/the-issue"], ["Timeline", "/timeline"], ["Evidence", "/evidence"],
+  ["Sources", "/sources"], ["2026 Election Archive", "/candidates"], ["Get Updates", "/join"],
 ] as const;
-const mobileNav = [...nav, ["Community Updates", "/join"]] as const;
+const mobileNav = nav;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ export function SiteHeader() {
       <nav className="hidden items-center gap-5 xl:flex" aria-label="Main navigation">
         {nav.map(([label, to]) => <Link key={to} to={to} className={pathname === to ? "nav-link text-foreground" : "nav-link"}>{label}</Link>)}
       </nav>
-      <div className="hidden xl:block"><Button asChild variant="outline"><Link to="/join">Community Updates</Link></Button></div>
+      <div className="hidden xl:block"><Button asChild variant="outline"><Link to="/join">Get Updates</Link></Button></div>
       <Button variant="ghost" size="icon" className="xl:hidden" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(!open)}>{open ? <X /> : <Menu />}</Button>
     </div>
     {open && <nav className="border-t border-border bg-background px-5 py-4 xl:hidden" aria-label="Mobile navigation">
@@ -53,7 +53,7 @@ export function SiteFooter() {
   return <footer className="border-t border-border bg-primary text-primary-foreground">
     <div className="page-wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr]">
       <div><p className="font-serif text-2xl">Friends of Indoor Tennis in Nanaimo (FITIN)</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75">Community information and resources about the future of year-round indoor tennis in Nanaimo.</p></div>
-      <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/join">Community Updates</Link><Link to="/sources">Sources</Link><Link to="/candidates">2026 Election Archive</Link><Link to="/contact">Contact</Link></nav>
+      <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/join">Get Updates</Link><Link to="/sources">Sources</Link><Link to="/candidates">2026 Election Archive</Link><Link to="/contact">Contact</Link></nav>
     </div>
     <div className="border-t border-primary-foreground/15"><div className="page-wrap py-5 text-xs leading-5 text-primary-foreground/65">This website is not affiliated with the City of Nanaimo, Westwood Lake Tennis Club, Tennis Canada, or any political candidate or party.</div></div>
   </footer>;
