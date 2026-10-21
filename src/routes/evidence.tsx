@@ -18,11 +18,12 @@ export const Route = createFileRoute("/evidence")({
 
 function EvidencePage() {
   const facts = [
-    ["The City announced a $2.88-million purchase of the 2.85-acre property.", sources[3]],
-    ["The club is expected to cease operations November 1, 2026.", sources[3]],
-    ["The indoor tennis bubble is expected to be removed after closure.", sources[3]],
-    ["The City is expected to take possession December 18, 2026.", sources[5]],
-    ["The City has said long-term uses will involve planning and community engagement.", sources[3]],
+    ["Council voted on October 14 to support retaining the tennis bubble.", sources[17]],
+    ["City staff were directed to work with a non-profit operator on a Licence of Use Agreement.", sources[17]],
+    ["The future operating arrangement is to be cost-neutral to the City.", sources[17]],
+    ["A portion of court time is to be available for public booking.", sources[17]],
+    ["The current club is scheduled to cease operations November 1, 2026.", sources[17]],
+    ["The City is scheduled to take ownership December 18, 2026.", sources[17]],
   ];
 
   const registrationData = [
@@ -36,6 +37,32 @@ function EvidencePage() {
     <PageIntro eyebrow="Evidence" title="What do we actually know?">
       <p>Claims are kept short, sources are shown directly, and information that has not been published is identified rather than inferred.</p>
     </PageIntro>
+
+    <section className="section-space pb-0">
+      <div className="page-wrap">
+        <div className="civic-card overflow-hidden">
+          <div className="grid lg:grid-cols-[.9fr_1.1fr]">
+            <div className="border-b border-border p-5 sm:p-7 lg:border-b-0 lg:border-r">
+              <p className="eyebrow">Council direction · October 14, 2026</p>
+              <h2 className="mt-3 max-w-2xl font-serif text-3xl sm:text-4xl">Council voted to retain the tennis bubble.</h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">The City publicly announced on October 20 that Council had directed staff to work with a non-profit operator on a Licence of Use Agreement for continued operation of the facility.</p>
+              <div className="mt-5"><SourceLink href="https://www.nanaimo.ca/NewsReleases/NR261020CouncilVotesToRetainTennisBubbleAsPartOfNewLandAcquisition.html" label="Read the City announcement" /></div>
+            </div>
+            <div className="bg-secondary/40 p-5 sm:p-7">
+              <p className="text-xs font-bold uppercase tracking-[.12em] text-muted-foreground">Confirmed conditions</p>
+              <div className="mt-5 grid gap-3">
+                {[
+                  ["Retention", "Council supports retaining the bubble."],
+                  ["Operating model", "Staff are to work with a non-profit operator."],
+                  ["City cost", "The agreement is to be cost-neutral to the City."],
+                  ["Public access", "A portion of court time is to be available for public booking."],
+                ].map(([title, text]) => <div key={title} className="border border-border bg-card p-4"><p className="font-semibold">{title}</p><p className="mt-1 text-sm leading-6 text-muted-foreground">{text}</p></div>)}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="city-registration-data" className="section-space pb-0">
       <div className="page-wrap">
@@ -111,7 +138,7 @@ function EvidencePage() {
         <div>
           <div className="flex flex-wrap items-end justify-between gap-3 sm:gap-4">
             <h2 className="font-serif text-3xl">Verified in the public record</h2>
-            <p className="text-xs text-muted-foreground">City source reviewed: September 23, 2026</p>
+            <p className="text-xs text-muted-foreground">City source reviewed: October 20, 2026</p>
           </div>
           <div className="mt-5 border-t border-border sm:mt-6">{facts.map(([finding, source]) => {
             const item = source as typeof sources[number];
@@ -125,9 +152,9 @@ function EvidencePage() {
         </div>
         <aside className="civic-card h-fit p-5 sm:p-6">
           <div className="flex items-center gap-3"><AlertCircle className="size-5 shrink-0 text-ring"/><h2 className="font-serif text-2xl">What we still don't know</h2></div>
-          <p className="mt-3 text-sm leading-6 text-muted-foreground">These details may materially affect the decision. They are not established in the City announcement reviewed September 23, 2026; other documents may exist or be published later.</p>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground">These details remain unresolved in the public record reviewed October 20, 2026. They may be established through the operating agreement or later City announcements.</p>
           <div className="mt-4">{unknowns.map((item) => <EmptyFact key={item}>{item}</EmptyFact>)}</div>
-          <p className="mt-5 border-t border-border pt-5 text-xs leading-5 text-muted-foreground">Review this record when the City publishes new plans or documents. Update the review date only after checking the linked source and revising affected facts and information gaps.</p>
+          <p className="mt-5 border-t border-border pt-5 text-xs leading-5 text-muted-foreground">This record should be updated as the operator, agreement, reopening date and public-access arrangements are formally established.</p>
         </aside>
       </div>
     </section>
