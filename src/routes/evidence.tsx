@@ -19,7 +19,7 @@ export const Route = createFileRoute("/evidence")({
 function EvidencePage() {
   const facts = [
     ["Council voted on October 14 to support retaining the tennis bubble.", sources[17]],
-    ["City staff were directed to work with a non-profit operator on a Licence of Use Agreement.", sources[17]],
+    ["The City has formally moved forward with NAITS to develop the draft Licence of Use Agreement and operating model.", sources[17]],
     ["The future operating arrangement is to be cost-neutral to the City.", sources[17]],
     ["A portion of court time is to be available for public booking.", sources[17]],
     ["The current club is scheduled to cease operations November 1, 2026.", sources[17]],
@@ -60,6 +60,16 @@ function EvidencePage() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="section-space pb-0">
+      <div className="page-wrap">
+        <div className="civic-card p-5 sm:p-7">
+          <p className="eyebrow">City correspondence · October 16, 2026</p>
+          <h2 className="mt-3 max-w-3xl font-serif text-3xl sm:text-4xl">The City is working with NAITS on the operating agreement.</h2>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Formal correspondence from the City to the Nanaimo Area Indoor Tennis Society states that the City wants to work with NAITS to develop the draft one-year Licence of Use Agreement and operating model for the facility. The correspondence is summarized here but is not published on this website.</p>
         </div>
       </div>
     </section>
@@ -154,7 +164,7 @@ function EvidencePage() {
           <div className="flex items-center gap-3"><AlertCircle className="size-5 shrink-0 text-ring"/><h2 className="font-serif text-2xl">What we still don't know</h2></div>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">These details remain unresolved in the public record reviewed October 20, 2026. They may be established through the operating agreement or later City announcements.</p>
           <div className="mt-4">{unknowns.map((item) => <EmptyFact key={item}>{item}</EmptyFact>)}</div>
-          <p className="mt-5 border-t border-border pt-5 text-xs leading-5 text-muted-foreground">This record should be updated as the operator, agreement, reopening date and public-access arrangements are formally established.</p>
+          <p className="mt-5 border-t border-border pt-5 text-xs leading-5 text-muted-foreground">This record should be updated as the City–NAITS agreement, reopening date and public-access arrangements are formally established.</p>
         </aside>
       </div>
     </section>
