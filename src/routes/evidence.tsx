@@ -19,7 +19,7 @@ export const Route = createFileRoute("/evidence")({
 function EvidencePage() {
   const facts = [
     ["Council voted on October 14 to support retaining the tennis bubble.", sources[17]],
-    ["The City has formally moved forward with NAITS to develop the draft Licence of Use Agreement and operating model.", sources[17]],
+    ["The City has formally moved forward with NAITS to develop the draft Licence of Use Agreement and operating model.", sources[21]],
     ["The future operating arrangement is to be cost-neutral to the City.", sources[17]],
     ["A portion of court time is to be available for public booking.", sources[17]],
     ["The current club is scheduled to cease operations November 1, 2026.", sources[17]],
@@ -69,7 +69,8 @@ function EvidencePage() {
         <div className="civic-card p-5 sm:p-7">
           <p className="eyebrow">City correspondence · October 16, 2026</p>
           <h2 className="mt-3 max-w-3xl font-serif text-3xl sm:text-4xl">The City is working with NAITS on the operating agreement.</h2>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Formal correspondence from the City to the Nanaimo Area Indoor Tennis Society states that the City wants to work with NAITS to develop the draft one-year Licence of Use Agreement and operating model for the facility. The correspondence is summarized here but is not published on this website.</p>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">Formal correspondence from the City to the Nanaimo Area Indoor Tennis Society states that the City wants to work with NAITS to develop the draft one-year Licence of Use Agreement and operating model for the facility.</p>
+          <div className="mt-5"><SourceLink href="/city-of-nanaimo-next-steps-westwood-tennis-bubble-2026-10-16.pdf" label="Read the October 16 City letter" /></div>
         </div>
       </div>
     </section>
