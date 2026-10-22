@@ -51,9 +51,9 @@ function Index() {
       <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/82 to-primary/65" />
       <div className="page-wrap relative flex min-h-[560px] items-end py-10 sm:min-h-[680px] sm:py-20">
         <div className="max-w-4xl reveal">
-          <p className="mb-4 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70 sm:mb-5">Current status · Nanaimo, BC</p>
           <h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">Council has voted to retain the Westwood tennis bubble.</h1>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:mt-7 sm:text-lg">The City of Nanaimo is now working with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the one-year Licence of Use Agreement for the facility's future operation. Council's direction requires a cost-neutral operating model and public access.</p>
+          <div className="mt-5 inline-flex items-center border border-accent/60 bg-accent/90 px-3 py-1.5 text-xs font-bold uppercase tracking-[.12em] text-accent-foreground sm:mt-7">City working with NAITS</div>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-primary-foreground/88 sm:text-lg">The City of Nanaimo is now working with the <strong className="font-semibold text-primary-foreground">Nanaimo Area Indoor Tennis Society (NAITS)</strong> to develop the one-year Licence of Use Agreement for the facility's future operation. Council's direction requires a cost-neutral operating model and public access.</p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
             <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/the-issue">Current status<ArrowRight /></Link></Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><a href={cityDecisionUrl} target="_blank" rel="noreferrer">City announcement<ArrowUpRight /></a></Button>
