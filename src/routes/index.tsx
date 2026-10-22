@@ -6,6 +6,7 @@ import heroImage from "@/assets/indoor-tennis-community.jpg";
 import { OptimizedImage } from "@/components/optimized-image";
 
 const cityDecisionUrl = "https://www.nanaimo.ca/NewsReleases/NR261020CouncilVotesToRetainTennisBubbleAsPartOfNewLandAcquisition.html";
+const cityLetterUrl = "/city-of-nanaimo-next-steps-westwood-tennis-bubble-2026-10-16.pdf";
 const chekUrl = "https://cheknews.ca/nanaimo-backs-plan-to-keep-westwood-tennis-bubble-open-1354842/";
 const nnnUrl = "https://nanaimonewsnow.com/2026/10/20/tennis-bubble-to-remain-as-city-of-nanaimo-continuing-westwood-lake-land-purchase/";
 const cbcUrl = "https://www.cbc.ca/news/canada/british-columbia/nanaimo-indoor-tennis-continue-operations-now-as-public-facility-9.7021310";
@@ -80,6 +81,7 @@ function Index() {
         <div>
           <p className="text-sm leading-7 text-muted-foreground">In formal correspondence dated October 16, the City confirmed that it wants to work with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the draft one-year Licence of Use Agreement and operating model for the Westwood tennis bubble.</p>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">The remaining work is to establish the detailed operating terms, public-booking arrangements and transition to reopening.</p>
+          <div className="mt-5"><Button asChild variant="outline"><a href={cityLetterUrl} target="_blank" rel="noreferrer">Read the October 16 City letter<ArrowUpRight /></a></Button></div>
         </div>
       </div>
     </section>
