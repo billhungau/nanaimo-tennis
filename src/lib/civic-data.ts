@@ -185,7 +185,7 @@ export const sources = [
     date: "October 20, 2026",
     category: "News" as SourceCategory,
     url: "https://nanaimonewsnow.com/2026/10/20/tennis-bubble-to-remain-as-city-of-nanaimo-continuing-westwood-lake-land-purchase/",
-    summary: "Reports that the bubble will remain, the club will close November 1, the site will be unavailable during the transition, and the identity of the future non-profit operator remains unsettled.",
+    summary: "Reports that the bubble will remain, the club will close November 1 and the site will be unavailable during the transition. The City's October 16 correspondence had already identified NAITS as the organization it intended to work with to develop the operating agreement.",
     primary: false,
   },
   {
