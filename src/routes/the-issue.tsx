@@ -61,7 +61,7 @@ function IssuePage() {
       <div className="page-wrap grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
         <div><SectionHeading eyebrow="Where things stand" title="The direction has changed. The transition is not complete."/></div>
         <div>
-          <p className="leading-8 text-muted-foreground">The City's September announcement contemplated removal of the bubble. Council has since changed direction and now supports retaining it. The City has formally moved into the next phase with NAITS, asking the Society to work with staff on the draft operating agreement and operating model.</p>
+          <p className="leading-8 text-muted-foreground">The City's September announcement contemplated removal of the bubble. Council has since changed direction and now supports retaining it. The City has formally moved into the next phase with NAITS, asking the Society to work with staff on the draft operating agreement and operating model. The City's October 16 correspondence identifies NAITS as the organization it intends to work with to develop the operating agreement.</p>
           <p className="mt-5 leading-8 text-muted-foreground">Public access will not continue uninterrupted. The current club is scheduled to close November 1, and the facility will be unavailable during the transition. Public access would resume only after an agreement is approved and the facility is ready for operation.</p>
         </div>
       </div>
