@@ -197,6 +197,15 @@ export const sources = [
     summary: "CBC News reports on Council's decision to retain the indoor tennis bubble and the planned transition toward continued public access under a future operating agreement.",
     primary: false,
   },
+  {
+    title: "Next Steps – Westwood Tennis Bubble",
+    publisher: "City of Nanaimo",
+    date: "October 16, 2026",
+    category: "City documents" as SourceCategory,
+    url: "/city-of-nanaimo-next-steps-westwood-tennis-bubble-2026-10-16.pdf",
+    summary: "Formal City correspondence confirming Council's retention direction and identifying the Nanaimo Area Indoor Tennis Society (NAITS) as the organization the City intends to work with to develop the draft one-year Licence of Use Agreement and operating model.",
+    primary: true,
+  },
 ];
 
 export const unknowns = [
@@ -216,7 +225,7 @@ export const timeline = [
   { date: "Oct 4", year: "2026", title: "Community gathering at Oliver Woods", text: "Indoor tennis supporters gathered at Oliver Woods Community Centre in support of retaining year-round indoor tennis.", status: "Occurred" },
   { date: "Oct 7", year: "2026", title: "CHEK reports on the potential indoor-tennis gap", text: "CHEK News reports on the planned closure, the anticipated replacement timeline and a proposed interim operating approach. This coverage predates Council's retention decision.", status: "Occurred", source: sources[16] },
   { date: "Oct 14", year: "2026", title: "Council votes to retain the tennis bubble", text: "At a Special In Camera Meeting, Council votes to support retaining the bubble at 2367 Arbot Road and directs staff to establish a one-year Licence of Use Agreement with a non-profit operator.", status: "Occurred", source: sources[17] },
-  { date: "Oct 16", year: "2026", title: "City formally moves forward with NAITS", text: "In formal correspondence, the City tells NAITS that it wants to work with the Society to develop the draft Licence of Use Agreement and operating model for Council's consideration.", status: "Occurred" },
+  { date: "Oct 16", year: "2026", title: "City formally moves forward with NAITS", text: "In formal correspondence, the City tells NAITS that it wants to work with the Society to develop the draft Licence of Use Agreement and operating model for Council's consideration.", status: "Occurred", source: sources[21] },
   { date: "Oct 17", year: "2026", title: "Municipal election", text: "Nanaimo holds its 2026 general local election.", status: "Occurred", source: sources[2] },
   { date: "Oct 20", year: "2026", title: "City publicly announces the retention decision", text: "The City confirms that the bubble will be retained and says the operating agreement must be cost-neutral to the City, with a portion of court time available for public booking.", status: "Occurred", source: sources[17] },
   { date: "Nov 1", year: "2026", title: "Westwood Tennis Club scheduled to cease operations", text: "The current club is scheduled to close. The facility will not be available for use during the transition period.", status: "Expected", source: sources[17] },
