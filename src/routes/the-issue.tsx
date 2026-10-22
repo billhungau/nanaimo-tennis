@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/page-elements";
 
 const cityAnnouncementUrl = "https://www.nanaimo.ca/NewsReleases/NR261020CouncilVotesToRetainTennisBubbleAsPartOfNewLandAcquisition.html";
+const cityLetterUrl = "/city-of-nanaimo-next-steps-westwood-tennis-bubble-2026-10-16.pdf";
 
 export const Route = createFileRoute("/the-issue")({
   head: () => ({ meta: [
@@ -51,7 +52,7 @@ function IssuePage() {
           <p>On October 14, 2026, Nanaimo City Council voted to support retaining the bubble at 2367 Arbot Road. In formal correspondence dated October 16, the City confirmed that it wants to work with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the draft Licence of Use Agreement and operating model. The City announced Council's retention decision publicly on October 20.</p>
         </div>
         <div className="mt-7 flex flex-wrap gap-3">
-          <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><a href={cityAnnouncementUrl} target="_blank" rel="noreferrer">Read the City announcement<ArrowUpRight /></a></Button>
+          <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><a href={cityLetterUrl} target="_blank" rel="noreferrer">Read the October 16 City letter<ArrowUpRight /></a></Button>
           <Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/timeline">View timeline<ArrowRight /></Link></Button>
         </div>
       </div>
