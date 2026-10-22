@@ -21,7 +21,7 @@ export const Route = createFileRoute("/the-issue")({
 function IssuePage() {
   const currentSteps = [
     "Council has voted to support retaining the tennis bubble.",
-    "City staff have been directed to work with a non-profit operator on a Licence of Use Agreement.",
+    "The City is working with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the Licence of Use Agreement and operating model.",
     "The operating arrangement is to be cost-neutral to the City.",
     "A portion of court time is to be available for public booking.",
     "The current club is scheduled to cease operations November 1.",
@@ -29,7 +29,6 @@ function IssuePage() {
   ];
 
   const openQuestions = [
-    "Which non-profit operator will ultimately enter the agreement?",
     "When will the agreement be approved?",
     "When will the indoor courts reopen?",
     "How much court time will be available for public booking?",
@@ -49,7 +48,7 @@ function IssuePage() {
         <p className="eyebrow text-primary-foreground/75">Current status</p>
         <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">Council has voted to retain the Westwood tennis bubble.</h1>
         <div className="mt-6 max-w-3xl text-base leading-7 text-primary-foreground/88 sm:text-lg">
-          <p>On October 14, 2026, Nanaimo City Council voted to support retaining the bubble at 2367 Arbot Road and directed staff to work with a non-profit operator on a Licence of Use Agreement. The City announced that decision publicly on October 20.</p>
+          <p>On October 14, 2026, Nanaimo City Council voted to support retaining the bubble at 2367 Arbot Road. In formal correspondence dated October 16, the City confirmed that it wants to work with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the draft Licence of Use Agreement and operating model. The City announced Council's retention decision publicly on October 20.</p>
         </div>
         <div className="mt-7 flex flex-wrap gap-3">
           <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><a href={cityAnnouncementUrl} target="_blank" rel="noreferrer">Read the City announcement<ArrowUpRight /></a></Button>
@@ -62,7 +61,7 @@ function IssuePage() {
       <div className="page-wrap grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
         <div><SectionHeading eyebrow="Where things stand" title="The direction has changed. The transition is not complete."/></div>
         <div>
-          <p className="leading-8 text-muted-foreground">The City's September announcement contemplated removal of the bubble. Council has since changed direction and now supports retaining it while staff develop an operating agreement with a non-profit operator.</p>
+          <p className="leading-8 text-muted-foreground">The City's September announcement contemplated removal of the bubble. Council has since changed direction and now supports retaining it. The City has formally moved into the next phase with NAITS, asking the Society to work with staff on the draft operating agreement and operating model.</p>
           <p className="mt-5 leading-8 text-muted-foreground">Public access will not continue uninterrupted. The current club is scheduled to close November 1, and the facility will be unavailable during the transition. Public access would resume only after an agreement is approved and the facility is ready for operation.</p>
         </div>
       </div>
@@ -89,8 +88,8 @@ function IssuePage() {
           <SectionHeading eyebrow="What happens next" title="An operating agreement still has to be completed."/>
         </div>
         <div className="space-y-5 text-base leading-8 text-primary-foreground/82">
-          <p>The City says staff will develop a comprehensive operating agreement that is cost-neutral to the City. The future operator is expected to assume ongoing operating, maintenance and capital costs.</p>
-          <p>Council has also directed that a portion of court time be made available for public booking. The detailed booking model, fees, reopening date and final operator have not yet been announced.</p>
+          <p>The City is working with NAITS to develop a comprehensive operating agreement that is cost-neutral to the City. Under Council's direction, the non-profit operator will be responsible for ongoing operating, maintenance, capital costs and liability associated with the facility.</p>
+          <p>Council has also directed that a portion of court time be made available for public booking. The detailed booking model, fees and reopening date have not yet been announced.</p>
         </div>
       </div>
     </section>
