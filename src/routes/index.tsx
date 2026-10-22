@@ -27,7 +27,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const status = [
     ["Bubble", "Council supports retention", true],
-    ["Operating agreement", "In development", false],
+    ["Operating partner", "NAITS · agreement in development", true],
     ["Current club", "Scheduled to close Nov. 1", false],
     ["Public access", "After approval and readiness", false],
   ] as const;
@@ -53,7 +53,7 @@ function Index() {
         <div className="max-w-4xl reveal">
           <p className="mb-4 text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70 sm:mb-5">Current status · Nanaimo, BC</p>
           <h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">Council has voted to retain the Westwood tennis bubble.</h1>
-          <p className="mt-5 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:mt-7 sm:text-lg">Council has directed staff to work with a non-profit operator on a Licence of Use Agreement for continued operation. The agreement is still being developed, and public access will resume only after it is approved and the facility is ready.</p>
+          <p className="mt-5 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:mt-7 sm:text-lg">The City of Nanaimo is now working with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the one-year Licence of Use Agreement for the facility's future operation. Council's direction requires a cost-neutral operating model and public access.</p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
             <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/the-issue">Current status<ArrowRight /></Link></Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><a href={cityDecisionUrl} target="_blank" rel="noreferrer">City announcement<ArrowUpRight /></a></Button>
@@ -68,6 +68,19 @@ function Index() {
           {complete ? <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-ring" /> : <Clock3 className="mt-0.5 size-5 shrink-0 text-muted-foreground" />}
           <div><p className="text-[11px] font-bold uppercase tracking-[.12em] text-muted-foreground">{label}</p><p className="mt-1 text-sm font-semibold leading-5">{text}</p></div>
         </div>)}
+      </div>
+    </section>
+
+    <section className="border-b border-border bg-background py-9 sm:py-11">
+      <div className="page-wrap grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+        <div>
+          <p className="eyebrow">City–NAITS next step</p>
+          <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">The City is working with NAITS on operation of the facility.</h2>
+        </div>
+        <div>
+          <p className="text-sm leading-7 text-muted-foreground">In formal correspondence dated October 16, the City confirmed that it wants to work with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the draft one-year Licence of Use Agreement and operating model for the Westwood tennis bubble.</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">The remaining work is to establish the detailed operating terms, public-booking arrangements and transition to reopening.</p>
+        </div>
       </div>
     </section>
 
@@ -96,8 +109,8 @@ function Index() {
       <div className="page-wrap relative grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-12">
         <div className="[&_h2]:!text-3xl [&_.eyebrow]:text-primary-foreground/70 sm:[&_h2]:!text-4xl"><SectionHeading eyebrow="What happens next" title="Retention has been decided. Reopening has not."/></div>
         <div className="space-y-5 text-base leading-8 text-primary-foreground/82">
-          <p>City staff are now developing an operating agreement with a non-profit operator. Council's direction is that the arrangement be cost-neutral to the City and include a portion of court time for public booking.</p>
-          <div className="border-l-4 border-accent bg-background/95 p-5 text-foreground shadow-sm sm:p-6"><strong>The unresolved questions are operational:</strong> who will operate the facility, when the agreement will be approved, when the courts will reopen, and how public booking will work.</div>
+          <p>City staff are now working with NAITS to develop the operating agreement. Council's direction is that the arrangement be cost-neutral to the City and include a portion of court time for public booking.</p>
+          <div className="border-l-4 border-accent bg-background/95 p-5 text-foreground shadow-sm sm:p-6"><strong>The unresolved questions are operational:</strong> final agreement terms, reopening timing, public-booking allocation, fees and how community access will work in practice.</div>
           <Button asChild variant="outline" className="border-primary-foreground/40 bg-background/10 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/the-issue">See current status<ArrowRight /></Link></Button>
         </div>
       </div>
