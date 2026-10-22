@@ -49,7 +49,7 @@ function SourcesPage() {
         <div className="max-w-4xl">
           <p className="eyebrow">October 16 City correspondence</p>
           <h2 className="mt-2 font-serif text-2xl sm:text-3xl">City–NAITS operating discussions are now part of the record.</h2>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">Formal City correspondence to the Nanaimo Area Indoor Tennis Society confirms that the City wants to work with NAITS to develop the draft one-year Licence of Use Agreement and operating model for the Westwood tennis bubble. The correspondence is summarized across this site but is not published here as a downloadable document.</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">Formal City correspondence to the Nanaimo Area Indoor Tennis Society confirms that the City wants to work with NAITS to develop the draft one-year Licence of Use Agreement and operating model for the Westwood tennis bubble. The original letter is available below as a primary source.</p>
         </div>
       </div>
     </section>
