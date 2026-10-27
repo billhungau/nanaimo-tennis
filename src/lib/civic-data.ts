@@ -8,6 +8,15 @@ export const candidateQuestions = [
 
 export const sources = [
   {
+    title: "NAITS Non-Profit to Run Indoor Tennis in Nanaimo",
+    publisher: "Nanaimo Area Indoor Tennis Society (NAITS)",
+    date: "October 27, 2026",
+    category: "Community statements" as SourceCategory,
+    url: "/press-release-naits-non-profit-to-run-indoor-tennis-in-nanaimo",
+    summary: "NAITS statement announcing that the City is developing the Westwood tennis bubble operating agreement with NAITS and that the Society is anticipated to take over operations on January 1, 2027.",
+    primary: true,
+  },
+  {
     title: "City tennis-program registration records, 2021–2025",
     publisher: "City of Nanaimo recreation data",
     date: "September 28, 2026",
