@@ -81,6 +81,7 @@ function Index() {
         <div>
           <p className="text-sm leading-7 text-muted-foreground">In formal correspondence dated October 16, the City confirmed that it wants to work with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the draft one-year Licence of Use Agreement and operating model for the Westwood tennis bubble.</p>
           <p className="mt-3 text-sm leading-7 text-muted-foreground">The remaining work is to establish the detailed operating terms, public-booking arrangements and transition to reopening.</p>
+          <div className="mt-5"><Button asChild variant="outline"><Link to="/press-release-naits-non-profit-to-run-indoor-tennis-in-nanaimo">Read the NAITS press release<ArrowRight /></Link></Button></div>
           <div className="mt-5"><Button asChild variant="outline"><a href={cityLetterUrl} target="_blank" rel="noreferrer">Read the October 16 City letter<ArrowUpRight /></a></Button></div>
         </div>
       </div>
