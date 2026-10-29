@@ -215,6 +215,15 @@ export const sources = [
     summary: "NAITS statement announcing that the City is developing the Westwood tennis bubble operating agreement with NAITS and that the Society is anticipated to take over operations on January 1, 2027.",
     primary: true,
   },
+  {
+    title: "Aging tennis bubble saved by community advocates",
+    publisher: "CHLY 101.7FM · Luis Zablah",
+    date: "October 27, 2026",
+    category: "News" as SourceCategory,
+    url: "https://www.chly.ca/local-news/2026/10/27/aging-tennis-bubble-saved-by-community-advocates",
+    summary: "CHLY reports that advocacy from Nanaimo's indoor-tennis community prompted Council to reconsider removal of the bubble. The story quotes City Parks, Recreation and Culture director Charlotte Davis on Council hearing from advocates and considering a cost-neutral nonprofit model, and reports that the City is planning to work with NAITS on future operation.",
+    primary: false,
+  },
 ];
 
 export const unknowns = [
