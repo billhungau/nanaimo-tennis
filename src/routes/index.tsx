@@ -10,6 +10,7 @@ const cityLetterUrl = "/city-of-nanaimo-next-steps-westwood-tennis-bubble-2026-1
 const chekUrl = "https://cheknews.ca/nanaimo-backs-plan-to-keep-westwood-tennis-bubble-open-1354842/";
 const nnnUrl = "https://nanaimonewsnow.com/2026/10/20/tennis-bubble-to-remain-as-city-of-nanaimo-continuing-westwood-lake-land-purchase/";
 const cbcUrl = "https://www.cbc.ca/news/canada/british-columbia/nanaimo-indoor-tennis-continue-operations-now-as-public-facility-9.7021310";
+const chlyUrl = "https://www.chly.ca/local-news/2026/10/27/aging-tennis-bubble-saved-by-community-advocates";
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
 
 export const Route = createFileRoute("/")({
@@ -40,6 +41,7 @@ function Index() {
   ];
 
   const news = [
+    ["CHLY 101.7FM", "Aging tennis bubble saved by community advocates", chlyUrl, "News"],
     ["City of Nanaimo", "Council votes to retain tennis bubble as part of new land acquisition", cityDecisionUrl, "Primary source"],
     ["CBC News", "Nanaimo indoor tennis to continue operations as public facility", cbcUrl, "News"],
     ["CHEK News", "Nanaimo backs plan to keep Westwood tennis bubble open", chekUrl, "News"],
@@ -91,10 +93,10 @@ function Index() {
       <div className="page-wrap">
         <div className="grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
           <div>
-            <p className="eyebrow">October 20, 2026</p>
-            <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">A major change in direction is now public.</h2>
+            <p className="eyebrow">Latest coverage · October 27, 2026</p>
+            <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">Local reporting documents how the decision changed.</h2>
           </div>
-          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">The City publicly confirmed Council's October 14 decision to retain the bubble. CBC, CHEK News and NanaimoNewsNOW also reported on the decision and the transition toward a future non-profit operating arrangement.</p>
+          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">CHLY's October 27 report quotes the City's Parks, Recreation and Culture director saying Council heard from indoor-tennis advocates and reconsidered removal of the bubble. The City, CBC, CHEK News and NanaimoNewsNOW have also reported on the retention decision and transition toward a non-profit operating arrangement.</p>
         </div>
         <div className="mt-7 grid gap-3 md:grid-cols-2">
           {news.map(([publisher, title, url, type]) => <article key={url} className="civic-card p-5 sm:p-6">
@@ -144,7 +146,7 @@ function Index() {
       <div className="page-wrap grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
         <div><SectionHeading eyebrow="How we got here" title="The campaign is now part of the historical record."/></div>
         <div>
-          <p className="text-base leading-8 text-muted-foreground">In September, the City announced that the bubble would be removed. Community members responded with a petition, public advocacy, media coverage and a candidate questionnaire asking that alternatives be examined before an irreversible decision was made. Council subsequently voted to retain the facility.</p>
+          <p className="text-base leading-8 text-muted-foreground">In September, the City announced that the bubble would be removed. Community members responded with a petition, public advocacy, media coverage and a candidate questionnaire asking that alternatives be examined before an irreversible decision was made. CHLY later reported that the City said Council heard from indoor-tennis advocates and that this gave Council cause to reconsider retaining the bubble. Council subsequently voted to retain the facility.</p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild variant="outline"><Link to="/timeline">View the full timeline<ArrowRight /></Link></Button>
             <Button asChild variant="ghost"><a href={petitionUrl} target="_blank" rel="noreferrer">Campaign petition archive<ArrowUpRight /></a></Button>
