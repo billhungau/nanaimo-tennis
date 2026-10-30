@@ -224,6 +224,15 @@ export const sources = [
     summary: "CHLY reports that advocacy from Nanaimo's indoor-tennis community prompted Council to reconsider removal of the bubble. The story quotes City Parks, Recreation and Culture director Charlotte Davis on Council hearing from advocates and considering a cost-neutral nonprofit model, and reports that the City is planning to work with NAITS on future operation.",
     primary: false,
   },
+  {
+    title: "Nanaimo’s Westwood Tennis Bubble Gets a Second Serve",
+    publisher: "Tennis BC Insider",
+    date: "October 2026",
+    category: "News" as SourceCategory,
+    url: "https://mailchi.mp/tennisbc/tennis-bc-insider-october-2026",
+    summary: "Tennis BC reports on Council's decision to retain the Westwood tennis bubble, describes the determined community campaign that preceded the decision, and notes that NAITS is working with the City's Parks and Recreation department on an operating agreement. The article also recognizes local organizers and nanaimotennis.ca for helping keep the community informed.",
+    primary: false,
+  },
 ];
 
 export const unknowns = [
