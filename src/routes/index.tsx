@@ -11,6 +11,7 @@ const chekUrl = "https://cheknews.ca/nanaimo-backs-plan-to-keep-westwood-tennis-
 const nnnUrl = "https://nanaimonewsnow.com/2026/10/20/tennis-bubble-to-remain-as-city-of-nanaimo-continuing-westwood-lake-land-purchase/";
 const cbcUrl = "https://www.cbc.ca/news/canada/british-columbia/nanaimo-indoor-tennis-continue-operations-now-as-public-facility-9.7021310";
 const chlyUrl = "https://www.chly.ca/local-news/2026/10/27/aging-tennis-bubble-saved-by-community-advocates";
+const tennisBcUrl = "https://mailchi.mp/tennisbc/tennis-bc-insider-october-2026";
 const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-lake-indoor-tennis-courts";
 
 export const Route = createFileRoute("/")({
@@ -41,6 +42,7 @@ function Index() {
   ];
 
   const news = [
+    ["Tennis BC", "Nanaimo’s Westwood Tennis Bubble Gets a Second Serve", tennisBcUrl, "Provincial tennis"],
     ["CHLY 101.7FM", "Aging tennis bubble saved by community advocates", chlyUrl, "News"],
     ["City of Nanaimo", "Council votes to retain tennis bubble as part of new land acquisition", cityDecisionUrl, "Primary source"],
     ["CBC News", "Nanaimo indoor tennis to continue operations as public facility", cbcUrl, "News"],
@@ -96,7 +98,7 @@ function Index() {
             <p className="eyebrow">Latest coverage · October 27, 2026</p>
             <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">Local reporting documents how the decision changed.</h2>
           </div>
-          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">CHLY's October 27 report quotes the City's Parks, Recreation and Culture director saying Council heard from indoor-tennis advocates and reconsidered removal of the bubble. The City, CBC, CHEK News and NanaimoNewsNOW have also reported on the retention decision and transition toward a non-profit operating arrangement.</p>
+          <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Tennis BC's October newsletter recognizes the Nanaimo community campaign and reports that NAITS is working with the City's Parks and Recreation department on an operating agreement. CHLY's October 27 report also quotes the City's Parks, Recreation and Culture director saying Council heard from indoor-tennis advocates and reconsidered removal of the bubble.</p>
         </div>
         <div className="mt-7 grid gap-3 md:grid-cols-2">
           {news.map(([publisher, title, url, type]) => <article key={url} className="civic-card p-5 sm:p-6">
