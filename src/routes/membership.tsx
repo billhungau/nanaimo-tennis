@@ -29,24 +29,25 @@ function MembershipPage() {
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
       <img src="/20260927_132803.jpg" alt="Westwood indoor tennis courts" className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-primary/85" />
-      <div className="page-wrap relative py-16 sm:py-24">
-        <p className="text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/75">Nanaimo Area Indoor Tennis Society · NAITS</p>
-        <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">Early Bird Membership</h1>
-        <p className="mt-5 max-w-2xl text-lg leading-8 text-primary-foreground/85">Be a founding member and help build the future of accessible, year-round indoor tennis in Nanaimo.</p>
-        <div className="mt-6 inline-flex border border-primary-foreground/30 bg-primary-foreground/10 px-4 py-2 text-sm font-semibold">Membership period: January 1 – March 31, 2027</div>
+      <div className="page-wrap relative py-8 sm:py-24">
+        <p className="text-[10px] font-bold uppercase tracking-[.10em] text-primary-foreground/75 sm:text-xs sm:tracking-[.14em]">Nanaimo Area Indoor Tennis Society · NAITS</p>
+        <h1 className="mt-2 max-w-4xl font-serif text-3xl leading-tight sm:mt-4 sm:text-6xl">Early Bird Membership</h1>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-primary-foreground/85 sm:mt-5 sm:text-lg sm:leading-8">Be a founding member and help build the future of accessible, year-round indoor tennis in Nanaimo.</p>
+        <div className="mt-4 inline-flex border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-xs font-semibold sm:mt-6 sm:px-4 sm:text-sm">Membership period: January 1 – March 31, 2027</div>
+        <div className="mt-4 flex flex-wrap gap-2 sm:mt-6"><Button asChild size="sm" className="bg-background text-foreground hover:bg-background/90"><a href="#application">Get application forms<ArrowRight /></a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#rates">See rates</a></Button></div>
       </div>
     </section>
-    <section className="section-space bg-background">
+    <section id="rates" className="bg-background py-8 sm:section-space">
       <div className="page-wrap">
         <div className="max-w-3xl">
           <p className="eyebrow">Founding membership</p>
-          <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Support the next chapter at Westwood Lake.</h2>
-          <p className="mt-4 leading-7 text-muted-foreground">NAITS has been selected by the City of Nanaimo to take over operations of the four-court air dome at Westwood Lake. A final operating agreement is still being negotiated. Early Bird membership is offered for the initial three-month period to help NAITS prepare for operations.</p>
+          <h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Support the next chapter at Westwood Lake.</h2>
+          <p className="mt-3 text-sm leading-6 text-muted-foreground sm:mt-4 sm:text-base sm:leading-7">NAITS has been selected by the City of Nanaimo to take over operations of the four-court air dome at Westwood Lake. A final operating agreement is still being negotiated. Early Bird membership is offered for the initial three-month period to help NAITS prepare for operations.</p>
         </div>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {rates.map((rate) => <article key={rate.name} className="civic-card flex flex-col justify-between p-6">
-            <div><h3 className="font-serif text-2xl">{rate.name}</h3><p className="mt-2 text-sm text-muted-foreground">{rate.detail}</p></div>
-            <div className="mt-7"><p className="font-serif text-4xl font-bold">{rate.amount}</p><p className="mt-1 text-xs text-muted-foreground">January–March 2027 · tax included</p><p className="mt-4 border-t border-border pt-3 text-sm font-semibold">Optional six-month total: {rate.extended}</p></div>
+        <div className="mt-5 grid gap-2 sm:mt-8 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
+          {rates.map((rate) => <article key={rate.name} className="civic-card flex flex-row items-center justify-between gap-3 p-3 sm:flex-col sm:items-stretch sm:p-6">
+            <div><h3 className="font-serif text-lg sm:text-2xl">{rate.name}</h3><p className="mt-1 max-w-[12rem] text-xs leading-4 text-muted-foreground sm:mt-2 sm:max-w-none sm:text-sm sm:leading-6">{rate.detail}</p></div>
+            <div className="shrink-0 text-right sm:mt-7 sm:text-left"><p className="font-serif text-2xl font-bold sm:text-4xl">{rate.amount}</p><p className="mt-1 hidden text-xs text-muted-foreground sm:block">January–March 2027 · tax included</p><p className="mt-1 text-[11px] text-muted-foreground sm:mt-4 sm:border-t sm:border-border sm:pt-3 sm:text-sm sm:font-semibold">Six-month: {rate.extended}</p></div>
           </article>)}
         </div>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">Early Bird prices include tax. Assuming operations begin January 1, the offer closes no later than December 31, 2026; NAITS may withdraw it earlier without advance notice. Regular membership fees after the offer period will not include tax.</p>
@@ -55,16 +56,16 @@ function MembershipPage() {
         </div>
       </div>
     </section>
-    <section className="border-y border-border bg-secondary py-12 sm:py-16">
+    <section className="border-y border-border bg-secondary py-8 sm:py-16">
       <div className="page-wrap grid gap-8 lg:grid-cols-2">
         <div><p className="eyebrow">Current status</p><h2 className="mt-2 font-serif text-3xl">Membership details are still being finalized.</h2><p className="mt-4 leading-7 text-muted-foreground">NAITS is in active negotiations with the City of Nanaimo about the operating contract. Specific membership benefits, booking arrangements and court-use fees cannot yet be confirmed. NAITS will keep members informed as details are finalized.</p></div>
         <div className="civic-card p-6 sm:p-8"><ShieldCheck className="size-8 text-ring" /><h2 className="mt-4 font-serif text-2xl">Full refund if an agreement cannot be reached</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">NAITS promises to return Early Bird membership fees in full if it cannot conclude a satisfactory operating contract with the City of Nanaimo, in any case no later than December 31, 2026. This guarantee addresses failure to reach the operating agreement; other cancellation terms have not been specified.</p></div>
       </div>
     </section>
-    <section className="section-space">
+    <section id="application" className="py-8 sm:section-space">
       <div className="page-wrap">
         <p className="eyebrow">How to join</p>
-        <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Complete the application and waiver.</h2>
+        <h2 className="mt-2 font-serif text-2xl sm:text-4xl">Complete the application and waiver.</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Download or open both forms below, complete them, and choose one of the three submission methods announced by NAITS. Both the Membership Application and Waiver are required.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <Button asChild size="lg"><a href="https://docs.google.com/document/d/1gbJL5sYkRE349_EDq0U0hFGQERKPMxLZ/edit?usp=drive_link&ouid=107009237580630068633&rtpof=true&sd=true" target="_blank" rel="noreferrer">Membership Application<ArrowRight /></a></Button>
