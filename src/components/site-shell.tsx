@@ -31,7 +31,7 @@ export function SiteHeader() {
     <div className="page-wrap flex h-14 items-center justify-between gap-3 sm:h-18 sm:gap-5">
       <Link to="/" className="flex min-w-0 items-center gap-2 sm:gap-3" aria-label="Friends of Indoor Tennis in Nanaimo home">
         <picture className="contents"><source type="image/webp" srcSet="/optimized/nanaimo-tennis-logo-48.webp 1x, /optimized/nanaimo-tennis-logo-96.webp 2x" /><img src="/nanaimo-tennis-logo.png" width={44} height={44} alt="FITIN logo" className="size-9 shrink-0 object-contain sm:size-11" /></picture>
-        <span className="text-sm font-bold text-foreground sm:hidden">FITIN</span>
+        <span className="max-w-[210px] text-xs font-semibold leading-4 text-foreground sm:hidden">Friends of Indoor Tennis in Nanaimo (FITIN)</span>
         <span className="hidden text-sm font-semibold text-foreground sm:inline sm:text-base">Friends of Indoor Tennis in Nanaimo</span>
       </Link>
       <nav className="hidden items-center gap-5 xl:flex" aria-label="Main navigation">
