@@ -15,6 +15,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as JoinRouteImport } from './routes/join'
+import { Route as MembershipRouteImport } from './routes/membership'
 import { Route as SourcesRouteImport } from './routes/sources'
 import { Route as TheIssueRouteImport } from './routes/the-issue'
 import { Route as TimelineRouteImport } from './routes/timeline'
@@ -57,6 +58,11 @@ const GetInvolvedRoute = GetInvolvedRouteImport.update({
 const JoinRoute = JoinRouteImport.update({
   id: '/join',
   path: '/join',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MembershipRoute = MembershipRouteImport.update({
+  id: '/membership',
+  path: '/membership',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SourcesRoute = SourcesRouteImport.update({
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/evidence': typeof EvidenceRoute
   '/get-involved': typeof GetInvolvedRoute
   '/join': typeof JoinRoute
+  '/membership': typeof MembershipRoute
   '/sources': typeof SourcesRoute
   '/the-issue': typeof TheIssueRoute
   '/timeline': typeof TimelineRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/evidence': typeof EvidenceRoute
   '/get-involved': typeof GetInvolvedRoute
   '/join': typeof JoinRoute
+  '/membership': typeof MembershipRoute
   '/sources': typeof SourcesRoute
   '/the-issue': typeof TheIssueRoute
   '/timeline': typeof TimelineRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/evidence': typeof EvidenceRoute
   '/get-involved': typeof GetInvolvedRoute
   '/join': typeof JoinRoute
+  '/membership': typeof MembershipRoute
   '/sources': typeof SourcesRoute
   '/the-issue': typeof TheIssueRoute
   '/timeline': typeof TimelineRoute
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/evidence'
     | '/get-involved'
     | '/join'
+    | '/membership'
     | '/sources'
     | '/the-issue'
     | '/timeline'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/evidence'
     | '/get-involved'
     | '/join'
+    | '/membership'
     | '/sources'
     | '/the-issue'
     | '/timeline'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/evidence'
     | '/get-involved'
     | '/join'
+    | '/membership'
     | '/sources'
     | '/the-issue'
     | '/timeline'
@@ -263,6 +275,7 @@ export interface RootRouteChildren {
   EvidenceRoute: typeof EvidenceRoute
   GetInvolvedRoute: typeof GetInvolvedRoute
   JoinRoute: typeof JoinRoute
+  MembershipRoute: typeof MembershipRoute
   SourcesRoute: typeof SourcesRoute
   TheIssueRoute: typeof TheIssueRoute
   TimelineRoute: typeof TimelineRoute
@@ -320,6 +333,13 @@ declare module '@tanstack/react-router' {
       path: '/join'
       fullPath: '/join'
       preLoaderRoute: typeof JoinRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/membership': {
+      id: '/membership'
+      path: '/membership'
+      fullPath: '/membership'
+      preLoaderRoute: typeof MembershipRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sources': {
@@ -423,6 +443,7 @@ const rootRouteChildren: RootRouteChildren = {
   EvidenceRoute: EvidenceRoute,
   GetInvolvedRoute: GetInvolvedRoute,
   JoinRoute: JoinRoute,
+  MembershipRoute: MembershipRoute,
   SourcesRoute: SourcesRoute,
   TheIssueRoute: TheIssueRoute,
   TimelineRoute: TimelineRoute,
