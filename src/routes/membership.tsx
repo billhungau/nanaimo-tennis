@@ -53,7 +53,7 @@ function MembershipPage() {
         <h1 className="mt-2 max-w-4xl font-serif text-3xl leading-tight sm:mt-4 sm:text-6xl">Early Bird Membership</h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-primary-foreground/85 sm:mt-5 sm:text-lg sm:leading-8">Be a founding member and help build the future of accessible, year-round indoor tennis in Nanaimo.</p>
         <div className="mt-4 inline-flex border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-xs font-semibold sm:mt-6 sm:px-4 sm:text-sm">Membership period: January 1 – March 31, 2027</div>
-        <div className="mt-4 flex flex-wrap gap-2 sm:mt-6"><Button asChild size="sm" className="bg-background text-foreground hover:bg-background/90"><a href="#application">Get application forms<ArrowRight /></a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#rates">See rates</a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#faq">Member FAQ</a></Button></div>
+        <div className="mt-4 flex flex-wrap gap-2 sm:mt-6"><Button asChild size="sm" className="bg-background text-foreground hover:bg-background/90"><a href="#application">Get application forms<ArrowRight /></a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#rates">See rates</a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#faq">Member FAQs</a></Button></div>
       </div>
     </section>
     <section id="rates" className="bg-background py-8 sm:py-16">
@@ -104,7 +104,7 @@ function MembershipPage() {
     <section id="faq" className="border-t border-border bg-secondary py-10 sm:py-16">
       <div className="page-wrap max-w-5xl">
         <p className="eyebrow">Questions from prospective members</p>
-        <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Membership FAQ</h2>
+        <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Membership FAQs</h2>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These answers summarize NAITS's November 3 Early Bird announcement and the November 3 response from its board Secretary. Conditions and future operating details may change as the City agreement and NAITS procedures are finalized.</p>
         <h3 className="mt-8 font-serif text-2xl">Early Bird offer and applications</h3>
         <div className="mt-3 divide-y divide-border border-y border-border bg-card">
