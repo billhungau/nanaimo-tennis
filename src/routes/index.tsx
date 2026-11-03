@@ -31,7 +31,7 @@ function Index() {
   const status = [
     ["Bubble", "Council supports retention", true],
     ["Operating partner", "NAITS · agreement in development", true],
-    ["Current club", "Scheduled to close Nov. 1", false],
+    ["Previous club", "Closed Nov. 1", true],
     ["Public access", "After approval and readiness", false],
   ] as const;
 
@@ -51,15 +51,15 @@ function Index() {
   ];
 
   return <>
-    <section className="relative min-h-[560px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
+    <section className="relative min-h-[390px] overflow-hidden bg-primary text-primary-foreground sm:min-h-[680px]">
       <img src={heroImage} alt="Community players on indoor tennis courts beneath an air-supported roof" width={1920} height={1088} fetchPriority="high" loading="eager" decoding="async" className="absolute inset-0 size-full object-cover" />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/82 to-primary/65" />
-      <div className="page-wrap relative flex min-h-[560px] items-end py-10 sm:min-h-[680px] sm:py-20">
+      <div className="page-wrap relative flex min-h-[390px] items-center py-8 sm:min-h-[680px] sm:py-20">
         <div className="max-w-4xl reveal">
-          <h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">A new chapter for indoor tennis in Nanaimo.</h1>
-          <div className="mt-5 inline-flex items-center border border-accent/60 bg-accent/90 px-3 py-1.5 text-xs font-bold uppercase tracking-[.12em] text-accent-foreground sm:mt-7">NAITS Early Bird Membership · Jan–Mar 2027</div>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-primary-foreground/88 sm:text-lg">The <strong className="font-semibold text-primary-foreground">Nanaimo Area Indoor Tennis Society (NAITS)</strong> has been selected to take over operations of the four-court Westwood Lake air dome. Early Bird memberships are offered for January–March 2027 while the City–NAITS operating agreement is still being negotiated.</p>
-          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+          <h1 className="font-serif text-3xl leading-[1.12] sm:text-6xl lg:text-7xl">A new chapter for indoor tennis in Nanaimo.</h1>
+          <div className="mt-3 inline-flex items-center border border-accent/60 bg-accent/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.07em] text-accent-foreground sm:mt-7 sm:text-xs sm:tracking-[.12em]">NAITS Early Bird Membership · Jan–Mar 2027</div>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-primary-foreground/88 sm:mt-4 sm:text-lg sm:leading-7">The <strong className="font-semibold text-primary-foreground">Nanaimo Area Indoor Tennis Society (NAITS)</strong> has been selected to take over operations of the four-court Westwood Lake air dome. Early Bird memberships are offered for January–March 2027 while the City–NAITS operating agreement is still being negotiated.</p>
+          <div className="mt-4 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
             <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/membership">Explore Membership<ArrowRight /></Link></Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><a href={cityDecisionUrl} target="_blank" rel="noreferrer">City announcement<ArrowUpRight /></a></Button>
           </div>
@@ -67,30 +67,30 @@ function Index() {
       </div>
     </section>
 
-    <section className="border-b border-border bg-[#F7F0D7] py-10 sm:py-14">
-      <div className="page-wrap grid gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
-        <div><p className="eyebrow">Founding membership · January 1 – March 31, 2027</p><h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">Help build year-round indoor tennis in Nanaimo.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">NAITS is offering limited-time Early Bird membership rates. The operating agreement and specific member benefits are still being finalized. A full refund is promised if NAITS cannot reach a satisfactory operating contract by December 31, 2026.</p><Button asChild className="mt-5"><Link to="/membership">Membership details and how to join<ArrowRight /></Link></Button></div>
-        <div className="grid grid-cols-2 gap-3">
-          {([["Junior", "$120"], ["Individual adult", "$270"], ["Couple", "$335"], ["Family", "$400"], ["Out of town", "$180"]] as const).map(([label, price]) => <div key={label} className="border border-border bg-card p-4"><p className="text-xs font-semibold text-muted-foreground">{label}</p><p className="mt-2 font-serif text-3xl">{price}</p></div>)}
-          <div className="flex items-center p-4 text-xs leading-5 text-muted-foreground">All rates cover three months. Eligibility and details on the membership page.</div>
+    <section className="border-b border-border bg-[#F7F0D7] py-7 sm:py-14">
+      <div className="page-wrap grid gap-4 sm:gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+        <div><p className="eyebrow">Founding membership · January 1 – March 31, 2027</p><h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Help build year-round indoor tennis in Nanaimo.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">NAITS is offering limited-time Early Bird membership rates. The operating agreement and specific member benefits are still being finalized. A full refund is promised if NAITS cannot reach a satisfactory operating contract by December 31, 2026.</p><Button asChild className="mt-5"><Link to="/membership">Membership details and how to join<ArrowRight /></Link></Button></div>
+        <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          {([["Junior", "$120"], ["Individual adult", "$270"], ["Couple", "$335"], ["Family", "$400"], ["Out of town", "$180"]] as const).map(([label, price]) => <div key={label} className="border border-border bg-card p-3 sm:p-4"><p className="text-xs font-semibold text-muted-foreground">{label}</p><p className="mt-1 font-serif text-2xl sm:mt-2 sm:text-3xl">{price}</p></div>)}
+          <div className="flex items-center p-3 text-xs leading-5 text-muted-foreground sm:p-4">All rates cover three months. Eligibility and details on the membership page.</div>
         </div>
       </div>
     </section>
 
     <section className="border-y border-border bg-card">
-      <div className="page-wrap grid md:grid-cols-4 md:divide-x md:divide-border">
-        {status.map(([label, text, complete]) => <div key={label} className="flex min-h-[96px] gap-3 border-b border-border px-4 py-5 last:border-b-0 md:border-b-0">
+      <div className="page-wrap grid grid-cols-2 md:grid-cols-4 md:divide-x md:divide-border">
+        {status.map(([label, text, complete]) => <div key={label} className="flex min-h-[76px] gap-2 border-b border-border px-2 py-3 sm:min-h-[96px] sm:gap-3 sm:px-4 sm:py-5 md:border-b-0">
           {complete ? <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-ring" /> : <Clock3 className="mt-0.5 size-5 shrink-0 text-muted-foreground" />}
           <div><p className="text-[11px] font-bold uppercase tracking-[.12em] text-muted-foreground">{label}</p><p className="mt-1 text-sm font-semibold leading-5">{text}</p></div>
         </div>)}
       </div>
     </section>
 
-    <section className="border-b border-border bg-background py-9 sm:py-11">
+    <section className="border-b border-border bg-background py-7 sm:py-11">
       <div className="page-wrap grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
         <div>
           <p className="eyebrow">City–NAITS next step</p>
-          <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">The City is working with NAITS on operation of the facility.</h2>
+          <h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">The City is working with NAITS on operation of the facility.</h2>
         </div>
         <div>
           <p className="text-sm leading-7 text-muted-foreground">In formal correspondence dated October 16, the City confirmed that it wants to work with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the draft one-year Licence of Use Agreement and operating model for the Westwood tennis bubble.</p>
@@ -101,22 +101,23 @@ function Index() {
       </div>
     </section>
 
-    <section className="border-b border-border bg-[#F7F0D7] py-10 sm:py-14">
+    <section className="border-b border-border bg-[#F7F0D7] py-7 sm:py-14">
       <div className="page-wrap">
         <div className="grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
           <div>
             <p className="eyebrow">Latest coverage · October 27, 2026</p>
-            <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">Local reporting documents how the decision changed.</h2>
+            <h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Local reporting documents how the decision changed.</h2>
           </div>
           <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Tennis BC's October newsletter recognizes the Nanaimo community campaign and reports that NAITS is working with the City's Parks and Recreation department on an operating agreement. CHLY's October 27 report also quotes the City's Parks, Recreation and Culture director saying Council heard from indoor-tennis advocates and reconsidered removal of the bubble.</p>
         </div>
-        <div className="mt-7 grid gap-3 md:grid-cols-2">
-          {news.map(([publisher, title, url, type]) => <article key={url} className="civic-card p-5 sm:p-6">
+        <div className="mt-5 grid gap-2 sm:mt-7 sm:gap-3 md:grid-cols-2">
+          {news.map(([publisher, title, url, type], index) => <article key={url} className={`civic-card p-4 sm:p-6 ${index >= 3 ? "hidden md:block" : ""}`}>
             <div className="flex items-center justify-between gap-3"><p className="text-xs font-semibold text-muted-foreground">{publisher}</p><span className="rounded-sm bg-secondary px-2 py-1 text-[10px] font-semibold">{type}</span></div>
-            <h3 className="mt-3 font-serif text-xl leading-7">{title}</h3>
-            <a href={url} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Read source<ArrowUpRight className="size-4" /></a>
+            <h3 className="mt-2 font-serif text-lg leading-6 sm:mt-3 sm:text-xl sm:leading-7">{title}</h3>
+            <a href={url} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold hover:text-ring">Read source<ArrowUpRight className="size-4" /></a>
           </article>)}
         </div>
+        <div className="mt-4 md:hidden"><Button asChild variant="outline"><Link to="/sources">More coverage and primary sources<ArrowRight /></Link></Button></div>
       </div>
     </section>
 
