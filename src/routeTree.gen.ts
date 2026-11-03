@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as CandidatesRouteImport } from './routes/candidates'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EvidenceRouteImport } from './routes/evidence'
@@ -33,6 +34,11 @@ import { Route as ApiResendWebhookRouteImport } from './routes/api/resend-webhoo
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CandidatesRoute = CandidatesRouteImport.update({
@@ -134,6 +140,7 @@ const ApiResendWebhookRoute = ApiResendWebhookRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/candidates': typeof CandidatesRoute
   '/contact': typeof ContactRoute
   '/evidence': typeof EvidenceRoute
@@ -156,6 +163,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/candidates': typeof CandidatesRoute
   '/contact': typeof ContactRoute
   '/evidence': typeof EvidenceRoute
@@ -179,6 +187,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/candidates': typeof CandidatesRoute
   '/contact': typeof ContactRoute
   '/evidence': typeof EvidenceRoute
@@ -203,6 +212,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/candidates'
     | '/contact'
     | '/evidence'
@@ -225,6 +235,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/candidates'
     | '/contact'
     | '/evidence'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/candidates'
     | '/contact'
     | '/evidence'
@@ -270,6 +282,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CandidatesRoute: typeof CandidatesRoute
   ContactRoute: typeof ContactRoute
   EvidenceRoute: typeof EvidenceRoute
@@ -298,6 +311,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/candidates': {
@@ -438,6 +458,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CandidatesRoute: CandidatesRoute,
   ContactRoute: ContactRoute,
   EvidenceRoute: EvidenceRoute,
