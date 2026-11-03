@@ -71,8 +71,8 @@ function Index() {
       <div className="page-wrap grid gap-4 sm:gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
         <div><p className="eyebrow">Founding membership · January 1 – March 31, 2027</p><h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Help build year-round indoor tennis in Nanaimo.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">NAITS is offering limited-time Early Bird membership rates. The operating agreement and specific member benefits are still being finalized. A full refund is promised if NAITS cannot reach a satisfactory operating contract by December 31, 2026.</p><Button asChild className="mt-5"><Link to="/membership">Membership details and how to join<ArrowRight /></Link></Button></div>
         <div className="grid grid-cols-2 gap-2 sm:gap-3">
-          {([["Junior", "$120"], ["Individual adult", "$270"], ["Couple", "$335"], ["Family", "$400"], ["Out of town", "$180"]] as const).map(([label, price]) => <div key={label} className="border border-border bg-card p-3 sm:p-4"><p className="text-xs font-semibold text-muted-foreground">{label}</p><p className="mt-1 font-serif text-2xl sm:mt-2 sm:text-3xl">{price}</p></div>)}
-          <div className="flex items-center p-3 text-xs leading-5 text-muted-foreground sm:p-4">All rates cover three months. Eligibility and details on the membership page.</div>
+          {([["Junior", "$120"], ["Individual adult", "$270"], ["Couple", "$335"], ["Family", "$400"], ["Out of town", "$180"]] as const).map(([label, price]) => <div key={label} className="border border-border bg-card p-3 sm:p-4"><p className="text-xs font-semibold text-muted-foreground">{label}</p><p className="mt-1 font-serif text-2xl sm:mt-2 sm:text-3xl">{price}</p><p className="mt-1 text-[11px] font-medium text-muted-foreground">Total for 3 months</p></div>)}
+          <div className="flex items-center p-3 text-xs leading-5 text-muted-foreground sm:p-4">These are totals for January–March 2027, not monthly prices. Tax included.</div>
         </div>
       </div>
     </section>
