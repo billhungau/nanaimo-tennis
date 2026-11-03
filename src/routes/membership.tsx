@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Mail, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const rates = [
@@ -65,8 +65,12 @@ function MembershipPage() {
       <div className="page-wrap">
         <p className="eyebrow">How to join</p>
         <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Complete the application and waiver.</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Both the Membership Application and Waiver must be completed. The downloadable forms have not yet been supplied to this website. Request copies using the button below, then choose one of the three submission methods announced by NAITS.</p>
-        <Button asChild size="lg" className="mt-5"><a href="mailto:pmt.NAITS@outlook.com?subject=Request%20NAITS%20Membership%20Application%20and%20Waiver"><Mail />Request application and waiver</a></Button>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">Download or open both forms below, complete them, and choose one of the three submission methods announced by NAITS. Both the Membership Application and Waiver are required.</p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Button asChild size="lg"><a href="https://docs.google.com/document/d/1gbJL5sYkRE349_EDq0U0hFGQERKPMxLZ/edit?usp=drive_link&ouid=107009237580630068633&rtpof=true&sd=true" target="_blank" rel="noreferrer">Membership Application<ArrowRight /></a></Button>
+          <Button asChild size="lg" variant="outline"><a href="https://docs.google.com/document/d/1vXcI8HE4lltcsI41xe3GdT3YD-YqBZzi/edit?usp=drive_link&ouid=107009237580630068633&rtpof=true&sd=true" target="_blank" rel="noreferrer">Waiver<ArrowRight /></a></Button>
+        </div>
+        <p className="mt-3 text-xs leading-5 text-muted-foreground">These links open Google Docs. Use the document's download or print options to obtain copies. If access is restricted, contact <a className="underline" href="mailto:pmt.NAITS@outlook.com">pmt.NAITS@outlook.com</a>.</p>
         <div className="mt-8 grid gap-4 lg:grid-cols-3">
           <article className="civic-card p-6"><p className="eyebrow">Option 1</p><h3 className="mt-2 font-serif text-2xl">Paperless</h3><ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-6 text-muted-foreground"><li>Download, complete and save the application and waiver.</li><li>Email the completed files to <a className="break-all font-semibold text-foreground underline" href="mailto:pmt.NAITS@outlook.com">pmt.NAITS@outlook.com</a>.</li><li>Send an e-transfer to the same email address.</li></ol></article>
           <article className="civic-card p-6"><p className="eyebrow">Option 2</p><h3 className="mt-2 font-serif text-2xl">Print, scan and email</h3><ol className="mt-4 list-decimal space-y-2 pl-5 text-sm leading-6 text-muted-foreground"><li>Print and complete both forms.</li><li>Scan them into a PDF.</li><li>Email the PDF to <a className="break-all font-semibold text-foreground underline" href="mailto:pmt.NAITS@outlook.com">pmt.NAITS@outlook.com</a> and send payment by e-transfer to that address.</li></ol></article>
