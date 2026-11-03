@@ -44,10 +44,11 @@ function MembershipPage() {
           <h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Support the next chapter at Westwood Lake.</h2>
           <p className="mt-3 text-sm leading-6 text-muted-foreground sm:mt-4 sm:text-base sm:leading-7">NAITS has been selected by the City of Nanaimo to take over operations of the four-court air dome at Westwood Lake. A final operating agreement is still being negotiated. Early Bird membership is offered for the initial three-month period to help NAITS prepare for operations.</p>
         </div>
-        <div className="mt-5 grid gap-2 sm:mt-8 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
+        <div className="mt-5 rounded-md border border-ring/30 bg-secondary p-3 text-sm font-semibold leading-6 sm:mt-7">All prices below are the total for the full 3-month membership period (January 1–March 31, 2027), NOT a monthly fee. Tax is included.</div>
+        <div className="mt-3 grid gap-2 sm:mt-5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
           {rates.map((rate) => <article key={rate.name} className="civic-card flex flex-row items-center justify-between gap-3 p-3 sm:flex-col sm:items-stretch sm:p-6">
             <div><h3 className="font-serif text-lg sm:text-2xl">{rate.name}</h3><p className="mt-1 max-w-[12rem] text-xs leading-4 text-muted-foreground sm:mt-2 sm:max-w-none sm:text-sm sm:leading-6">{rate.detail}</p></div>
-            <div className="shrink-0 text-right sm:mt-7 sm:text-left"><p className="font-serif text-2xl font-bold sm:text-4xl">{rate.amount}</p><p className="mt-1 hidden text-xs text-muted-foreground sm:block">January–March 2027 · tax included</p><p className="mt-1 text-[11px] text-muted-foreground sm:mt-4 sm:border-t sm:border-border sm:pt-3 sm:text-sm sm:font-semibold">Six-month: {rate.extended}</p></div>
+            <div className="shrink-0 text-right sm:mt-7 sm:text-left"><p className="text-[10px] font-bold uppercase tracking-wide text-muted-foreground sm:text-xs">3-month total</p><p className="font-serif text-2xl font-bold sm:text-4xl">{rate.amount}</p><p className="mt-0.5 text-[11px] font-medium text-foreground/75 sm:mt-1 sm:text-xs">Jan–Mar 2027 · tax included</p><p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground sm:mt-4 sm:text-sm"><span className="font-semibold">Optional 6-month total:</span> {rate.extended}</p></div>
           </article>)}
         </div>
         <p className="mt-4 text-sm leading-6 text-muted-foreground">Early Bird prices include tax. Assuming operations begin January 1, the offer closes no later than December 31, 2026; NAITS may withdraw it earlier without advance notice. Regular membership fees after the offer period will not include tax.</p>
