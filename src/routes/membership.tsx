@@ -24,6 +24,25 @@ export const Route = createFileRoute("/membership")({
   component: MembershipPage,
 });
 
+const earlyBirdFaq = [
+  { question: "How much does membership cost, and is it charged monthly?", answer: "Each advertised Early Bird fee is the total for January 1–March 31, 2027 (three months), not a monthly payment. Tax is included." },
+  { question: "When does the Early Bird offer end?", answer: "Assuming operations begin January 1, 2027, the offer ends no later than December 31, 2026. NAITS may withdraw it earlier without advance notice." },
+  { question: "Can I pay for six months instead of three?", answer: "Yes. Pay twice the listed three-month fee to cover January–March AND October–December 2027. These are non-consecutive periods: April–September is not included. Indicate the six-month selection on your application." },
+  { question: "Does Couple membership include juniors?", answer: "No. The Couple category is intended for couples without junior tennis players in their immediate family. Individual adult membership includes one junior; Family membership includes unlimited juniors." },
+  { question: "Why does an Individual adult membership include a junior?", answer: "NAITS has retained the historical Westwood approach of including one junior with an adult membership to encourage youth participation. The Early Bird offer does not list a separate adult-only price." },
+  { question: "How do I submit my application and payment?", answer: "Complete both the Membership Application and Waiver. You can email completed files and send an e-transfer to pmt.NAITS@outlook.com, scan and email printed forms with an e-transfer, or mail printed forms with a cheque or money order. Full instructions and PDF links are in the How to Join section above." },
+  { question: "What if my mailed application arrives after the deadline?", answer: "NAITS has said it will honour the Early Bird price if you email pmt.NAITS@outlook.com when you mail the forms, even if they arrive just after the offer ends." },
+  { question: "What happens if NAITS cannot reach an agreement with the City?", answer: "NAITS promises a full refund of Early Bird membership fees if it cannot conclude a satisfactory operating contract with the City by December 31, 2026. Other cancellation terms have not been specified." },
+];
+
+const preliminaryFaq = [
+  { question: "What advantages are members expected to receive?", answer: "The board's current working list includes earlier booking access, better court rates, Society membership and voting rights, eligibility to serve on the board, ladders/leagues/clinics, tournament priority, reduced private-lesson rates, socials, and a ball machine if funding permits. This list is preliminary, not a finalized or guaranteed set of benefits." },
+  { question: "Can non-members book courts?", answer: "The City requires public access as well as member access. The exact public-booking allocation, pricing and booking rules are still being developed." },
+  { question: "Will there be separate singles and doubles courts?", answer: "The current booking concept is to select a specific court and duration, then identify two or four players. Fees would be calculated accordingly. Courts are not intended to be designated exclusively as singles or doubles courts. This plan is not yet final." },
+  { question: "Will the courts and bubble be maintained or improved?", answer: "The NAITS budget team has included a proposed maintenance allowance. The intention is to improve conditions gradually, subject to board approval, available funds and the length and terms of the City's agreement. No specific upgrade schedule is confirmed." },
+  { question: "Is January 1, 2027 the confirmed opening date?", answer: "No. January 1 is the anticipated operating transition date. The facility can reopen only once an operating agreement is approved and the site is ready for use." },
+];
+
 function MembershipPage() {
   return <>
     <section className="relative overflow-hidden bg-primary text-primary-foreground">
@@ -34,7 +53,7 @@ function MembershipPage() {
         <h1 className="mt-2 max-w-4xl font-serif text-3xl leading-tight sm:mt-4 sm:text-6xl">Early Bird Membership</h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-primary-foreground/85 sm:mt-5 sm:text-lg sm:leading-8">Be a founding member and help build the future of accessible, year-round indoor tennis in Nanaimo.</p>
         <div className="mt-4 inline-flex border border-primary-foreground/30 bg-primary-foreground/10 px-3 py-2 text-xs font-semibold sm:mt-6 sm:px-4 sm:text-sm">Membership period: January 1 – March 31, 2027</div>
-        <div className="mt-4 flex flex-wrap gap-2 sm:mt-6"><Button asChild size="sm" className="bg-background text-foreground hover:bg-background/90"><a href="#application">Get application forms<ArrowRight /></a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#rates">See rates</a></Button></div>
+        <div className="mt-4 flex flex-wrap gap-2 sm:mt-6"><Button asChild size="sm" className="bg-background text-foreground hover:bg-background/90"><a href="#application">Get application forms<ArrowRight /></a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#rates">See rates</a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#faq">Member FAQ</a></Button></div>
       </div>
     </section>
     <section id="rates" className="bg-background py-8 sm:py-16">
@@ -80,6 +99,27 @@ function MembershipPage() {
         </div>
         <p className="mt-5 text-sm leading-7 text-muted-foreground">For mailed applications, email <a className="font-semibold text-foreground underline" href="mailto:pmt.NAITS@outlook.com">pmt.NAITS@outlook.com</a> when posting your forms. NAITS says it will honour the Early Bird price if the mail arrives just after the offer ends, provided you emailed when you sent it.</p>
         <div className="mt-8 border-t border-border pt-5"><h3 className="font-serif text-xl">Questions?</h3><p className="mt-2 text-sm">Mark Chase · <a className="underline underline-offset-4" href="mailto:mark.chase.66@gmail.com">mark.chase.66@gmail.com</a> · <a className="underline underline-offset-4" href="tel:+12507139128">250-713-9128</a></p></div>
+      </div>
+    </section>
+    <section id="faq" className="border-t border-border bg-secondary py-10 sm:py-16">
+      <div className="page-wrap max-w-5xl">
+        <p className="eyebrow">Questions from prospective members</p>
+        <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Membership FAQ</h2>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These answers summarize NAITS's November 3 Early Bird announcement and the November 3 response from its board Secretary. Conditions and future operating details may change as the City agreement and NAITS procedures are finalized.</p>
+        <h3 className="mt-8 font-serif text-2xl">Early Bird offer and applications</h3>
+        <div className="mt-3 divide-y divide-border border-y border-border bg-card">
+          {earlyBirdFaq.map((item) => <details key={item.question} className="group px-4 py-4 sm:px-6"><summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold leading-6 [&::-webkit-details-marker]:hidden">{item.question}<span aria-hidden="true" className="text-xl leading-6 text-ring group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}
+        </div>
+        <h3 className="mt-9 font-serif text-2xl">Facility and member benefits — preliminary</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">The following reflect the board's current intentions, not confirmed membership entitlements or a finalized booking policy.</p>
+        <div className="mt-3 divide-y divide-border border-y border-border bg-card">
+          {preliminaryFaq.map((item) => <details key={item.question} className="group px-4 py-4 sm:px-6"><summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold leading-6 [&::-webkit-details-marker]:hidden">{item.question}<span aria-hidden="true" className="text-xl leading-6 text-ring group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}
+        </div>
+        <div className="mt-8 border-l-4 border-ring bg-background p-5">
+          <h3 className="font-serif text-xl">Still have a question?</h3>
+          <p className="mt-2 text-sm leading-7 text-muted-foreground">For now, questions can be posted in the FITIN community discussion group for routing to the appropriate NAITS team. Committee-specific @nanaimotennis.ca contact addresses will be added once confirmed.</p>
+          <Button asChild variant="outline" className="mt-4"><a href="https://groups.google.com/g/fitin2" target="_blank" rel="noreferrer">Ask in the FITIN Google Group<ArrowRight /></a></Button>
+        </div>
       </div>
     </section>
     <section className="bg-accent py-8"><div className="page-wrap flex flex-wrap items-center justify-between gap-4"><p className="font-serif text-xl text-accent-foreground">Interested in community updates as well?</p><Button asChild><Link to="/join">Stay informed<ArrowRight /></Link></Button></div></section>
