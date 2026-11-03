@@ -25,7 +25,7 @@ function IssuePage() {
     "The City is working with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the Licence of Use Agreement and operating model.",
     "The operating arrangement is to be cost-neutral to the City.",
     "A portion of court time is to be available for public booking.",
-    "The current club is scheduled to cease operations November 1.",
+    "The former club’s scheduled closure date was November 1, 2026.",
     "The City is scheduled to take ownership December 18.",
   ];
 
@@ -63,7 +63,7 @@ function IssuePage() {
         <div><SectionHeading eyebrow="Where things stand" title="The direction has changed. The transition is not complete."/></div>
         <div>
           <p className="leading-8 text-muted-foreground">The City's September announcement contemplated removal of the bubble. Council has since changed direction and now supports retaining it. The City has formally moved into the next phase with NAITS, asking the Society to work with staff on the draft operating agreement and operating model. The City's October 16 correspondence identifies NAITS as the organization it intends to work with to develop the operating agreement.</p>
-          <p className="mt-5 leading-8 text-muted-foreground">Public access will not continue uninterrupted. The current club is scheduled to close November 1, and the facility will be unavailable during the transition. Public access would resume only after an agreement is approved and the facility is ready for operation.</p>
+          <p className="mt-5 leading-8 text-muted-foreground">Public access will not continue uninterrupted. November 1 was the scheduled closure date for the former club. The facility is unavailable during the transition. Public access would resume only after an agreement is approved and the facility is ready for operation. January 1, 2027 is an anticipated transition target, not a confirmed reopening date.</p>
         </div>
       </div>
     </section>
