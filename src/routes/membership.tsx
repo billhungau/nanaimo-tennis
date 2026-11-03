@@ -37,7 +37,7 @@ function MembershipPage() {
         <div className="mt-4 flex flex-wrap gap-2 sm:mt-6"><Button asChild size="sm" className="bg-background text-foreground hover:bg-background/90"><a href="#application">Get application forms<ArrowRight /></a></Button><Button asChild size="sm" variant="outline" className="border-primary-foreground/50 bg-transparent text-primary-foreground hover:bg-primary-foreground/10"><a href="#rates">See rates</a></Button></div>
       </div>
     </section>
-    <section id="rates" className="bg-background py-8 sm:section-space">
+    <section id="rates" className="bg-background py-8 sm:py-16">
       <div className="page-wrap">
         <div className="max-w-3xl">
           <p className="eyebrow">Founding membership</p>
@@ -62,7 +62,7 @@ function MembershipPage() {
         <div className="civic-card p-6 sm:p-8"><ShieldCheck className="size-8 text-ring" /><h2 className="mt-4 font-serif text-2xl">Full refund if an agreement cannot be reached</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">NAITS promises to return Early Bird membership fees in full if it cannot conclude a satisfactory operating contract with the City of Nanaimo, in any case no later than December 31, 2026. This guarantee addresses failure to reach the operating agreement; other cancellation terms have not been specified.</p></div>
       </div>
     </section>
-    <section id="application" className="py-8 sm:section-space">
+    <section id="application" className="py-8 sm:py-16">
       <div className="page-wrap">
         <p className="eyebrow">How to join</p>
         <h2 className="mt-2 font-serif text-2xl sm:text-4xl">Complete the application and waiver.</h2>
