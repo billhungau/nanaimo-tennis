@@ -27,8 +27,8 @@ function JoinPage() {
       <div className="absolute inset-0 bg-primary/80" />
       <div className="page-wrap relative py-16 sm:py-20">
         <p className="text-xs font-bold uppercase tracking-[.14em] text-primary-foreground/70">Stay connected</p>
-        <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">Join NAITS or stay connected.</h1>
-        <p className="mt-6 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:text-lg">NAITS is offering Early Bird memberships for January–March 2027. Community updates remain available through the Friends of Indoor Tennis in Nanaimo Google Group.</p>
+        <h1 className="mt-4 max-w-4xl font-serif text-4xl leading-tight sm:text-6xl">Community updates from FITIN.</h1>
+        <p className="mt-6 max-w-3xl text-base leading-7 text-primary-foreground/85 sm:text-lg">The Friends of Indoor Tennis in Nanaimo (FITIN) Google Group shares news, discussion and community coordination. Joining the group is not a paid NAITS membership.</p>
       </div>
     </section>
     <section className="border-b border-border bg-[#F7F0D7] py-9"><div className="page-wrap flex flex-col justify-between gap-5 sm:flex-row sm:items-center"><div><p className="eyebrow">New from NAITS</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Early Bird Membership · Jan–Mar 2027</h2><p className="mt-2 text-sm text-muted-foreground">View membership rates, the pending operating agreement, refund guarantee and application instructions.</p></div><Button asChild size="lg"><a href="/membership">Explore membership</a></Button></div></section>
