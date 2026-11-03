@@ -31,7 +31,7 @@ function Index() {
   const status = [
     ["Bubble", "Council supports retention", true],
     ["Operating partner", "NAITS · agreement in development", true],
-    ["Previous club", "Closed Nov. 1", true],
+    ["Previous club", "Closure scheduled Nov. 1", false],
     ["Public access", "After approval and readiness", false],
   ] as const;
 
@@ -105,8 +105,8 @@ function Index() {
       <div className="page-wrap">
         <div className="grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
           <div>
-            <p className="eyebrow">Latest coverage · October 27, 2026</p>
-            <h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Local reporting documents how the decision changed.</h2>
+            <p className="eyebrow">Media coverage · October 2026</p>
+            <h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">How the community campaign changed the outcome.</h2>
           </div>
           <p className="max-w-3xl text-sm leading-7 text-muted-foreground">Tennis BC's October newsletter recognizes the Nanaimo community campaign and reports that NAITS is working with the City's Parks and Recreation department on an operating agreement. CHLY's October 27 report also quotes the City's Parks, Recreation and Culture director saying Council heard from indoor-tennis advocates and reconsidered removal of the bubble.</p>
         </div>
@@ -143,35 +143,16 @@ function Index() {
       </div>
     </section>
 
-    <section className="border-y border-border bg-card py-8 sm:py-10">
-      <div className="page-wrap">
-        <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div><p className="eyebrow">City recreation records · 2023–2025</p><h2 className="mt-2 font-serif text-3xl sm:text-4xl">City tennis registrations rose 63%.</h2><p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">City records show participation increasing as the number of tennis programs offered also expanded.</p></div>
-          <Button asChild variant="outline" className="w-fit"><Link to="/evidence" hash="city-registration-data">View participation data<ArrowRight /></Link></Button>
-        </div>
-        <div className="mt-6 grid grid-cols-3 overflow-hidden border border-border bg-border">
-          {[["2023","410"],["2024","564"],["2025","669"]].map(([year,value]) => <div key={year} className="bg-background p-4 text-center sm:p-5"><p className="text-[10px] font-bold uppercase tracking-[.12em] text-muted-foreground sm:text-xs">{year}</p><p className="mt-1 font-serif text-3xl font-bold tabular-nums sm:text-4xl">{value}</p></div>)}
-        </div>
-      </div>
-    </section>
-
     <section className="bg-secondary py-12 sm:py-14">
       <div className="page-wrap grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
-        <div><SectionHeading eyebrow="How we got here" title="The campaign is now part of the historical record."/></div>
+        <div><SectionHeading eyebrow="How we got here" title="Explore the campaign history and evidence."/></div>
         <div>
           <p className="text-base leading-8 text-muted-foreground">In September, the City announced that the bubble would be removed. Community members responded with a petition, public advocacy, media coverage and a candidate questionnaire asking that alternatives be examined before an irreversible decision was made. CHLY later reported that the City said Council heard from indoor-tennis advocates and that this gave Council cause to reconsider retaining the bubble. Council subsequently voted to retain the facility.</p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button asChild variant="outline"><Link to="/timeline">View the full timeline<ArrowRight /></Link></Button>
-            <Button asChild variant="ghost"><a href={petitionUrl} target="_blank" rel="noreferrer">Campaign petition archive<ArrowUpRight /></a></Button>
+            <Button asChild variant="outline"><Link to="/timeline">View campaign timeline<ArrowRight /></Link></Button>
+            <Button asChild variant="outline"><Link to="/evidence">View historical evidence<ArrowRight /></Link></Button><Button asChild variant="ghost"><a href={petitionUrl} target="_blank" rel="noreferrer">Petition archive<ArrowUpRight /></a></Button>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section className="border-y border-border bg-background py-8 sm:py-10">
-      <div className="page-wrap flex flex-col justify-between gap-5 md:flex-row md:items-center">
-        <div><p className="eyebrow">2026 municipal election archive</p><h2 className="mt-2 font-serif text-2xl sm:text-3xl">Candidate responses remain available as part of the public record.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">The pre-election questionnaire asked candidates about the Westwood facility, alternative operating models and long-term indoor racquet-sport planning.</p></div>
-        <Button asChild variant="outline" className="w-fit shrink-0"><Link to="/candidates">View election archive<ArrowRight /></Link></Button>
       </div>
     </section>
 
