@@ -16,7 +16,7 @@ const petitionUrl = "https://www.change.org/p/urge-nanaimo-to-preserve-westwood-
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "Westwood Indoor Tennis | Current Status in Nanaimo" },
+    { title: "NAITS Early Bird Membership & Westwood Indoor Tennis | Nanaimo" },
     { name: "description", content: "Current public record on the Westwood Lake tennis bubble after Nanaimo City Council voted to retain the facility and pursue a non-profit operating agreement." },
     { property: "og:title", content: "Council votes to retain the Westwood tennis bubble" },
     { property: "og:description", content: "Track the current status, evidence, sources and next steps for year-round indoor tennis in Nanaimo." },
@@ -56,13 +56,23 @@ function Index() {
       <div className="absolute inset-0 bg-gradient-to-r from-primary/90 via-primary/82 to-primary/65" />
       <div className="page-wrap relative flex min-h-[560px] items-end py-10 sm:min-h-[680px] sm:py-20">
         <div className="max-w-4xl reveal">
-          <h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">Council has voted to retain the Westwood tennis bubble.</h1>
-          <div className="mt-5 inline-flex items-center border border-accent/60 bg-accent/90 px-3 py-1.5 text-xs font-bold uppercase tracking-[.12em] text-accent-foreground sm:mt-7">City working with NAITS</div>
-          <p className="mt-4 max-w-3xl text-base leading-7 text-primary-foreground/88 sm:text-lg">The City of Nanaimo is now working with the <strong className="font-semibold text-primary-foreground">Nanaimo Area Indoor Tennis Society (NAITS)</strong> to develop the one-year Licence of Use Agreement for the facility's future operation. Council's direction requires a cost-neutral operating model and public access.</p>
+          <h1 className="font-serif text-4xl leading-[1.1] sm:text-6xl lg:text-7xl">A new chapter for indoor tennis in Nanaimo.</h1>
+          <div className="mt-5 inline-flex items-center border border-accent/60 bg-accent/90 px-3 py-1.5 text-xs font-bold uppercase tracking-[.12em] text-accent-foreground sm:mt-7">NAITS Early Bird Membership · Jan–Mar 2027</div>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-primary-foreground/88 sm:text-lg">The <strong className="font-semibold text-primary-foreground">Nanaimo Area Indoor Tennis Society (NAITS)</strong> has been selected to take over operations of the four-court Westwood Lake air dome. Early Bird memberships are offered for January–March 2027 while the City–NAITS operating agreement is still being negotiated.</p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/the-issue">Current status<ArrowRight /></Link></Button>
+            <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/membership">Explore Membership<ArrowRight /></Link></Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><a href={cityDecisionUrl} target="_blank" rel="noreferrer">City announcement<ArrowUpRight /></a></Button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="border-b border-border bg-[#F7F0D7] py-10 sm:py-14">
+      <div className="page-wrap grid gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
+        <div><p className="eyebrow">Founding membership · January 1 – March 31, 2027</p><h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">Help build year-round indoor tennis in Nanaimo.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">NAITS is offering limited-time Early Bird membership rates. The operating agreement and specific member benefits are still being finalized. A full refund is promised if NAITS cannot reach a satisfactory operating contract by December 31, 2026.</p><Button asChild className="mt-5"><Link to="/membership">Membership details and how to join<ArrowRight /></Link></Button></div>
+        <div className="grid grid-cols-2 gap-3">
+          {([["Junior", "$120"], ["Individual adult", "$270"], ["Couple", "$335"], ["Family", "$400"], ["Out of town", "$180"]] as const).map(([label, price]) => <div key={label} className="border border-border bg-card p-4"><p className="text-xs font-semibold text-muted-foreground">{label}</p><p className="mt-2 font-serif text-3xl">{price}</p></div>)}
+          <div className="flex items-center p-4 text-xs leading-5 text-muted-foreground">All rates cover three months. Eligibility and details on the membership page.</div>
         </div>
       </div>
     </section>
