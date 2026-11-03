@@ -52,7 +52,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return <footer className="border-t border-border bg-primary text-primary-foreground">
     <div className="page-wrap grid gap-10 py-12 md:grid-cols-[1.4fr_1fr]">
-      <div><p className="font-serif text-2xl">Friends of Indoor Tennis in Nanaimo (FITIN)</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75">NAITS membership information and a public archive of the campaign for year-round indoor tennis in Nanaimo.</p></div>
+      <div><p className="font-serif text-2xl">Friends of Indoor Tennis in Nanaimo (FITIN)</p><p className="mt-3 max-w-xl text-sm leading-6 text-primary-foreground/75">This site grew from the Friends of Indoor Tennis in Nanaimo (FITIN) community campaign. The Nanaimo Area Indoor Tennis Society (NAITS) is the separate society selected to negotiate operation of the Westwood facility and is offering memberships. Joining the FITIN Google Group is not a NAITS membership.</p></div>
       <nav className="grid grid-cols-2 gap-3 text-sm md:justify-self-end"><Link to="/membership">Membership</Link><Link to="/join">Get Updates</Link><Link to="/sources">Sources</Link><Link to="/candidates">2026 Election Archive</Link><Link to="/contact">Contact</Link></nav>
     </div>
     <div className="border-t border-primary-foreground/15"><div className="page-wrap py-5 text-xs leading-5 text-primary-foreground/65">This website is not affiliated with the City of Nanaimo, Westwood Lake Tennis Club, Tennis Canada, or any political candidate or party.</div></div>
