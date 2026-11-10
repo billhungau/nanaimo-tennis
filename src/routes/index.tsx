@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight, CheckCircle2, Clock3, MapPin } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, Clock3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/page-elements";
 import heroImage from "@/assets/indoor-tennis-community.jpg";
@@ -29,11 +28,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [showTownHall, setShowTownHall] = useState(false);
-  useEffect(() => {
-    // Hide automatically after Sunday, November 8, 2026 in Nanaimo (PST).
-    setShowTownHall(Date.now() < Date.UTC(2026, 10, 9, 8, 0, 0));
-  }, []);
   const status = [
     ["Bubble", "Council supports retention", true],
     ["Operating partner", "NAITS · agreement in development", true],
@@ -73,23 +67,6 @@ function Index() {
       </div>
     </section>
 
-    {showTownHall && <section className="border-b-4 border-accent bg-secondary py-6 sm:py-9" aria-label="Upcoming NAITS town hall">
-      <div className="page-wrap grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
-        <div>
-          <p className="eyebrow">NAITS Town Hall · Everyone welcome</p>
-          <h2 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">Sunday, November 8</h2>
-          <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2 text-base font-bold sm:text-lg">
-            <span className="inline-flex items-center gap-2"><Clock3 className="size-5 shrink-0 text-ring" />4:30–6:30 PM PST</span>
-          </div>
-          <div className="mt-4 flex items-start gap-3 border-l-4 border-ring bg-background px-4 py-3 shadow-sm">
-            <MapPin className="mt-0.5 size-6 shrink-0 text-ring" />
-            <p className="text-base font-bold leading-6 sm:text-lg">Monarch Room<br />Oliver Woods Community Centre<br /><span className="text-sm font-medium text-muted-foreground">Nanaimo, BC</span></p>
-          </div>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">Join the discussion on booking policies and pricing, budget, staffing, City agreement negotiations and community questions. Bring your completed Early Bird membership application and cheque if you wish to sign up in person. Blank application and waiver forms will be available.</p>
-        </div>
-        <div className="flex flex-wrap gap-2"><Button asChild><Link to="/membership">Membership forms<ArrowRight /></Link></Button><Button asChild variant="outline"><Link to="/timeline">Transition timeline<ArrowRight /></Link></Button></div>
-      </div>
-    </section>}
 
     <section className="border-b border-border bg-[#F7F0D7] py-7 sm:py-14">
       <div className="page-wrap grid gap-4 sm:gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
