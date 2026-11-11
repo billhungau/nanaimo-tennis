@@ -32,8 +32,8 @@ function IssuePage() {
   const openQuestions = [
     "When will the agreement be approved?",
     "When will the indoor courts reopen?",
-    "How much court time will be available for public booking?",
-    "What will the fees and booking process be?",
+    "How much court time will be allocated to public booking?",
+    "When will the Board-approved court rates, booking windows and online booking platform take effect?",
     "What arrangement will follow the initial operating term?",
   ];
 
@@ -62,7 +62,7 @@ function IssuePage() {
       <div className="page-wrap grid gap-12 lg:grid-cols-[.8fr_1.2fr]">
         <div><SectionHeading eyebrow="Where things stand" title="The direction has changed. The transition is not complete."/></div>
         <div>
-          <p className="leading-8 text-muted-foreground">The City's September announcement contemplated removal of the bubble. Council has since changed direction and now supports retaining it. The City has formally moved into the next phase with NAITS, asking the Society to work with staff on the draft operating agreement and operating model. The City's October 16 correspondence identifies NAITS as the organization it intends to work with to develop the operating agreement.</p>
+          <p className="leading-8 text-muted-foreground">The City's September announcement contemplated removal of the bubble. Council has since changed direction and now supports retaining it. The City has formally moved into the next phase with NAITS, asking the Society to work with staff on the draft operating agreement and operating model. The City's October 16 correspondence identifies NAITS as the organization it intends to work with to develop the operating agreement. In a November 11 community update, NAITS reported Board approval of initial rental rates, advance-booking windows, block-booking rules and a coaching model.</p>
           <p className="mt-5 leading-8 text-muted-foreground">Public access will not continue uninterrupted. November 1 was the scheduled closure date for the former club. The facility is unavailable during the transition. Public access would resume only after an agreement is approved and the facility is ready for operation. January 1, 2027 is an anticipated transition target, not a confirmed reopening date.</p>
         </div>
       </div>
@@ -90,11 +90,21 @@ function IssuePage() {
         </div>
         <div className="space-y-5 text-base leading-8 text-primary-foreground/82">
           <p>The City is working with NAITS to develop a comprehensive operating agreement that is cost-neutral to the City. Under Council's direction, the non-profit operator will be responsible for ongoing operating, maintenance, capital costs and liability associated with the facility.</p>
-          <p>Council has also directed that a portion of court time be made available for public booking. The detailed booking model, fees and reopening date have not yet been announced.</p>
+          <p>Council has also directed that a portion of court time be made available for public booking. The NAITS Board has approved a member court rate of $18/hour, a public rate of $38/hour, member reservations seven days plus one hour ahead, and public reservations up to 72 hours ahead. The City agreement, public court-time allocation, practical booking-system arrangements and reopening date remain pending.</p>
         </div>
       </div>
     </section>
 
+    <section className="section-space bg-background">
+      <div className="page-wrap">
+        <SectionHeading eyebrow="NAITS board decision · November 2026" title="Initial booking policies and court rates approved"/>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {([{label:"Member court rate",value:"$18/hour"},{label:"Public court rate",value:"$38/hour"},{label:"Member booking window",value:"7 days + 1 hour"},{label:"Public booking window",value:"72 hours"}]).map((item) => <div key={item.label} className="civic-card p-4"><p className="text-xs font-semibold text-muted-foreground">{item.label}</p><p className="mt-2 font-serif text-xl font-bold">{item.value}</p></div>)}
+        </div>
+        <p className="mt-4 text-sm leading-7 text-muted-foreground">The Board also approved regular block-booking rules and an independent-contractor coaching model. The actual start of booking and coaching services remains subject to further operational arrangements and the City's agreement.</p>
+        <Button asChild variant="outline" className="mt-4"><Link to="/membership" hash="court-booking">Court rates and Membership FAQs<ArrowRight /></Link></Button>
+      </div>
+    </section>
     <section className="section-space bg-secondary">
       <div className="page-wrap grid gap-12 lg:grid-cols-[.75fr_1.25fr]">
         <div><SectionHeading eyebrow="Still unresolved" title="Important details remain to be determined."/><Button asChild className="mt-8"><Link to="/evidence">See the evidence<ArrowRight /></Link></Button></div>
