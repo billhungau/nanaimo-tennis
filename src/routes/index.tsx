@@ -58,7 +58,7 @@ function Index() {
         <div className="max-w-4xl reveal">
           <h1 className="font-serif text-3xl leading-[1.12] sm:text-6xl lg:text-7xl">A new chapter for indoor tennis in Nanaimo.</h1>
           <div className="mt-3 inline-flex items-center border border-accent/60 bg-accent/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[.07em] text-accent-foreground sm:mt-7 sm:text-xs sm:tracking-[.12em]">NAITS Early Bird Membership · Jan–Mar 2027</div>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-primary-foreground/88 sm:mt-4 sm:text-lg sm:leading-7">The <strong className="font-semibold text-primary-foreground">Nanaimo Area Indoor Tennis Society (NAITS)</strong> has been selected to take over operations of the four-court Westwood Lake air dome. Early Bird memberships are offered for January–March 2027 while the City–NAITS operating agreement is still being negotiated.</p>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-primary-foreground/88 sm:mt-4 sm:text-lg sm:leading-7">The <strong className="font-semibold text-primary-foreground">Nanaimo Area Indoor Tennis Society (NAITS)</strong> has been selected to take over operations of the four-court Westwood Lake air dome. Early Bird memberships are offered for January–March 2027. The NAITS Board has approved initial court rates and booking policies, while the City operating agreement and reopening date remain pending.</p>
           <div className="mt-4 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
             <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90"><Link to="/membership">Explore Membership<ArrowRight /></Link></Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground/45 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><a href={cityDecisionUrl} target="_blank" rel="noreferrer">City announcement<ArrowUpRight /></a></Button>
@@ -70,7 +70,7 @@ function Index() {
 
     <section className="border-b border-border bg-[#F7F0D7] py-7 sm:py-14">
       <div className="page-wrap grid gap-4 sm:gap-7 lg:grid-cols-[.85fr_1.15fr] lg:items-center">
-        <div><p className="eyebrow">Founding membership · January 1 – March 31, 2027</p><h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Help build year-round indoor tennis in Nanaimo.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">NAITS is offering limited-time Early Bird membership rates. The operating agreement and specific member benefits are still being finalized. A full refund is promised if NAITS cannot reach a satisfactory operating contract by December 31, 2026.</p><div className="mt-5 flex flex-wrap gap-2"><Button asChild><Link to="/membership">Membership details and how to join<ArrowRight /></Link></Button><Button asChild variant="outline"><Link to="/membership" hash="faq">Membership FAQs<ArrowRight /></Link></Button></div></div>
+        <div><p className="eyebrow">Founding membership · January 1 – March 31, 2027</p><h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Help build year-round indoor tennis in Nanaimo.</h2><p className="mt-4 text-sm leading-7 text-muted-foreground">NAITS is offering limited-time Early Bird membership rates. The Board has approved a $18/hour member court rate and priority booking access, while other benefits and reopening arrangements remain under development. A full refund is promised if NAITS cannot reach a satisfactory operating contract by December 31, 2026.</p><div className="mt-5 flex flex-wrap gap-2"><Button asChild><Link to="/membership">Membership details and how to join<ArrowRight /></Link></Button><Button asChild variant="outline"><Link to="/membership" hash="faq">Membership FAQs<ArrowRight /></Link></Button></div></div>
         <div className="grid grid-cols-2 gap-2 sm:gap-3">
           {([["Junior", "$120"], ["Individual adult", "$270"], ["Couple", "$335"], ["Family", "$400"], ["Out of town", "$180"]] as const).map(([label, price]) => <div key={label} className="border border-border bg-card p-3 sm:p-4"><p className="text-xs font-semibold text-muted-foreground">{label}</p><p className="mt-1 font-serif text-2xl sm:mt-2 sm:text-3xl">{price}</p><p className="mt-1 text-[11px] font-medium text-muted-foreground">Total for 3 months</p></div>)}
           <div className="flex items-center p-3 text-xs leading-5 text-muted-foreground sm:p-4">These are totals for January–March 2027, not monthly prices. Tax included.</div>
@@ -78,6 +78,14 @@ function Index() {
       </div>
     </section>
 
+    <section className="border-b border-border bg-background py-7 sm:py-10">
+      <div className="page-wrap grid gap-4 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+        <div><p className="eyebrow">November 11 · Board-approved policies</p><h2 className="mt-2 font-serif text-2xl leading-tight sm:text-3xl">Court rates and booking priorities announced</h2><p className="mt-2 text-sm leading-7 text-muted-foreground">NAITS has approved initial rates and reservation windows for members and the public. The courts are not yet open for booking; the City agreement and operational details remain pending.</p><Button asChild variant="outline" className="mt-4"><Link to="/membership" hash="court-booking">See booking details and FAQs<ArrowRight /></Link></Button></div>
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {([{label:"Member rate",value:"$18/hr"},{label:"Public rate",value:"$38/hr"},{label:"Member window",value:"7 days + 1 hr"},{label:"Public window",value:"72 hrs"}]).map((item) => <div key={item.label} className="border border-border bg-card p-3"><p className="text-[11px] font-semibold text-muted-foreground">{item.label}</p><p className="mt-2 font-serif text-xl font-bold">{item.value}</p></div>)}
+        </div>
+      </div>
+    </section>
     <section className="border-y border-border bg-card">
       <div className="page-wrap grid grid-cols-2 md:grid-cols-4 md:divide-x md:divide-border">
         {status.map(([label, text, complete]) => <div key={label} className="flex min-h-[76px] gap-2 border-b border-border px-2 py-3 sm:min-h-[96px] sm:gap-3 sm:px-4 sm:py-5 md:border-b-0">
@@ -95,7 +103,7 @@ function Index() {
         </div>
         <div>
           <p className="text-sm leading-7 text-muted-foreground">In formal correspondence dated October 16, the City confirmed that it wants to work with the Nanaimo Area Indoor Tennis Society (NAITS) to develop the draft one-year Licence of Use Agreement and operating model for the Westwood tennis bubble.</p>
-          <p className="mt-3 text-sm leading-7 text-muted-foreground">The remaining work is to establish the detailed operating terms, public-booking arrangements and transition to reopening.</p>
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">The NAITS Board has approved initial rental rates, booking windows and coaching and block-booking models. The City agreement, the allocation of public court time and the transition to reopening remain outstanding.</p>
           <div className="mt-5"><Button asChild variant="outline"><Link to="/press-release-naits-non-profit-to-run-indoor-tennis-in-nanaimo">Read the NAITS press release<ArrowRight /></Link></Button></div>
           <div className="mt-5"><Button asChild variant="outline"><a href={cityLetterUrl} target="_blank" rel="noreferrer">Read the October 16 City letter<ArrowUpRight /></a></Button></div>
         </div>
@@ -129,7 +137,7 @@ function Index() {
         <div className="[&_h2]:!text-3xl [&_.eyebrow]:text-primary-foreground/70 sm:[&_h2]:!text-4xl"><SectionHeading eyebrow="What happens next" title="Retention has been decided. Reopening has not."/></div>
         <div className="space-y-5 text-base leading-8 text-primary-foreground/82">
           <p>City staff are now working with NAITS to develop the operating agreement. Council's direction is that the arrangement be cost-neutral to the City and include a portion of court time for public booking.</p>
-          <div className="border-l-4 border-accent bg-background/95 p-5 text-foreground shadow-sm sm:p-6"><strong>The unresolved questions are operational:</strong> final agreement terms, reopening timing, public-booking allocation, fees and how community access will work in practice.</div>
+          <div className="border-l-4 border-accent bg-background/95 p-5 text-foreground shadow-sm sm:p-6"><strong>The unresolved questions are operational:</strong> final agreement terms, reopening timing, public-booking allocation, booking-system implementation and how community access will work in practice. Initial rates and booking windows have been approved by the NAITS Board.</div>
           <Button asChild variant="outline" className="border-primary-foreground/40 bg-background/10 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"><Link to="/the-issue">See current status<ArrowRight /></Link></Button>
         </div>
       </div>
