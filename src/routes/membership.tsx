@@ -36,9 +36,11 @@ const earlyBirdFaq = [
 ];
 
 const preliminaryFaq = [
-  { question: "What advantages are members expected to receive?", answer: "The board's current working list includes earlier booking access, better court rates, Society membership and voting rights, eligibility to serve on the board, ladders/leagues/clinics, tournament priority, reduced private-lesson rates, socials, and a ball machine if funding permits. This list is preliminary, not a finalized or guaranteed set of benefits." },
-  { question: "Can non-members book courts?", answer: "The City requires public access as well as member access. The exact public-booking allocation, pricing and booking rules are still being developed." },
-  { question: "Will there be separate singles and doubles courts?", answer: "The current booking concept is to select a specific court and duration, then identify two or four players. Fees would be calculated accordingly. Courts are not intended to be designated exclusively as singles or doubles courts. This plan is not yet final." },
+  { question: "What advantages are members expected to receive?", answer: "The Board has approved a seven-day-plus-one-hour booking window and a member court rental rate of $18/hour, subject to implementation and the City agreement. Other possible benefits, including leagues, clinics, tournaments, lessons, socials and a ball machine, are not all finalized." },
+  { question: "Can non-members book courts?", answer: "Yes. The Board approved a public booking window of up to 72 hours (three days) in advance and a public court rate of $38/hour, benchmarked against Victoria public facilities. The exact allocation of court time for public bookings and the booking platform are still to be finalized." },
+  { question: "Will there be separate singles and doubles courts?", answer: "No separate singles-only or doubles-only courts are proposed. NAITS has approved a 1:1 or higher member-to-non-member booking ratio: for example, a member cannot book a doubles court for three or four non-members, or a singles court for two non-members. The booking system's final implementation remains to be announced." },
+  { question: "Can a regular group reserve the same time every week?", answer: "The Board has adopted a block-booking policy for established regular groups, with a designated coordinator and player roster. Up to three courts may be reserved for a block, subject to limitations and cancellation rules. Spare players may be members or public users, with non-members charged the non-member rate for their share. Contact NAITS before assuming a block reservation is confirmed." },
+  { question: "Will lessons and coaching be available?", answer: "NAITS has approved a proposed independent-contractor coaching model, including an approved-coach list and provision for individual and group lessons. The details of coaching accounts, monthly dues, rental rates and coach participation are still being finalized. Lessons are not yet open for booking." },
   { question: "Will the courts and bubble be maintained or improved?", answer: "The NAITS budget team has included a proposed maintenance allowance. The intention is to improve conditions gradually, subject to board approval, available funds and the length and terms of the City's agreement. No specific upgrade schedule is confirmed." },
   { question: "Is January 1, 2027 the confirmed opening date?", answer: "No. January 1 is the anticipated operating transition date. The facility can reopen only once an operating agreement is approved and the site is ready for use." },
 ];
@@ -76,9 +78,20 @@ function MembershipPage() {
         </div>
       </div>
     </section>
+    <section id="court-booking" className="border-t border-border bg-background py-8 sm:py-14">
+      <div className="page-wrap">
+        <p className="eyebrow">NAITS Board update · November 2026</p>
+        <h2 className="mt-2 font-serif text-2xl sm:text-4xl">Court booking and rental rates</h2>
+        <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">The NAITS Board has approved the following rates and advance-booking windows. These are planned operating policies—not an announcement that the facility has reopened or that reservations can be made yet.</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {[{label:"Member court rate",value:"$18/hour",detail:"Approved court rental rate"},{label:"Public court rate",value:"$38/hour",detail:"Approved non-member rental rate"},{label:"Member advance booking",value:"7 days + 1 hour",detail:"Priority over public booking"},{label:"Public advance booking",value:"72 hours",detail:"3 days in advance"}].map((item) => <div key={item.label} className="civic-card p-4 sm:p-5"><p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{item.label}</p><p className="mt-2 font-serif text-2xl font-bold">{item.value}</p><p className="mt-2 text-xs leading-5 text-muted-foreground">{item.detail}</p></div>)}
+        </div>
+        <p className="mt-4 text-sm leading-7 text-muted-foreground">Regular group block bookings and the coaching model have also received Board approval, subject to their detailed rules and implementation. For more information, see the <a href="#faq" className="font-semibold text-foreground underline underline-offset-4">Membership FAQs</a>.</p>
+      </div>
+    </section>
     <section className="border-y border-border bg-secondary py-8 sm:py-16">
       <div className="page-wrap grid gap-8 lg:grid-cols-2">
-        <div><p className="eyebrow">Current status</p><h2 className="mt-2 font-serif text-3xl">Membership details are still being finalized.</h2><p className="mt-4 leading-7 text-muted-foreground">NAITS is in active negotiations with the City of Nanaimo about the operating contract. Specific membership benefits, booking arrangements and court-use fees cannot yet be confirmed. NAITS will keep members informed as details are finalized.</p></div>
+        <div><p className="eyebrow">Current status</p><h2 className="mt-2 font-serif text-3xl">Key booking policies approved; opening still pending.</h2><p className="mt-4 leading-7 text-muted-foreground">The NAITS Board has approved member and public rental rates, advance-booking windows, and a framework for regular block bookings and coaching. The City operating agreement, public court-time allocation, booking-system rollout and opening date have not yet been finalized. The approved policies do not mean courts are currently open for booking.</p></div>
         <div className="civic-card p-6 sm:p-8"><ShieldCheck className="size-8 text-ring" /><h2 className="mt-4 font-serif text-2xl">Full refund if an agreement cannot be reached</h2><p className="mt-3 text-sm leading-7 text-muted-foreground">NAITS promises to return Early Bird membership fees in full if it cannot conclude a satisfactory operating contract with the City of Nanaimo, in any case no later than December 31, 2026. This guarantee addresses failure to reach the operating agreement; other cancellation terms have not been specified.</p></div>
       </div>
     </section>
@@ -105,13 +118,13 @@ function MembershipPage() {
       <div className="page-wrap max-w-5xl">
         <p className="eyebrow">Questions from prospective members</p>
         <h2 className="mt-2 font-serif text-3xl sm:text-4xl">Membership FAQs</h2>
-        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These answers summarize NAITS's November 3 Early Bird announcement and the November 3 response from its board Secretary. Conditions and future operating details may change as the City agreement and NAITS procedures are finalized.</p>
+        <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">These answers combine the November 3 Early Bird announcement and board Secretary's response with Mark Chase's November 11 report of Board-approved booking and coaching policies. Approved policy does not mean operations have begun; remaining details may change as the City agreement and NAITS procedures are finalized.</p>
         <h3 className="mt-8 font-serif text-2xl">Early Bird offer and applications</h3>
         <div className="mt-3 divide-y divide-border border-y border-border bg-card">
           {earlyBirdFaq.map((item) => <details key={item.question} className="group px-4 py-4 sm:px-6"><summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold leading-6 [&::-webkit-details-marker]:hidden">{item.question}<span aria-hidden="true" className="text-xl leading-6 text-ring group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}
         </div>
-        <h3 className="mt-9 font-serif text-2xl">Facility and member benefits — preliminary</h3>
-        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">The following reflect the board's current intentions, not confirmed membership entitlements or a finalized booking policy.</p>
+        <h3 className="mt-9 font-serif text-2xl">Court bookings, coaching and benefits</h3>
+        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">The booking rates and windows below reflect decisions approved by the NAITS Board. Other membership benefits, the coaching rollout and facility readiness remain subject to further decisions and the City operating agreement.</p>
         <div className="mt-3 divide-y divide-border border-y border-border bg-card">
           {preliminaryFaq.map((item) => <details key={item.question} className="group px-4 py-4 sm:px-6"><summary className="flex cursor-pointer list-none items-start justify-between gap-4 font-semibold leading-6 [&::-webkit-details-marker]:hidden">{item.question}<span aria-hidden="true" className="text-xl leading-6 text-ring group-open:rotate-45">+</span></summary><p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">{item.answer}</p></details>)}
         </div>
