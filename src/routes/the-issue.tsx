@@ -90,18 +90,18 @@ function IssuePage() {
         </div>
         <div className="space-y-5 text-base leading-8 text-primary-foreground/82">
           <p>The City is working with NAITS to develop a comprehensive operating agreement that is cost-neutral to the City. Under Council's direction, the non-profit operator will be responsible for ongoing operating, maintenance, capital costs and liability associated with the facility.</p>
-          <p>Council has also directed that a portion of court time be made available for public booking. The NAITS Board has approved a member court rate of $18/hour, a public rate of $38/hour, member reservations seven days plus one hour ahead, and public reservations up to 72 hours ahead. The City agreement, public court-time allocation, practical booking-system arrangements and reopening date remain pending.</p>
+          <p>Council has also directed that a portion of court time be made available for public booking. The NAITS Board has proposed a member court rate of $18/hour and a public rate of $38/hour, and approved member reservations seven days plus one hour ahead and public reservations up to 72 hours ahead. Court booking fees remain under negotiation with the City and are not final. Public court-time allocation, practical booking-system arrangements and the reopening date remain pending.</p>
         </div>
       </div>
     </section>
 
     <section className="section-space bg-background">
       <div className="page-wrap">
-        <SectionHeading eyebrow="NAITS board decision · November 2026" title="Initial booking policies and court rates approved"/>
+        <SectionHeading eyebrow="NAITS board decision · November 2026" title="Initial booking policies approved; court fees still under negotiation"/>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {([{label:"Member court rate",value:"$18/hour"},{label:"Public court rate",value:"$38/hour"},{label:"Member booking window",value:"7 days + 1 hour"},{label:"Public booking window",value:"72 hours"}]).map((item) => <div key={item.label} className="civic-card p-4"><p className="text-xs font-semibold text-muted-foreground">{item.label}</p><p className="mt-2 font-serif text-xl font-bold">{item.value}</p></div>)}
+          {([{label:"Proposed member court rate",value:"$18/hour"},{label:"Proposed public court rate",value:"$38/hour"},{label:"Member booking window",value:"7 days + 1 hour"},{label:"Public booking window",value:"72 hours"}]).map((item) => <div key={item.label} className="civic-card p-4"><p className="text-xs font-semibold text-muted-foreground">{item.label}</p><p className="mt-2 font-serif text-xl font-bold">{item.value}</p></div>)}
         </div>
-        <p className="mt-4 text-sm leading-7 text-muted-foreground">The Board also approved regular block-booking rules and an independent-contractor coaching model. The actual start of booking and coaching services remains subject to further operational arrangements and the City's agreement.</p>
+        <p className="mt-4 text-sm leading-7 text-muted-foreground">The Board also approved regular block-booking rules and an independent-contractor coaching model. Court booking fees remain under negotiation with the City and are not final. The actual start of booking and coaching services remains dependent on further operational arrangements.</p>
         <Button asChild variant="outline" className="mt-4"><Link to="/membership" hash="court-booking">Court rates and Membership FAQs<ArrowRight /></Link></Button>
       </div>
     </section>
