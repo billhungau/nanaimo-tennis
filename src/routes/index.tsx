@@ -78,6 +78,21 @@ function Index() {
       </div>
     </section>
 
+    <section id="fundraiser" className="border-y border-border bg-secondary py-8 sm:py-12">
+      <div className="page-wrap grid gap-5 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+        <div>
+          <p className="eyebrow">NAITS community fundraiser</p>
+          <h2 className="mt-2 font-serif text-2xl leading-tight sm:text-4xl">Help reopen the Westwood tennis dome.</h2>
+        </div>
+        <div className="space-y-3 text-sm leading-7 text-muted-foreground">
+          <p>The Nanaimo Area Indoor Tennis Society (NAITS) is working to reopen the Westwood Lake tennis dome, which has four indoor courts and one outdoor court.</p>
+          <p>NAITS is finalizing an operating agreement with the City of Nanaimo, and the reopening date is still being set. Startup costs need to be covered before operations can get off the ground.</p>
+          <p>Could you donate toward those costs if you're able? Please also share this with any Nanaimo tennis players you know.</p>
+          <div className="pt-2"><Button asChild size="lg"><a href="https://gofund.me/b33ac78bc" target="_blank" rel="noopener noreferrer">Donate on GoFundMe <ArrowUpRight /></a></Button></div>
+        </div>
+      </div>
+    </section>
+
     <section className="border-b border-border bg-background py-7 sm:py-10">
       <div className="page-wrap grid gap-4 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
         <div><p className="eyebrow">November 11 · Board-approved policies</p><h2 className="mt-2 font-serif text-2xl leading-tight sm:text-3xl">Booking priorities announced; court fees still under negotiation</h2><p className="mt-2 text-sm leading-7 text-muted-foreground">NAITS has approved reservation windows for members and the public and proposed initial court rates. Court booking fees remain under negotiation with the City and are not final. The courts are not yet open for booking.</p><Button asChild variant="outline" className="mt-4"><Link to="/membership" hash="court-booking">See booking details and FAQs<ArrowRight /></Link></Button></div>
