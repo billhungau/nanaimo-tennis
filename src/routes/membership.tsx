@@ -78,6 +78,13 @@ function MembershipPage() {
         </div>
       </div>
     </section>
+    <section className="border-y border-border bg-secondary py-7 sm:py-10">
+      <div className="page-wrap flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div><h2 className="font-serif text-2xl">Support the NAITS startup fundraiser</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">If you are able, consider making a separate, voluntary donation toward the startup costs of reopening the Westwood tennis dome.</p></div>
+        <Button asChild className="w-fit shrink-0"><a href="https://gofund.me/b33ac78bc" target="_blank" rel="noopener noreferrer">Donate on GoFundMe</a></Button>
+      </div>
+    </section>
+
     <section id="court-booking" className="border-t border-border bg-background py-8 sm:py-14">
       <div className="page-wrap">
         <p className="eyebrow">NAITS Board update · November 2026</p>
